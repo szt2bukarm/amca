@@ -18,9 +18,9 @@ import DepthStoryAbsoluteText from "./components/DepthStory/DepthStoryAbsoluteTe
 
     return (
       <div className="relative w-full h-full">
-        {/* <Hero /> */}
-        <DepthStory />
-        <DepthStoryAbsoluteText />
+        <Hero />
+        {/* <DepthStory /> */}
+        {/* <DepthStoryAbsoluteText /> */}
         <Showcase />
         <JobBoard />
         <JobBoardMobile />
