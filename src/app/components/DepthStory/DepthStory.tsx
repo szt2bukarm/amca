@@ -4,11 +4,14 @@ import DepthStoryTimeline from "./DepthStoryTimeline";
 import { useEffect, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
+import { useStore } from "@/app/useStore";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger,SplitText);
 
 export default function DepthStory() {
   const [dpr, setDpr] = useState(1);
+  const {depthPlaneTextures} = useStore();
 
   useEffect(() => {
     setDpr(window.devicePixelRatio);
@@ -16,21 +19,48 @@ export default function DepthStory() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+        let textTrigger: ScrollTrigger;
+        let split = new SplitText("[data-gsap='depthstory-text']", {
+            type: "words",
+        })
+        gsap.set(split.words, {opacity: 0});
+        setTimeout(() => {
+          textTrigger = ScrollTrigger.create({
+            trigger: "[data-pin='1']",
+            start: "top+=5500 top",
+            end: "top+=7500 top",
+            scrub: true,
+            animation: gsap.fromTo(split.words, {opacity: 0}, {opacity: 1,stagger: 0.1, ease: "power4.inOut"}),
+          })
+        }, 100);
+
+        const handleResize = () => {
+            textTrigger?.refresh();
+        };
+
+        window.addEventListener("resize", handleResize);
+  
+
         ScrollTrigger.create({
             trigger: "[data-gsap='depthstory']",
             start: "top top",
-            end: "+=12000", // total scroll distance for the pin
+            end: "+=11000", 
             pin: true,
             scrub: true,
             markers: true,
           });
+
+          return () => {
+            window.removeEventListener("resize", handleResize);
+        };
     })
+    return () => ctx.revert();
   }, []);
 
 
     return (
-        <div data-gsap="depthstory" className="mt-[450vh] relative h-screen bg-[#232323]">
-
+        <div data-gsap="depthstory" className="mt-[310vh] relative h-screen bg-[#232323]">
+          
         {/* gradient */}
         <div className="absolute top-0 left-0 w-screen h-screen z-10">
             <div className="relative w-full h-full">
@@ -40,8 +70,11 @@ export default function DepthStory() {
             </div>
         </div>
 
+        <p data-gsap="depthstory-text" className="absolute top-[50%] translate-y-[-50%] left-[20px] md:left-[50px] font-reckless text-sm leading-[28px] md:text-lg md:leading-[48px] text-[#FAF5EF] w-[348px] md:w-[642px] z-10">Aviation was once humanity's boldest ambition, but the industry hasn't successfully built a new plane in 40 years.</p>
 
-        <div data-pin="1" className="h-[3000px] absolute top-0 left-0 z-[4]">
+
+        <div data-pin="1" className="h-screen  absolute top-0 left-0 z-[6]">
+        <div data-gsap="clip-1" className="w-full h-full">
         <Canvas
           style={{
             width: "100vw",
@@ -50,18 +83,18 @@ export default function DepthStory() {
           dpr={[1,dpr]}
         >
           <DepthPlane
-            image0="depthstory/dancefloor_normal.jpg"
-            image1="depthstory/dancefloor_depth.jpg"
+            textures={depthPlaneTextures?.[0]}
             hThreshold={50}
             vThreshold={70}
             scrollTarget="[data-pin='1']"
             start={0}
-            end={3000}
+            end={6000}
           />
         </Canvas>
+        </div>
       </div>
-    <div data-pin="2" className="h-[3000px] absolute top-0 left-0 z-[3]">
-          <div data-gsap="clip" className="w-full h-full">
+    <div data-pin="2" className="h-screen absolute top-0 left-0 z-[5]">
+          <div data-gsap="clip-2" className="w-full h-full">
           <Canvas
           dpr={[1,dpr]}
           style={{
@@ -70,18 +103,18 @@ export default function DepthStory() {
           }}
         >
           <DepthPlane 
-            image0="depthstory/lounge_normal.jpg"
-            image1="depthstory/lounge_depth.jpg"
+            textures={depthPlaneTextures?.[1]}
             hThreshold={50}
             vThreshold={70}
             scrollTarget="[data-pin='2']"
-            start={3000}
-            end={7000}
+            start={0}
+            end={6000}
           />
         </Canvas>
           </div>
       </div>
-      <div data-pin="3" className="h-[3000px] absolute top-0 left-0 z-[2]">
+      <div data-pin="3" className="h-screen absolute top-0 left-0 z-[4]">
+      <div data-gsap="clip-3" className="w-full h-full">
         <Canvas
           dpr={[1,dpr]}
           style={{
@@ -90,17 +123,18 @@ export default function DepthStory() {
           }}
         >
           <DepthPlane
-            image0="depthstory/interior_normal.jpg"
-            image1="depthstory/interior_depth.jpg"
+            textures={depthPlaneTextures?.[2]}
             hThreshold={50}
             vThreshold={70}
             scrollTarget="[data-pin='3']"
-            start={4500}
-            end={9000}
+            start={0}
+            end={6000}
           />
         </Canvas>
+        </div>
       </div>
-      <div data-pin="4" className="h-[3000px] absolute top-0 left-0 z-[1]">
+      <div data-pin="4" className="h-screen absolute top-0 left-0 z-[3]">
+      <div data-gsap="clip-4" className="w-full h-full">
         <Canvas
           dpr={[1,dpr]}
           style={{
@@ -109,13 +143,51 @@ export default function DepthStory() {
           }}
         >
           <DepthPlane
-            image0="depthstory/wait_normal.jpg"
-            image1="depthstory/wait_depth.jpg"
+            textures={depthPlaneTextures?.[3]}
             hThreshold={50}
             vThreshold={70}
             scrollTarget="[data-pin='4']"
-            start={9000}
-            end={12000}
+            start={0}
+            end={6000}
+          />
+        </Canvas>
+        </div>
+      </div>
+      <div data-pin="5" className="h-screen absolute top-0 left-0 z-[2]">
+      <div data-gsap="clip-5" className="w-full h-full">
+        <Canvas
+          dpr={[1,dpr]}
+          style={{
+            width: "100vw",
+            height: "100vh",
+          }}
+        >
+          <DepthPlane
+            textures={depthPlaneTextures?.[4]}
+            hThreshold={50}
+            vThreshold={70}
+            scrollTarget="[data-pin='5']"
+            start={0}
+            end={6000}
+          />
+        </Canvas>
+        </div>
+      </div>
+      <div data-pin="6" className="h-screen absolute top-0 left-0 z-[1]">
+        <Canvas
+          dpr={[1,dpr]}
+          style={{
+            width: "100vw",
+            height: "100vh",
+          }}
+        >
+          <DepthPlane
+            textures={depthPlaneTextures?.[5]}
+            hThreshold={50}
+            vThreshold={70}
+            scrollTarget="[data-pin='5']"
+            start={0}
+            end={6900}
           />
         </Canvas>
       </div>

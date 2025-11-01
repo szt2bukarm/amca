@@ -1,7 +1,10 @@
 "use client";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import JobBoardListingCard from "./JobBoardListingCard";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 interface Job {
   title: string;
@@ -16,6 +19,23 @@ interface Props {
 
 export default function JobBoardListing({ jobs = [], currentPage }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [showData, setShowData] = useState(false);
+
+  useGSAP(() => {
+    const ctx = gsap.context(() => {
+      let trigger: ScrollTrigger;
+      setTimeout(() => {
+        trigger = ScrollTrigger.create({
+          trigger: "[data-gsap='jobboard']",
+          start: "top+=100 top",
+          end: "top+=100 top",
+          scrub: true,
+          markers: true,
+          onEnter: () => setShowData(true),
+        })
+      }, 100);
+    })
+  },[])
 
   const imageNumbers = useMemo(() => {
     const result: number[] = [];
@@ -52,33 +72,41 @@ export default function JobBoardListing({ jobs = [], currentPage }: Props) {
       stagger: 0.1,
       ease: "power4.inOut",
     });
-  }, [currentPage,jobs]);
+  }, [currentPage,jobs,showData]);
 
   return (
     <div ref={containerRef} className="flex flex-col gap-[0.2vw]">
-      <div className="flex w-[50vw] mb-[0.2vw]">
-        <p className="w-[57%] font-progLightIta text-white text-[0.8vw]">
+      <div className="flex w-[53vw] mb-[0.2vw]">
+        <p className="w-[65%] font-progLightIta text-white text-[0.8vw]">
           TITLE
         </p>
         <p className="font-progLightIta text-white text-[0.8vw]">LOCATION</p>
       </div>
-
-      {filledJobs.map((job, index) => (
-        <div
-          key={`${currentPage}-${index}`}
-          className="job-card-wrapper w-full h-full"
-        >
-          <div className="job-card-inner w-full h-full [transform-style:preserve-3d]">
-            <JobBoardListingCard
-              title={job.title}
-              location={job.location}
-              textDelay={index * 100}
-              apply={job.apply}
-              imageNo={imageNumbers[index]}
-            />
-          </div>
-        </div>
-      ))}
+  
+      {Array(7)
+        .fill(null)
+        .map((_, index) => {
+          const job = showData
+            ? filledJobs[index] || { title: "", location: "", apply: "" }
+            : { title: "", location: "", apply: "" };
+  
+          return (
+            <div
+              key={`${currentPage}-${index}`}
+              className="job-card-wrapper w-full h-full"
+            >
+              <div className="job-card-inner w-full h-full [transform-style:preserve-3d]">
+                <JobBoardListingCard
+                  title={job.title}
+                  location={job.location}
+                  textDelay={index * 100}
+                  apply={job.apply}
+                  imageNo={imageNumbers[index]}
+                />
+              </div>
+            </div>
+          );
+        })}
     </div>
   );
 }

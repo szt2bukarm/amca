@@ -41,107 +41,172 @@ export default function DepthStoryTimeline() {
 
   useGSAP(() => {
     const ctx = gsap.context(() => {
-        gsap.set("[data-pin='1']", {opacity: 1})
-        // gsap.set("[data-pin='2'], [data-pin='3'], [data-pin='4']", {opacity: 0})
-        setTimeout(() => {
-            ScrollTrigger.create({
-                trigger: "[data-pin='1']",
-                start: "top+=3000 top",
-                end: "top+=3000 top",
-                markers:true,
-                invalidateOnRefresh: true,
-                onLeave: () => {
-                    setIndex(1)
-                    gsap.to("[data-pin='1']", {duration: 0.3, opacity: 0})
-                    // gsap.to("[data-pin='2']", {duration: 0.3, opacity: 1})
-                },
-                onEnterBack: () => {
-                    setIndex(0)
-                    gsap.to("[data-pin='1']", {duration: 0.3, opacity: 1})
-                    // gsap.to("[data-pin='2']", {duration: 0.3, opacity: 0})
-                },
-              });
-
-              ScrollTrigger.create({
-                trigger: "[data-pin='2']",
-                start: "top+=4500 top",
-                end: "top+=7000 top",
-                scrub: true,
-                markers: true,
-                onUpdate: (self) => {
-                  const rawProgress = self.progress;
-              
-                  const delay = 0.4;
-                  let progress = (rawProgress - delay) / (1 - delay);
-                  progress = Math.min(Math.max(progress, 0), 1); 
-              
-                  const el = document.querySelector("[data-gsap='clip']") as HTMLElement;
-                  if (!el) return;
-              
-                  const maskPercent = progress * 50; // 0 → 100
-                  el.style.webkitMaskImage = `linear-gradient(to top, black 0%, black ${100 - maskPercent}%, transparent ${100 - maskPercent}%, transparent 100%)`;
-                  el.style.maskImage = `linear-gradient(to top, black 0%, black ${100 - maskPercent}%, transparent ${100 - maskPercent}%, transparent 100%)`;
-              
-                  // Saturation: start immediately
-                  el.style.filter = `saturate(${1 - rawProgress*1.5})`;
-                }
-              });
-              
-              
-            ScrollTrigger.create({
-                trigger: "[data-pin='3']",
-                start: "top+=6000 top",
-                end: "top+=6000 top",
-                markers:true,
-                invalidateOnRefresh: true,
-                onLeave: () => {
-                    setIndex(2)
-                    // gsap.to("[data-pin='2']", {duration: 0.3, opacity: 0})
-                    // gsap.to("[data-pin='3']", {duration: 0.3, opacity: 1})
-                },
-                onEnterBack: () => {
-                    setIndex(1)
-                    gsap.to("[data-pin='2']", {duration: 0.3, opacity: 1})
-                    // gsap.to("[data-pin='3']", {duration: 0.3, opacity: 0})
-                },
-              });
-              ScrollTrigger.create({
-                trigger: "[data-pin='4']",
-                start: "top+=9000 top",
-                end: "top+=9000 top",
-                markers:true,
-                invalidateOnRefresh: true,
-                onLeave: () => {
-                    setIndex(3)
-                    gsap.to("[data-pin='3']", {duration: 0.3, opacity: 0})
-                    // gsap.to("[data-pin='4']", {duration: 0.3, opacity: 1})
-                },
-                onEnterBack: () => {
-                    setIndex(2)
-                    gsap.to("[data-pin='3']", {duration: 0.3, opacity: 1})
-                    // gsap.to("[data-pin='4']", {duration: 0.3, opacity: 0})
-                },
-              });
-        
-              ScrollTrigger.create({
-                trigger: "[data-gsap='depthstory']",
-                start: "top top",
-                end: "top+=12000 top",
-                scrub: true,
-                invalidateOnRefresh: true,
-                animation: gsap.fromTo(
-                  "[data-gsap='depthstory-timeline']",
-                  { x: 0 },
-                  { left: "100%", ease: "linear" }
-                )
-              });        
-        }, 100);
-
+      const pins = 4;
+      const maskMax = 100; // how far up the fade travels (percent)
+      const fadeRange = 50; // softness of the fade in percent
+  
+      for (let i = 1; i <= pins; i++) {
+        const startOffset = 500 + (i - 1) * 1000;
+        const endOffset = 1500 + (i - 1) * 1000;
+  
+        ScrollTrigger.create({
+          trigger: `[data-pin='${i}']`,
+          start: `top+=${startOffset} top`,
+          end: `top+=${endOffset} top`,
+          scrub: true,
+          markers:true,
+          // markers: true, // uncomment for debugging only
+          onUpdate: (self) => {
+            const progress = gsap.utils.clamp(0, 1, self.progress);
+            const el = document.querySelector(`[data-gsap='clip-${i}']`) as HTMLElement;
+            if (!el) return;
+  
+            const maskPercent = progress * maskMax;           // 0 .. maskMax
+            const topStop = 100 - maskPercent;               // where transparent begins (in %)
+  
+            // If topStop is >= 100, the mask hasn't entered the element yet:
+            // render a full black mask (element fully visible).
+            if (topStop >= 100) {
+              const full = "linear-gradient(to top, black 0%, black 100%)";
+              el.style.webkitMaskImage = full;
+              el.style.maskImage = full;
+              el.style.webkitMaskRepeat = "no-repeat";
+              el.style.maskRepeat = "no-repeat";
+              return;
+            }
+  
+            // Otherwise, compute a soft fade region inside the element.
+            const fadeStart = Math.max(topStop - fadeRange, 0); // where fade starts
+            const mid = fadeStart + (topStop - fadeStart) / 2;   // mid for softer feel
+  
+            // Build gradient: solid black up to fadeStart, then soften, then transparent at topStop
+            const gradient = `linear-gradient(
+              to top,
+              black 0%,
+              black ${fadeStart}%,
+              rgba(0,0,0,0.6) ${Math.max(mid, fadeStart)}%,
+              transparent ${topStop}%,
+              transparent 100%
+            )`;
+  
+            el.style.webkitMaskImage = gradient;
+            el.style.maskImage = gradient;
+            el.style.webkitMaskRepeat = "no-repeat";
+            el.style.maskRepeat = "no-repeat";
+          },
+        });
+      }
+  
       ScrollTrigger.refresh();
     });
-
+  
     return () => ctx.revert();
   }, []);
+
+
+  useGSAP(() => {
+    const ctx = gsap.context(() => {
+      gsap.set("[data-pin='6']", { opacity:0 });
+      let timeTrigger: ScrollTrigger;
+      let timebgTrigger: ScrollTrigger;
+      let textTrigger1: ScrollTrigger;
+      let textTrigger2: ScrollTrigger;
+      let pin5Trigger: ScrollTrigger;
+      let pin6Trigger: ScrollTrigger;
+      setTimeout(() => {
+        timeTrigger = ScrollTrigger.create({
+          trigger: "[data-gsap='clip-1']",
+          start: "top top",
+          end: "top+=5000 top",
+          scrub: true,
+          invalidateOnRefresh: true,
+          animation: gsap.fromTo(
+            "[data-gsap='depthstory-timeline']",
+            { x: 0 },
+            { left: "97%", ease: "linear" }
+          ),
+        });
+        
+        timebgTrigger = ScrollTrigger.create({
+          trigger: "[data-gsap='clip-1']",
+          start: "top top",
+          end: "top+=5000 top",
+          scrub: true,
+          invalidateOnRefresh: true,
+          animation: gsap.fromTo(
+            "[data-gsap='depthstory-timeline-bg']",
+            { width: "0%" },
+            { width: "100%", ease: "linear" }
+          ),
+        });
+
+        textTrigger1 = ScrollTrigger.create({
+          trigger: "[data-gsap='clip-1']",
+          start: "top+=3000 top",
+          end: "top+=3000 top",
+          scrub: true,
+          markers: true,
+          invalidateOnRefresh: true,
+          onEnter: () => {
+            setIndex(1);
+          },
+          onEnterBack: () => {
+            setIndex(0);
+          },
+        });
+
+        textTrigger2 = ScrollTrigger.create({
+          trigger: "[data-gsap='clip-1']",
+          start: "top+=7000 top",
+          end: "top+=7000 top",
+          scrub: true,
+          markers: true,
+          invalidateOnRefresh: true,
+          onEnter: () => {
+            setIndex(2);
+          },
+          onEnterBack: () => {
+            setIndex(1);
+          },
+        });
+
+        pin5Trigger = ScrollTrigger.create({
+          trigger: "[data-pin='5']",
+          start: "top+=5500 top",
+          end: "top+=7000 top",
+          scrub: true,
+          markers: true,
+          invalidateOnRefresh: true,
+          animation: gsap.fromTo(
+            "[data-pin='5']",{opacity:1},{opacity:0,ease:"linear"}
+          )
+        });
+
+
+        pin6Trigger = ScrollTrigger.create({
+          trigger: "[data-pin='6']",
+          start: "top+=7200 top",
+          end: "top+=8200 top",
+          scrub: true,
+          markers: true,
+          invalidateOnRefresh: true,
+          animation: gsap.fromTo(
+            "[data-pin='6']",{opacity:0},{opacity:0.8,ease:"linear"}
+          )
+        });
+
+      }, 100);
+
+      return () => {
+        timeTrigger?.kill();
+        textTrigger1?.kill();
+        textTrigger2?.kill();
+        pin6Trigger?.kill();
+      } 
+    })
+  
+      return () => ctx.revert();
+  })
 
   return (
     <div className="fixed bottom-0 left-0 w-screen p-[25px] md:p-[55px] z-10 flex flex-col gap-[18px] md:gap-[25px]">
@@ -159,11 +224,6 @@ export default function DepthStoryTimeline() {
         >
     <div className="flex flex-col justify-end min-h-[0]">
       <p className="font-progLight text-[#F4F5F2] text-sm leading-[28px] md:text-md md:leading-[32px] tracking-[-0.8px] md:tracking-[-1.2px]">
-        Air Canada Disco Lounge, 1970
-      </p>
-    </div>
-    <div className="flex flex-col justify-end min-h-[0]">
-      <p className="font-progLight text-[#F4F5F2] text-sm leading-[28px] md:text-md md:leading-[32px] tracking-[-0.8px] md:tracking-[-1.2px]">
         Braniff International Airways Lounge, 1970
       </p>
     </div>
@@ -178,11 +238,13 @@ export default function DepthStoryTimeline() {
       <div className="flex gap-[30px] items-center justify-center">
         <p className="font-reckless text-white text-sm md:text-md tracking-[-1.2px]">1970s</p>
 
-        <div className="relative w-full h-[1px] bg-white">
-          <div
+        <div className="relative w-full h-[1px] bg-[#a1a1a199]">
+          <img
             data-gsap="depthstory-timeline"
-            className="w-[22px] h-[22px] rounded-[50%] bg-white absolute left-0 top-1/2 -translate-y-1/2"
-          ></div>
+            src="planeicon.svg"
+            className="absolute left-0 top-[-8px] -translate-y-1/2"
+          />
+          <div data-gsap="depthstory-timeline-bg" className="absolute top-0 left-0 h-[1px] w-[0%] bg-[#DEDDDF]"></div>
         </div>
 
         <p className="font-reckless text-white text-sm md:text-md tracking-[-1.2px]">Nowadays</p>

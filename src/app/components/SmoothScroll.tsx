@@ -6,12 +6,15 @@ import CustomEase from "gsap/CustomEase";
 gsap.registerPlugin(CustomEase);
 
 function SmoothScroll({ children }: { children: React.ReactNode }) {
+    const {loaded} = useStore();
     gsap.config({
       nullTargetWarn: false,
     });
 
+    if (!loaded) return;
+
   return (
-    <ReactLenis className="current-page" root options={{ lerp: 0.1, duration: 1 }}>
+    <ReactLenis className="current-page" root options={{ lerp: 0.05, duration: 1.5 }}>
       {children}
     </ReactLenis>
   );

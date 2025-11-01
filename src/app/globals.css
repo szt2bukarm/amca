@@ -31,6 +31,10 @@ html {
   -webkit-font-smoothing: antialiased;
 }
 
+::-webkit-scrollbar{
+  display: none;
+}
+
 [data-pin='2'] {
   filter: saturate(var(--saturation));
   clip-path: inset(0% 0% 0% 0%);

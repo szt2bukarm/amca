@@ -1,0 +1,87 @@
+import { useGSAP } from "@gsap/react"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+export default function ShowcaseImagesTop() {
+
+    useGSAP(() => {
+        const ctx = gsap.context(() => {
+            let trigger: ScrollTrigger;
+            setTimeout(() => {
+                trigger = ScrollTrigger.create({
+                    trigger: "[data-gsap='showcase-img-top']",
+                    start: "top-=500 top",
+                    end: "bottom+=500",
+                    scrub: true,
+                    animation: gsap.fromTo("[data-gsap='showcase-img-top']", {y: -0, }, {y: 30, ease: "linear", }),
+                });
+            }, 100);
+            return () => trigger?.kill();
+        })
+        return () => ctx.revert();
+    })
+
+    useGSAP(() => {
+        const ctx = gsap.context(() => {
+            let trigger: ScrollTrigger;
+            setTimeout(() => {
+                trigger = ScrollTrigger.create({
+                    trigger: "[data-gsap='showcase-top-card']",
+                    start: "top-=2000 top",
+                    end: "bottom+=2000 top",
+                    scrub: true,
+                    animation: gsap.fromTo("[data-gsap='showcase-top-card']", {y: -150, }, {y: 150,stagger:0.05, ease: "linear", }),
+                });
+            }, 100);
+            return () => trigger?.kill();
+        })
+        return () => ctx.revert();
+    })
+
+    useGSAP(() => {
+        const ctx = gsap.context(() => {
+            let trigger: ScrollTrigger;
+            setTimeout(() => {
+                gsap.set("[data-gsap='showcase-top-card']", {
+                    clipPath: "inset(0% 0% 100% 0%)",
+                    filter: "brightness(1000%)",
+                });
+                trigger = ScrollTrigger.create({
+                    trigger: "[data-gsap='showcase-top-card']",
+                    start: "top-=650 top",
+                    onEnter: () => {
+                        gsap.to("[data-gsap='showcase-top-card']", {
+                            clipPath: "inset(0% 0% 0% 0%)",
+                            filter: "brightness(100%)",
+                            duration: 1,
+                            stagger: 0.15,
+                            ease: "power4.out",
+                        });
+                    }
+                });
+            }, 100);
+            return () => trigger?.kill();
+        })
+    },[])
+
+    return (
+        <div className="relative grid grid-cols-4 gap-[1vw] mx-auto max-w-[2000px] bg-[#232323]">
+            <div className="absolute top-0 left-0 w-screen h-[18vw] bg-[#FAF5EF] z-1"></div>
+
+            <div data-gsap="showcase-top-card" className="overflow-hidden z-2 relative w-full h-[33vw] bg-gradient-to-b from-[#94CBD7] to-[#E4E0DA] mt-[6vw]">
+                <img data-gsap="showcase-img-top" src="showcase/1.webp" className="scale-[1.15] w-full h-full object-cover" />
+            </div>
+            <div data-gsap="showcase-top-card" className="overflow-hidden z-2 relative w-full h-[25vw] bg-gradient-to-b from-[#94CBD7] to-[#E4E0DA]">
+                <img data-gsap="showcase-img-top" src="showcase/2.webp" className="scale-[1.15] w-full h-full object-cover" />
+            </div>
+            <div data-gsap="showcase-top-card" className="overflow-hidden z-2 relative w-full h-[20vw] bg-gradient-to-b from-[#94CBD7] to-[#E4E0DA]">
+                <img data-gsap="showcase-img-top" src="showcase/3.webp" className="scale-[1.15] w-full h-full object-cover" />
+            </div>
+            <div data-gsap="showcase-top-card" className="overflow-hidden z-2 relative w-full h-[33vw] bg-gradient-to-b from-[#94CBD7] to-[#E4E0DA] mt-[6vw]">
+                <img data-gsap="showcase-img-top" src="showcase/4.webp" className="scale-[1.15] w-full h-full object-cover" />
+            </div>
+        </div>
+    )
+}

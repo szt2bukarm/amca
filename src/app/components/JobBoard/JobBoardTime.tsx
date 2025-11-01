@@ -11,7 +11,7 @@ interface Props {
   
     return (
       <div className="flex flex-col gap-[0.1vw]">
-        <p className="font-progRegular text-white text-[1.5vw] leading-[1.5vw] text-center">{text}</p>
+        <p className="font-progRegular text-white text-[1.2vw] leading-[1.2vw] text-center">{text}</p>
 
         <div className="flex gap-[0.1vw]">
             <JobBoardTimeCard number={hours[0]} />
@@ -21,7 +21,7 @@ interface Props {
             <JobBoardTimeCard number={minutes[1]} />
         </div>
 
-        <p className="font-progRegular text-white text-[1.5vw] leading-[1.5vw] text-center">TIME</p>
+        <p className="font-progRegular text-white text-[1.2vw] leading-[1.2vw] text-center">TIME</p>
 
       </div>
     );

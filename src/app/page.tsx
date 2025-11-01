@@ -5,11 +5,11 @@
   import JobBoard from "./components/JobBoard/JobBoardWrapper";
   import useAshbyJobs from "./hooks/useAshbyJobs";
   import { Canvas } from "@react-three/fiber";
-  import Fake3DEffect from "./components/DepthImage";
-  import DepthPlane from "./components/DepthImage";
 import DepthStory from "./components/DepthStory/DepthStory";
 import Hero from "./components/Hero/Hero";
 import PinTest from "./components/PinTest";
+import Showcase from "./components/Showcase/Showcase";
+import DepthStoryAbsoluteText from "./components/DepthStory/DepthStoryAbsoluteText";
   // import { DepthImage } from "./components/DepthImage";
 
   export default function Home() {
@@ -18,14 +18,13 @@ import PinTest from "./components/PinTest";
 
     return (
       <div className="relative w-full h-full">
-        <Hero />
+        {/* <Hero />
         <DepthStory />
-        <div className="pt-[800px] bg-[#232323] w-full h-full z-20 relative overflow-hidden">
+        <DepthStoryAbsoluteText />
+        <Showcase /> */}
         <JobBoard />
         <JobBoardMobile />
         <Footer />
-        </div> 
-
       </div>
     );
   }
