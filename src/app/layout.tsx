@@ -3,6 +3,7 @@ import "./globals.css";
 import Logo from "./components/Logo";
 import SmoothScroll from "./components/SmoothScroll";
 import Loader from "./components/Loader";
+import MobileTest from "./components/MobileTest";
 
 export default function RootLayout({
   children,
@@ -13,6 +14,7 @@ export default function RootLayout({
     <html lang="en">
       <body
       >
+        <MobileTest />
         <Loader />
         <Logo />
         <SmoothScroll>

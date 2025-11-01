@@ -38,7 +38,7 @@ export default function JobBoardMobile() {
     }, [jobs]);
 
     return (
-        <div className="block md:hidden relative w-full h-fit">
+        <div className="block md:hidden relative w-full h-fit overflow-hidden">
             <p className="font-reckless relative text-[15vw] tracking-[-1vw] text-center z-[11] py-[150px] text-title">
                 Open Jobs
             </p>

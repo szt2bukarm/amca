@@ -18,6 +18,9 @@ interface DepthPlaneTexture {
   
     depthPlaneTextures: DepthPlaneTexture[] | null
     setDepthPlaneTextures: (textures: DepthPlaneTexture[]) => void
+
+    isMobile: boolean
+    setIsMobile: (isMobile: boolean) => void
   }
   
   export const useStore = create<Store>((set) => ({
@@ -32,4 +35,7 @@ interface DepthPlaneTexture {
   
     depthPlaneTextures: null,
     setDepthPlaneTextures: (textures) => set({ depthPlaneTextures: textures }),
+
+    isMobile: false,
+    setIsMobile: (isMobile) => set({ isMobile }),
   }))

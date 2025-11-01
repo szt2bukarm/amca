@@ -17,21 +17,6 @@ export default function Logo() {
           filter: "invert(0)"
         })
 
-        // scrolls down -> invert to 1, scrolls up -> revert to 0
-        navcolorTrigger = ScrollTrigger.create({
-          trigger: "[data-pin='2']",
-          start: "top+=11000 top",
-          end: "top+=12000 top",
-          scrub: true,
-          onUpdate: (self) => {
-            gsap.to("[data-gsap='nav-logo-mobile'],[data-gsap='nav-logo-desktop'],[data-gsap='nav-careers']", {
-              filter: `invert(${self.progress})`,
-              ease: "none",
-              overwrite: "auto",
-              duration: 0
-            })
-          },
-        })
 
         // second trigger, also reversible
         navcolorTrigger2 = ScrollTrigger.create({

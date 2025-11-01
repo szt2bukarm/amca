@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger, SplitText, CustomEase);
 export default function Hero() {
   const { loadedHeroFrames, loaded } = useStore(); // <- use loader frames
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [idle, setIdle] = useState(1);
+  const [idle, setIdle] = useState(0);
   const [introDone, setIntroDone] = useState(false);
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : 0
@@ -213,7 +213,7 @@ export default function Hero() {
 
     const opacityTrigger = ScrollTrigger.create({
       trigger: "[data-gsap='hero-sequence']",
-      start: "bottom-=750 0%",
+      start: "bottom-=600 0%",
       end: "bottom 0%",
       scrub: true,
       markers: true,

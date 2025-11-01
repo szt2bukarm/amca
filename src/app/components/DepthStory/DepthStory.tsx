@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger,SplitText);
 
 export default function DepthStory() {
   const [dpr, setDpr] = useState(1);
-  const {depthPlaneTextures} = useStore();
+  const {depthPlaneTextures,isMobile} = useStore();
 
   useEffect(() => {
     setDpr(window.devicePixelRatio);
@@ -19,26 +19,43 @@ export default function DepthStory() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-        let textTrigger: ScrollTrigger;
-        let split = new SplitText("[data-gsap='depthstory-text']", {
-            type: "words",
-        })
-        gsap.set(split.words, {opacity: 0});
-        setTimeout(() => {
-          textTrigger = ScrollTrigger.create({
-            trigger: "[data-pin='1']",
-            start: "top+=5500 top",
-            end: "top+=7500 top",
-            scrub: true,
-            animation: gsap.fromTo(split.words, {opacity: 0}, {opacity: 1,stagger: 0.1, ease: "power4.inOut"}),
-          })
-        }, 100);
-
-        const handleResize = () => {
-            textTrigger?.refresh();
-        };
-
-        window.addEventListener("resize", handleResize);
+      let split: SplitText | null = null;
+      let textTrigger: ScrollTrigger | null = null;
+  
+      const setup = () => {
+        // kill existing if any
+        textTrigger?.kill();
+        split?.revert();
+  
+        // rebuild split each time
+        split = new SplitText("[data-gsap='depthstory-text']", {
+          type: "words",
+        });
+  
+        gsap.set(split.words, { opacity: 0 });
+  
+        textTrigger = ScrollTrigger.create({
+          trigger: "[data-pin='1']",
+          start: "top+=5500 top",
+          end: "top+=7500 top",
+          scrub: true,
+          animation: gsap.fromTo(
+            split.words,
+            { opacity: 0 },
+            { opacity: 1, stagger: 0.1, ease: "power4.inOut" }
+          ),
+        });
+      };
+  
+      // initial setup
+      setTimeout(setup, 100);
+  
+      // handle resize + refresh properly
+      ScrollTrigger.addEventListener("refreshInit", () => {
+        setup();
+      });
+  
+      window.addEventListener("resize", () => ScrollTrigger.refresh());
   
 
         ScrollTrigger.create({
@@ -50,20 +67,21 @@ export default function DepthStory() {
             markers: true,
           });
 
-          return () => {
-            window.removeEventListener("resize", handleResize);
-        };
+      return () => {
+        textTrigger?.kill();
+        split?.revert();
+      };
     })
     return () => ctx.revert();
   }, []);
 
 
     return (
-        <div data-gsap="depthstory" className="mt-[310vh] relative h-screen bg-[#232323]">
+        <div data-gsap="depthstory" className="mt-[300vh] relative h-[100dvh] bg-[#232323]">
           
         {/* gradient */}
-        <div className="absolute top-0 left-0 w-screen h-screen z-10">
-            <div className="relative w-full h-full">
+        <div className="absolute top-0 left-0 w-screen h-[100dvh] z-10">
+            <div className="relative w-full h-[100dvh]">
                 <div className="absolute top-0 left-0 w-screen h-[220px] bg-gradient-to-b from-[#232323] to-transparent"></div>
                 <div className="absolute bottom-0 left-0 w-screen h-[220px] bg-gradient-to-t from-[#232323] to-transparent"></div>
                 <DepthStoryTimeline />
@@ -75,13 +93,16 @@ export default function DepthStory() {
 
         <div data-pin="1" className="h-screen  absolute top-0 left-0 z-[6]">
         <div data-gsap="clip-1" className="w-full h-full">
-        <Canvas
-          style={{
-            width: "100vw",
-            height: "100vh",
-          }}
-          dpr={[1,dpr]}
-        >
+          {isMobile ? (
+            <img src="depthstory/lounge_1.webp" className="w-screen h-screen object-cover" />
+          ) : (
+            <Canvas
+            style={{
+              width: "100vw",
+              height: "100vh",
+            }}
+            dpr={[1,dpr]}
+            >
           <DepthPlane
             textures={depthPlaneTextures?.[0]}
             hThreshold={50}
@@ -89,32 +110,40 @@ export default function DepthStory() {
             scrollTarget="[data-pin='1']"
             start={0}
             end={6000}
-          />
+            />
         </Canvas>
+          )}
         </div>
       </div>
     <div data-pin="2" className="h-screen absolute top-0 left-0 z-[5]">
           <div data-gsap="clip-2" className="w-full h-full">
-          <Canvas
-          dpr={[1,dpr]}
-          style={{
-            width: "100vw",
-            height: "100vh",
-          }}
-        >
-          <DepthPlane 
-            textures={depthPlaneTextures?.[1]}
-            hThreshold={50}
-            vThreshold={70}
-            scrollTarget="[data-pin='2']"
-            start={0}
-            end={6000}
-          />
-        </Canvas>
+              {isMobile ? (
+                <img src="depthstory/lounge_2.webp" className="w-screen h-screen object-cover" />
+              ) : (
+                  <Canvas
+                  dpr={[1,dpr]}
+                  style={{
+                    width: "100vw",
+                    height: "100vh",
+                  }}
+                  >
+                  <DepthPlane 
+                  textures={depthPlaneTextures?.[1]}
+                  hThreshold={50}
+                  vThreshold={70}
+                  scrollTarget="[data-pin='2']"
+                  start={0}
+                  end={6000}
+                  />
+                  </Canvas>
+                )}
           </div>
-      </div>
+        </div>
       <div data-pin="3" className="h-screen absolute top-0 left-0 z-[4]">
       <div data-gsap="clip-3" className="w-full h-full">
+      {isMobile ? (
+                <img src="depthstory/lounge_3.webp" className="w-screen h-screen object-cover" />
+              ) : (
         <Canvas
           dpr={[1,dpr]}
           style={{
@@ -131,10 +160,14 @@ export default function DepthStory() {
             end={6000}
           />
         </Canvas>
+              )}
         </div>
       </div>
       <div data-pin="4" className="h-screen absolute top-0 left-0 z-[3]">
       <div data-gsap="clip-4" className="w-full h-full">
+      {isMobile ? (
+                <img src="depthstory/lounge_4.webp" className="w-screen h-screen object-cover" />
+              ) : (
         <Canvas
           dpr={[1,dpr]}
           style={{
@@ -151,10 +184,14 @@ export default function DepthStory() {
             end={6000}
           />
         </Canvas>
+              )}
         </div>
       </div>
       <div data-pin="5" className="h-screen absolute top-0 left-0 z-[2]">
       <div data-gsap="clip-5" className="w-full h-full">
+      {isMobile ? (
+                <img src="depthstory/lounge_5.webp" className="w-screen h-screen object-cover" />
+              ) : (
         <Canvas
           dpr={[1,dpr]}
           style={{
@@ -171,9 +208,13 @@ export default function DepthStory() {
             end={6000}
           />
         </Canvas>
+              )}
         </div>
       </div>
       <div data-pin="6" className="h-screen absolute top-0 left-0 z-[1]">
+      {isMobile ? (
+                <img src="depthstory/wait_normal.jpg" className="w-screen h-screen object-cover" />
+              ) : (
         <Canvas
           dpr={[1,dpr]}
           style={{
@@ -190,6 +231,7 @@ export default function DepthStory() {
             end={6900}
           />
         </Canvas>
+        )}
       </div>
     </div>
     )

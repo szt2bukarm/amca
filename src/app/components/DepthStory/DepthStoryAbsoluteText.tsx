@@ -1,74 +1,103 @@
-import { useGSAP } from "@gsap/react"
-import gsap from "gsap"
+"use client";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef, useEffect } from "react";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function DepthStoryAbsoluteText() {
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
-    useGSAP(() => {
-        const ctx = gsap.context(() => {
-            gsap.set("[data-gsap='depthstory-absolute-text']", {opacity: 0});
-            let trigger: ScrollTrigger;
-            let textTrigger: ScrollTrigger;
-            let bgTrigger: ScrollTrigger;
-            let textTrigger2: ScrollTrigger;
-            setTimeout(() => {
-                trigger = ScrollTrigger.create({
-                    trigger: "[data-pin='2']",
-                    start: "top+=9000 top",
-                    end: "top+=10000 top",
-                    scrub: true,
-                    animation: gsap.fromTo("[data-gsap='depthstory-absolute-text']", {opacity: 0, scale: 1.05}, {opacity: 1, scale: 1, ease: "linear"}),
-                });
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // scoped selector for children inside wrapperRef
+      const q = gsap.utils.selector(wrapperRef);
+        gsap.set(q("[data-gsap='depthstory-absolute-text-item']"), { opacity: 0 });
+      // timeline with your exact scroll range
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: "[data-pin='2']",
+          start: "top+=9000 top",
+          end: "top+=11000 top",
+          scrub: true,
+          invalidateOnRefresh: true,
+        },
+      });
 
-                textTrigger = ScrollTrigger.create({
-                    trigger: "[data-pin='2']",
-                    start: "top+=9700 top",
-                    end: "top+=10500 top",
-                    scrub: true,
-                    animation: gsap.fromTo("[data-gsap='depthstory-absolute-text-item']", {opacity: 0, scale: 1.1}, {opacity: 1, scale: 1,stagger: 0.15, ease: "linear"}),
-                })
+      // Fade + scale wrapper in
+      timeline.fromTo(
+        wrapperRef.current!,
+        { opacity: 0 },
+        { opacity: 1, ease: "none", duration: 0.3 }
+      );
 
-                bgTrigger = ScrollTrigger.create({
-                    trigger: "[data-pin='2']",
-                    start: "top+=11000 top",
-                    end: "top+=12000 top",
-                    scrub: true,
-                    animation: gsap.fromTo("[data-gsap='depthstory-absolute-text']", {background: "#232323"}, {background: "#FAF5EF", ease: "linear"}),
-                });
+      // stagger text items in (use scoped selector q)
+      timeline.fromTo(
+        q("[data-gsap='depthstory-absolute-text-item']"),
+        { opacity: 0, scale: 1.08 },
+        { opacity: 1, scale: 1, stagger: 0.15, ease: "none", duration: 0.3 },
+        ">0.05" // start together with wrapper fade
+      );
 
-                textTrigger2 = ScrollTrigger.create({
-                    trigger: "[data-pin='2']",
-                    start: "top+=11000 top",
-                    end: "top+=12000 top",
-                    scrub: true,
-                    animation: gsap.fromTo("[data-gsap='depthstory-absolute-text-item']", {color: "#FFF"}, {color: "#232323", ease: "linear"}),
-                });
+      // mid: background color change on the wrapperRef node
+      timeline.to(
+        wrapperRef.current!,
+        { backgroundColor: "#FAF5EF", ease: "none", duration: 0.5 },
+        ">0.2"
+      );
 
+      // mid: change text color (scoped)
+      timeline.to(
+        q("[data-gsap='depthstory-absolute-text-item']"),
+        { color: "#232323", ease: "none", duration: 0.5 },
+        "<"
+      );
 
-            }, 100);
+  
 
-            const handleResize = () => {
-                trigger?.refresh();
-                bgTrigger?.refresh();
-                textTrigger?.refresh();
-            };
-            window.addEventListener("resize", handleResize);
+      // ensure ScrollTrigger will refresh sizes on resize
+      ScrollTrigger.addEventListener("refreshInit", () => {
+        // force re-paint fix (helps with weird browser color issues)
+        if (wrapperRef.current) {
+          wrapperRef.current.style.willChange = "auto";
+          void wrapperRef.current.offsetHeight;
+          wrapperRef.current.style.willChange = "";
+        }
+      });
+    }, wrapperRef);
 
-            return () => {
-                trigger?.kill();
-                bgTrigger?.kill();
-                textTrigger?.kill();
-            };
-        })
-        return () => ctx.revert();
-    },[])
+    return () => {
+      ctx.revert();
+      ScrollTrigger.removeEventListener("refreshInit", () => {});
+    };
+  }, []);
 
-    return (
-        <div data-gsap="depthstory-absolute-text" className="pointer-events-none opacity-0 fixed top-0 left-0 w-screen h-screen z-20 bg-[#232323] flex items-center justify-center flex-col">
-            <p data-gsap="depthstory-absolute-text-item" className="font-reckless text-[#FFF] text-lg leading-[44px] md:text-h4 md:leading-[60px] lg:text-h3 lg:leading-[74px] w-screen text-center">We don't</p>
-            <p data-gsap="depthstory-absolute-text-item" className="font-reckless text-[#FFF] text-lg leading-[44px] md:text-h4 md:leading-[60px] lg:text-h3 lg:leading-[74px] w-screen text-center">think it has to</p>
-            <p data-gsap="depthstory-absolute-text-item" className="font-reckless text-[#FFF] text-lg leading-[44px] md:text-h4 md:leading-[60px] lg:text-h3 lg:leading-[74px] w-screen text-center">be this way.</p>
-        </div>
-    )
+  return (
+    <div
+      ref={wrapperRef}
+      data-gsap="depthstory-absolute-text"
+      className="pointer-events-none fixed top-0 left-0 w-screen h-screen z-20 bg-[#232323] flex items-center justify-center flex-col"
+      // inline style fallback ensures GSAP can see an initial computed color
+      style={{ backgroundColor: "#232323" }}
+    >
+      <p
+        data-gsap="depthstory-absolute-text-item"
+        className="font-reckless text-white text-lg md:text-h4 lg:text-h3 w-screen text-center leading-[44px] md:leading-[60px] lg:leading-[74px]"
+      >
+        We don't
+      </p>
+      <p
+        data-gsap="depthstory-absolute-text-item"
+        className="font-reckless text-white text-lg md:text-h4 lg:text-h3 w-screen text-center leading-[44px] md:leading-[60px] lg:leading-[74px]"
+      >
+        think it has to
+      </p>
+      <p
+        data-gsap="depthstory-absolute-text-item"
+        className="font-reckless text-white text-lg md:text-h4 lg:text-h3 w-screen text-center leading-[44px] md:leading-[60px] lg:leading-[74px]"
+      >
+        be this way.
+      </p>
+    </div>
+  );
 }
