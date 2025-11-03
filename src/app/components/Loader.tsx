@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import gsap from "gsap";
 import * as THREE from "three";
 import { useStore } from "@/app/useStore";
+import { useGSAP } from "@gsap/react";
 
 const assets = [
   "jobboard/jobboard-bg.webp",
@@ -47,7 +48,7 @@ const depthPlanes = [
   { color: "depthstory/lounge_1.webp", depth: "depthstory/lounge_1_depth.webp" },
   { color: "depthstory/lounge_2.webp", depth: "depthstory/lounge_2_depth.webp" },
   { color: "depthstory/lounge_3.webp", depth: "depthstory/lounge_3_depth.webp" },
-  { color: "depthstory/lounge_4 2.avif", depth: "depthstory/lounge_3_depth.webp" },
+  { color: "depthstory/lounge_4.webp", depth: "depthstory/lounge_3_depth.webp" },
   { color: "depthstory/lounge_5.webp", depth: "depthstory/lounge_5_depth.webp" },
   { color: "depthstory/wait_normal.jpg", depth: "depthstory/wait_depth.jpg" },
 ];
@@ -131,6 +132,11 @@ export default function Loader() {
       });
     });
 
+  useGSAP(() => {
+    console.log(progress);
+    gsap.to('[data-gsap="loader-logo"]', { clipPath: `inset(0% 0% ${progressRef.current}% 0%)`,duration: 0.1 });
+  },[progress])
+
   // DOM ready
   useEffect(() => {
     const onDOMContentLoaded = () => setDomReady(true);
@@ -160,7 +166,7 @@ export default function Loader() {
   // hide loader when done
   useEffect(() => {
     if (loaded && domReady) {
-      gsap.to('[data-gsap="loader-logo"]', {
+      gsap.to('[data-gsap="loader-logo-full"]', {
         y: -150,
         ease: "power4.in",
         duration: 0.5,
@@ -181,10 +187,14 @@ export default function Loader() {
   return (
     <div
       data-gsap="loader"
-      className="pointer-events-none fixed top-0 left-0 w-screen h-screen bg-[#232323] z-[9999] flex items-center justify-center"
+      className="pointer-events-none fixed top-0 left-0 w-screen h-[100dvh] bg-[#232323] z-[9999] flex items-center justify-center"
     >
-        <div className="h-[108px] w-[154px] flex items-center justify-center overflow-hidden">
-            <img data-gsap="loader-logo" src="amca_logo.webp" className="w-full h-full" />
+        <div className="h-[108px] w-[154px] relative overflow-hidden">
+            <img data-gsap="loader-logo-full" src="amca_logo.webp" className="absolute top-0 left-0 h-[108px] w-[154px] z-1" />
+            <img data-gsap="loader-logo" src="amca_logo.webp" className="brightness-50 absolute top-0 left-0 h-[108px] w-[154px] z-2" />
+            {progress != 100 && (
+            <p className="absolute top-[-5px] right-0 text-white text-[12px]">{Math.round(progress)}</p>
+            )}
         </div>
       {/* <p className="text-white text-h1">
         {loaded ? "loaded" : "loading " + Math.floor(progress) + "%"}

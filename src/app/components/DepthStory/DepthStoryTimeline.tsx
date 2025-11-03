@@ -54,7 +54,7 @@ export default function DepthStoryTimeline() {
           start: `top+=${startOffset} top`,
           end: `top+=${endOffset} top`,
           scrub: true,
-          markers:true,
+          // markers:true,
           // markers: true, // uncomment for debugging only
           onUpdate: (self) => {
             const progress = gsap.utils.clamp(0, 1, self.progress);
@@ -117,7 +117,7 @@ export default function DepthStoryTimeline() {
           start: "top+=3000 top",
           end: "top+=3000 top",
           scrub: true,
-          markers: true,
+          // markers: true,
           invalidateOnRefresh: true,
           onEnter: () => {
             setIndex(1);
@@ -132,7 +132,7 @@ export default function DepthStoryTimeline() {
           start: "top+=7000 top",
           end: "top+=7000 top",
           scrub: true,
-          markers: true,
+          // markers: true,
           invalidateOnRefresh: true,
           onEnter: () => {
             setIndex(2);
@@ -147,7 +147,7 @@ export default function DepthStoryTimeline() {
           start: "top+=5500 top",
           end: "top+=7000 top",
           scrub: true,
-          markers: true,
+          // markers: true,
           invalidateOnRefresh: true,
           animation: gsap.fromTo(
             "[data-pin='5']",{opacity:1},{opacity:0,ease:"linear"}
@@ -160,7 +160,7 @@ export default function DepthStoryTimeline() {
           start: "top+=7200 top",
           end: "top+=8200 top",
           scrub: true,
-          markers: true,
+          // markers: true,
           invalidateOnRefresh: true,
           animation: gsap.fromTo(
             "[data-pin='6']",{opacity:0},{opacity:0.8,ease:"linear"}
@@ -195,7 +195,7 @@ export default function DepthStoryTimeline() {
           const planeWidth = planeEl.offsetWidth;
   
           const targetX = containerWidth - planeWidth; // full line width minus plane width
-          console.log(targetX)
+          // console.log(targetX)
           gsap.set(planeEl, { x: 0 }); // reset position before anim
           if (timeTrigger) timeTrigger.kill();
           if (timebgTrigger) timebgTrigger.kill();

@@ -27,6 +27,28 @@ export default function ShowcaseImagesTop() {
         const ctx = gsap.context(() => {
             let trigger: ScrollTrigger;
             setTimeout(() => {
+            trigger = ScrollTrigger.create({
+                trigger: "[data-gsap='showcase-img-top']",
+                start: "top-=500 top",
+                end: "top+=500 top",
+                scrub: true,
+                // markers: true,
+                animation: gsap.fromTo(
+                  "[data-gsap='nav-logo-desktop'],[data-gsap='nav-logo-mobile'],[data-gsap='nav-careers'],[data-gsap='nav-text']",
+                  { filter: "invert(1)" },
+                  { filter: "invert(0)", ease: "linear",immediateRender: false }
+                ),
+              });
+            }, 100);
+            return () => trigger?.kill();
+        })
+        return () => ctx.revert();
+    })
+
+    useGSAP(() => {
+        const ctx = gsap.context(() => {
+            let trigger: ScrollTrigger;
+            setTimeout(() => {
                 trigger = ScrollTrigger.create({
                     trigger: "[data-gsap='showcase-top-card']",
                     start: "top-=2000 top",

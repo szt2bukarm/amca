@@ -1,8 +1,8 @@
 "use client";
-import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useRef, useEffect } from "react";
+import { useEffect, useRef } from "react";
+
 gsap.registerPlugin(ScrollTrigger);
 
 export default function DepthStoryAbsoluteText() {
@@ -10,74 +10,93 @@ export default function DepthStoryAbsoluteText() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // scoped selector for children inside wrapperRef
-      const q = gsap.utils.selector(wrapperRef);
-        gsap.set(q("[data-gsap='depthstory-absolute-text-item']"), { opacity: 0 });
-      // timeline with your exact scroll range
-      const timeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: "[data-pin='2']",
+      setTimeout(() => {
+        // setup initial state
+        gsap.set(wrapperRef.current, { opacity: 0, backgroundColor: "#232323" });
+        gsap.set("[data-gsap='depthstory-absolute-text-item']", {
+          opacity: 0,
+          scale: 1.08,
+          color: "#fff",
+        });
+  
+        // 1️⃣ wrapper fade-in
+        ScrollTrigger.create({
+          trigger: "[data-gsap='clip-1']",
           start: "top+=9000 top",
+          end: "top+=9500 top",
+          scrub: true,
+          // markers: true,
+          animation: gsap.fromTo(
+            wrapperRef.current,
+            { opacity: 0 },
+            { opacity: 1, immediateRender: false }
+          ),
+        });
+  
+        // 2️⃣ text fade + scale
+        ScrollTrigger.create({
+          trigger: "[data-gsap='clip-1']",
+          start: "top+=9400 top",
+          end: "top+=10000 top",
+          scrub: true,
+          // markers: true,
+          animation: gsap.fromTo(
+            "[data-gsap='depthstory-absolute-text-item']",
+            { opacity: 0, scale: 1.08 },
+            { opacity: 1, scale: 1, stagger: 0.1, ease: "linear" }
+          ),
+        });
+  
+        // 3️⃣ color transition
+        ScrollTrigger.create({
+          trigger: "[data-gsap='clip-1']",
+          start: "top+=10000 top",
           end: "top+=11000 top",
           scrub: true,
-          invalidateOnRefresh: true,
-        },
-      });
+          // markers: true,
+          animation: gsap.fromTo(
+            "[data-gsap='depthstory-absolute-text-item']",
+            { color: "#fff" },
+            { color: "#000", ease: "linear" }
+          ),
+        });
 
-      // Fade + scale wrapper in
-      timeline.fromTo(
-        wrapperRef.current!,
-        { opacity: 0 },
-        { opacity: 1, ease: "none", duration: 0.3 }
-      );
+        ScrollTrigger.create({
+          trigger: "[data-gsap='clip-1']",
+          start: "top+=10000 top",
+          end: "top+=11000 top",
+          scrub: true,
+          // markers: true,
+          animation: gsap.fromTo(
+            "[data-gsap='depthstory-absolute-text']",
+            { background: "#232323" },
+            { background: "#FAF5EF", ease: "linear" }
+          ),
+        });
 
-      // stagger text items in (use scoped selector q)
-      timeline.fromTo(
-        q("[data-gsap='depthstory-absolute-text-item']"),
-        { opacity: 0, scale: 1.08 },
-        { opacity: 1, scale: 1, stagger: 0.15, ease: "none", duration: 0.3 },
-        ">0.05" // start together with wrapper fade
-      );
-
-      // mid: background color change on the wrapperRef node
-      timeline.to(
-        wrapperRef.current!,
-        { backgroundColor: "#FAF5EF", ease: "none", duration: 0.5 },
-        ">0.2"
-      );
-
-      // mid: change text color (scoped)
-      timeline.to(
-        q("[data-gsap='depthstory-absolute-text-item']"),
-        { color: "#232323", ease: "none", duration: 0.5 },
-        "<"
-      );
-
+        ScrollTrigger.create({
+          trigger: "[data-gsap='clip-2']",
+          start: "top+=10000 top",
+          end: "top+=11000 top",
+          scrub: true,
+          // markers: true,
+          animation: gsap.fromTo(
+            "[data-gsap='nav-logo-desktop'],[data-gsap='nav-logo-mobile'],[data-gsap='nav-careers'],[data-gsap='nav-text']",
+            { filter: "invert(0)" },
+            { filter: "invert(1)", ease: "linear",immediateRender: false }
+          ),
+        });
+      }, 100);
+    });
   
-
-      // ensure ScrollTrigger will refresh sizes on resize
-      ScrollTrigger.addEventListener("refreshInit", () => {
-        // force re-paint fix (helps with weird browser color issues)
-        if (wrapperRef.current) {
-          wrapperRef.current.style.willChange = "auto";
-          void wrapperRef.current.offsetHeight;
-          wrapperRef.current.style.willChange = "";
-        }
-      });
-    }, wrapperRef);
-
-    return () => {
-      ctx.revert();
-      ScrollTrigger.removeEventListener("refreshInit", () => {});
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
     <div
       ref={wrapperRef}
       data-gsap="depthstory-absolute-text"
-      className="pointer-events-none fixed top-0 left-0 w-screen h-screen z-20 bg-[#232323] flex items-center justify-center flex-col"
-      // inline style fallback ensures GSAP can see an initial computed color
+      className="pointer-events-none fixed top-0 left-0 w-screen h-[100dvh] z-20 flex items-center justify-center flex-col"
       style={{ backgroundColor: "#232323" }}
     >
       <p

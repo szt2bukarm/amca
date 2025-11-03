@@ -4,6 +4,7 @@ import gsap from "gsap";
 import JobBoardListingCard from "./JobBoardListingCard";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useStore } from "@/app/useStore";
 gsap.registerPlugin(ScrollTrigger);
 
 interface Job {
@@ -19,7 +20,7 @@ interface Props {
 
 export default function JobBoardListing({ jobs = [], currentPage }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [showData, setShowData] = useState(false);
+  const {showData,setShowData} = useStore();
 
   useGSAP(() => {
     const ctx = gsap.context(() => {
@@ -30,12 +31,18 @@ export default function JobBoardListing({ jobs = [], currentPage }: Props) {
           start: "top+=100 top",
           end: "top+=100 top",
           scrub: true,
-          markers: true,
-          onEnter: () => setShowData(true),
-        })
+          // markers: true,
+          onEnter: () => {
+            const current = useStore.getState().showData;
+            if (current) return;
+            useStore.getState().setShowData(true);
+          }
+        });
       }, 100);
+      return () => trigger?.kill();
     })
-  },[])
+    return () => ctx.revert();
+  },[showData])
 
   const imageNumbers = useMemo(() => {
     const result: number[] = [];

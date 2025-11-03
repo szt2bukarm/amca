@@ -19,7 +19,7 @@ export default function Showcase() {
                     start: "50% 50%",
                     end: "50% 50%",
                     scrub: true,
-                    markers: true,
+                    // markers: true,
                     onLeave: () => {
                         gsap.set("[data-gsap='depthstory-absolute-text']", {opacity: 0})
                     },

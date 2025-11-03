@@ -21,6 +21,9 @@ interface DepthPlaneTexture {
 
     isMobile: boolean
     setIsMobile: (isMobile: boolean) => void
+
+    showData: boolean
+    setShowData: (showData: boolean) => void
   }
   
   export const useStore = create<Store>((set) => ({
@@ -38,4 +41,7 @@ interface DepthPlaneTexture {
 
     isMobile: false,
     setIsMobile: (isMobile) => set({ isMobile }),
+
+    showData: false,
+    setShowData: (showData) => set({ showData }),
   }))

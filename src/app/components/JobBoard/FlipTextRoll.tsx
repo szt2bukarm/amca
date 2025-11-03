@@ -75,11 +75,7 @@ export default function FlipTextRoll({
       const wrapperWidth = wrapperRef.current?.parentElement?.offsetWidth;        // visible width
       const containerWidth = containerRef.current?.scrollWidth;    // full content width
       const distance = containerWidth - wrapperWidth;  // how much to slide
-  
-      console.log("wrapper width:", wrapperWidth);
-      console.log("container width:", containerWidth);
-      console.log("distance to slide:", distance);
-  
+    
       if (distance > 0) {
         marquee(container, distance);
       }

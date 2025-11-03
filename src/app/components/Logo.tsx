@@ -1,55 +1,80 @@
 "use client"
 import { useGSAP } from "@gsap/react"
+import { useLenis } from "@studio-freight/react-lenis";
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-gsap.registerPlugin(ScrollTrigger)
+import { SplitText } from "gsap/SplitText";
+import { useStore } from "../useStore";
+import { useEffect, useState } from "react";
+gsap.registerPlugin(SplitText,ScrollTrigger);
+
 
 export default function Logo() {
+  const lenis = useLenis();
+  const {setShowData,loaded} = useStore();
+  const [allowButton, setAllowButton] = useState(false);
 
-  useGSAP(() => {
-    const ctx = gsap.context(() => {
-      let navcolorTrigger: ScrollTrigger
-      let navcolorTrigger2: ScrollTrigger
-
+  useEffect(() => {
+    if (loaded) {
       setTimeout(() => {
-        // set everything to normal at start
-        gsap.set("[data-gsap='nav-logo-mobile'],[data-gsap='nav-logo-desktop'],[data-gsap='nav-careers']", {
-          filter: "invert(0)"
+        setAllowButton(true);
+      }, 4500);
+    }
+  }, [loaded]);
+
+    useGSAP(() => {
+        const split = new SplitText("[data-gsap='nav-text']", {
+            type: "chars",
         })
+        gsap.set(split.chars, { x: -30, autoAlpha: 0 });
+        
+        split.chars.forEach((char) => {
+            const wrapper = document.createElement("div");
+            wrapper.style.display = "inline-block";
+            wrapper.style.overflow = "hidden";
+            char.parentNode!.insertBefore(wrapper, char);
+            wrapper.appendChild(char);
+          });
 
-
-        // second trigger, also reversible
-        navcolorTrigger2 = ScrollTrigger.create({
-          trigger: "[data-gsap='showcase-nav-change']",
-          start: "bottom top",
-          end: "bottom top",
+        // Scroll fade with fromTo for better control
+        ScrollTrigger.create({
+          trigger: document.body,
+          start: "top+=4500 0%",
+          end: "top+=5500 0%",
           scrub: true,
-            onEnter: () => {
-                gsap.to("[data-gsap='nav-logo-mobile'],[data-gsap='nav-logo-desktop'],[data-gsap='nav-careers']", {
-                    filter: "invert(0)",
-                    ease: "none",
-                    overwrite: "auto",
-                    duration: 0.25
-                })
+          // markers: true,
+          animation: gsap.fromTo(split.chars, 
+            {
+              autoAlpha: 0,
+              x: -30
             },
-            onEnterBack: () => {
-                gsap.to("[data-gsap='nav-logo-mobile'],[data-gsap='nav-logo-desktop'],[data-gsap='nav-careers']", {
-                    filter: "invert(1)",
-                    ease: "none",
-                    overwrite: "auto",
-                    duration: 0.25
-                })
+            {
+              autoAlpha: 1,
+              x: 0,
+              stagger: 0.005,
             }
-        })
-      }, 100)
-    })
+          ),
+        });
+    },[])
 
-    return () => ctx.revert()
-  }, [])
+    const scrollToCarriers = () => {
+      if (lenis) {
+        
+        const element = ScrollTrigger.getById("jobboard")
+        console.log(element.start);
+        // console.log(element.scrollTop);
+        lenis.scrollTo(element?.start, {
+          duration: 1
+        })
+      }
+      setTimeout(() => {
+        setShowData(true);
+      }, 1500);
+    };
 
   return (
     <div className="fixed top-0 left-0 w-screen p-[50px] flex items-center justify-between z-50">
-      <p className="opacity-0 hidden lg:block font-progLight text-md leading-[28px] text-[#F4F5F2] tracking-[-1.25px]">
+      <p data-gsap="nav-text" className="hidden lg:block font-progLight text-md leading-[28px] text-[#F4F5F2] tracking-[-1.25px]">
         Advanced Manufacturing<br />Company of America
       </p>
 
@@ -68,7 +93,7 @@ export default function Logo() {
       </div>
 
       <div data-gsap="nav-careers" className="opacity-0 w-fit h-full">
-        <button className="cursor-pointer font-reckless text-sm leading-[28px] text-white tracking-[-1.1px] hover:opacity-50 duration-150 transition-opacity">
+        <button disabled={!allowButton} onClick={scrollToCarriers} className="cursor-pointer font-reckless text-sm leading-[28px] text-white tracking-[-1.1px] hover:opacity-50 duration-150 transition-opacity">
           Go to Careers&nbsp;&nbsp;→
         </button>
       </div>

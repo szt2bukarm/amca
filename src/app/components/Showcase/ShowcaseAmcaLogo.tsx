@@ -22,7 +22,7 @@ export default function ShowcaseAmcaLogo() {
                     start: "50% 50%",
                     end: "bottom+=50% 50%",
                     scrub: true,
-                    markers: true,
+                    // markers: true,
                     animation: gsap.fromTo("[data-gsap='showcase-logo']", {opacity: 0, }, {opacity: 1, ease: "linear", }),
                 })
             }, 100);
