@@ -16,7 +16,7 @@ export default function HeroPin() {
   const noiseCanvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [introDone, setIntroDone] = useState(false);
-  const [idle, setIdle] = useState(0);
+  const [idle, setIdle] = useState(1);
   const lenis = useLenis();
   CustomEase.create("cEase", "M0,0 C0.075,0.82 0.165,1 1,1");
   const [windowWidth, setWindowWidth] = useState(
@@ -314,7 +314,7 @@ export default function HeroPin() {
     let frame = 0;
     const loop = () => {
       frame++;
-      if (frame % 3 === 0) drawNoise(); // every few frames for perf
+      if (frame % 10 === 0) drawNoise(); // every few frames for perf
       requestAnimationFrame(loop);
     };
     loop();
@@ -333,15 +333,15 @@ export default function HeroPin() {
       gsap.set(plane, {
         opacity: 1,
         scale: 1,
-        y: window.innerHeight / 5,
-        x: 150
+        y: window.innerHeight / 4,
+        x: (window.innerWidth / 3.5) * -1
       });
   
       gsap.to(plane, {
         y: -150,
-        x: -window.innerWidth / 1.2,
-        scale: 0.3,
-        duration: 5,
+        x: -window.innerWidth / 1.5,
+        scale: 0.5,
+        duration: 3,
         ease: "linear",
         onComplete: () => {
           const delay = (Math.random() * (15 - 5) + 5) * 1000; // 5–15s
@@ -350,7 +350,6 @@ export default function HeroPin() {
       });
     };
   
-    // first flight after 5s
     const initialDelay = 5000;
     const timer = setTimeout(flyPlane, initialDelay);
   
@@ -378,9 +377,9 @@ export default function HeroPin() {
       end: "top+=300 top",
       scrub: true,
       animation: gsap.fromTo(
-        "[data-gsap='scroll-to-explore']",
+        "[data-gsap='scroll-to-explore-wrapper']",
         { opacity: 1 },
-        { opacity: 0,immediateRender: false, ease: "linear" }
+        { opacity: 0, ease: "linear" }
       ),
     });
   
@@ -445,8 +444,14 @@ export default function HeroPin() {
         </div>
       )}
 
+            {windowWidth >= 1024 && (
+        <div data-gsap="plane-sky-wrapper" className="w-full h-full pointer-events-none z-1">
+        <img data-gsap="plane-sky" src='plane_sky.avif' className="opacity-0 w-[150px] absolute top-0 right-0" />
+        </div>
+      )}
+
       {windowWidth >= 1024 && (
-        <div className="w-full h-full" data-gsap="idle-plane-scroll">
+        <div className="w-full h-full z-[2]" data-gsap="idle-plane-scroll">
           <div
             data-gsap="idle-plane"
             className="fixed left-0 top-0 w-screen h-[100dvh] opacity-0"
@@ -482,15 +487,12 @@ export default function HeroPin() {
         </p>
       )}
 
-      {windowWidth >= 1024 && (
-        <div data-gsap="plane-sky-wrapper" className="w-full h-full pointer-events-none">
-        <img data-gsap="plane-sky" src='plane_sky.avif' className="opacity-0 w-[150px] absolute top-0 right-0" />
-        </div>
-      )}
 
       {!isMobile && (
+        <div data-gsap="scroll-to-explore-wrapper" className="w-full h-full">
         <p data-gsap="scroll-to-explore" className="opacity-0 absolute top-0 left-0 text-white font-progRegular text-[16px]">Scroll to explore</p>
-      )}
+        </div>
+        )}
     </div>
   );
 }

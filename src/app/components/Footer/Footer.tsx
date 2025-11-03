@@ -16,6 +16,8 @@ export default function Footer() {
                     start: "top 70%",
                     end: "bottom 70%",
                     animation: gsap.fromTo("[data-gsap='footer-1'], [data-gsap='footer-2'], [data-gsap='footer-3']", {opacity: 0, scale: 1.1}, {opacity: 1, scale: 1,stagger: 0.1,duration:1, ease: "power2.out"}),
+                    onEnter: () => gsap.to("[data-gsap='nav-text'], [data-gsap='nav-logo-mobile'], [data-gsap='nav-logo-desktop']", {opacity: 0, duration: 0.3}),
+                    onEnterBack: () => gsap.to("[data-gsap='nav-text'], [data-gsap='nav-logo-mobile'], [data-gsap='nav-logo-desktop']", {opacity: 1, duration: 0.3})
                 })
             }, 100);
         },[])
