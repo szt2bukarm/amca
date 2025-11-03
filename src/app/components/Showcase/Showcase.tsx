@@ -51,9 +51,11 @@ export default function Showcase() {
                     </ShowcaseText>
                 </div>
 
+                <div className="w-full h-full bg-[#232323] relative">
+                <div className="absolute top-0 left-0 w-screen h-[18vw] bg-[#FAF5EF] "></div>
                 <ShowcaseImagesTop />
     
-                <div className="flex items-center justify-center w-full h-full py-[150px] md:py-[250px] lg:pb-[200px] lg:pt-[300px] bg-[#232323]">
+                <div className="flex items-center justify-center w-full h-full py-[150px] md:py-[250px] lg:pb-[200px] lg:pt-[300px]">
                     <ShowcaseText wide dotColor="orange" textColor="white">
                     <span style={{ display: "inline-block", width: "3.5ch" }}></span>
                     We’re a small team of engineers creating new parts and subsystems to launch our civilization’s next great airplane. Everyone here moves fast, speaks honestly, and takes full ownership of their work. <br></br><br></br>Everything we design goes on planes today that millions of people fly on. But we’re just getting started, and we’d love your help bringing new life to aerospace.
@@ -61,6 +63,7 @@ export default function Showcase() {
                 </div>
 
                 <ShowcaseImagesBottom />
+                </div>
 
         </div>
     )

@@ -38,7 +38,7 @@ export default function Footer() {
 
             <div className="flex flex-col md:flex-row items-center justify-center gap-[2vw]  md:gap-[40px] text-blue text-[4.5vw] md:text-sm font-progLight">
                 <a href="https://amca.com/about/" target="_blank" className="tracking-[-1px] hover:opacity-50 transition-opacity duration-150 cursor-pointer">About</a>
-                <a href="https://amca.com/terms-and-policies/" target="_blank" className="tracking-[-1px] hover:opacity-50 transition-opacity duration-150 cursor-pointer">Terms & Conditions</a>
+                <a href="https://amca.com/terms-and-policies/" target="_blank" className="tracking-[-1px] hover:opacity-50 transition-opacity duration-150 cursor-pointer">Terms & Policies</a>
                 <a href="mailto:founders@amca.co" className="tracking-[-1px] hover:opacity-50 transition-opacity duration-150 cursor-pointer">Contact</a>
             </div>
 

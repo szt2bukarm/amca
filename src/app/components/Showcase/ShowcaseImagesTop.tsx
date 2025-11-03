@@ -89,8 +89,7 @@ export default function ShowcaseImagesTop() {
     },[])
 
     return (
-        <div className="relative grid grid-cols-4 gap-[1vw] mx-auto max-w-[2000px] bg-[#232323]">
-            <div className="absolute top-0 left-0 w-screen h-[18vw] bg-[#FAF5EF] z-1"></div>
+        <div className="relative grid grid-cols-4 gap-[1vw] mx-auto max-w-[2000px]">
 
             <div data-gsap="showcase-top-card" className="overflow-hidden z-2 relative w-full h-[33vw] bg-gradient-to-b from-[#94CBD7] to-[#E4E0DA] mt-[6vw]">
                 <img data-gsap="showcase-img-top" src="showcase/1.webp" className="scale-[1.35] md:scale-[1.15] w-full h-full object-cover" />
