@@ -27,11 +27,10 @@ export default function JobBoardListing({ jobs = [], currentPage }: Props) {
       let trigger: ScrollTrigger;
       setTimeout(() => {
         trigger = ScrollTrigger.create({
-          trigger: "[data-gsap='jobboard']",
-          start: "top+=100 top",
-          end: "top+=100 top",
+          trigger: "[data-gsap='jobboard-listings']",
+          start: "top 50%",
+          end: "top 50%",
           scrub: true,
-          // markers: true,
           onEnter: () => {
             const current = useStore.getState().showData;
             if (current) return;
@@ -82,7 +81,7 @@ export default function JobBoardListing({ jobs = [], currentPage }: Props) {
   }, [currentPage,jobs,showData]);
 
   return (
-    <div ref={containerRef} className="flex flex-col gap-[0.2vw]">
+    <div data-gsap='jobboard-listings' ref={containerRef} className="flex flex-col gap-[0.2vw]">
       <div className="flex w-[53vw] mb-[0.2vw]">
         <p className="w-[65%] font-progLightIta text-white text-[0.8vw]">
           TITLE

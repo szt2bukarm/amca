@@ -26,7 +26,7 @@ export default function Logo() {
         const split = new SplitText("[data-gsap='nav-text']", {
             type: "chars",
         })
-        gsap.set(split.chars, { x: -30, autoAlpha: 0 });
+        gsap.set(split.chars, { x: -30,y:-2, autoAlpha: 0 });
         
         split.chars.forEach((char) => {
             const wrapper = document.createElement("div");
@@ -59,12 +59,12 @@ export default function Logo() {
 
     const scrollToCarriers = () => {
       if (lenis) {
-        
+        setShowData(false);
         const element = ScrollTrigger.getById("jobboard")
         console.log(element.start);
         // console.log(element.scrollTop);
         lenis.scrollTo(element?.start, {
-          duration: 1
+          duration: 2
         })
       }
       setTimeout(() => {
@@ -73,7 +73,7 @@ export default function Logo() {
     };
 
   return (
-    <div className="fixed top-0 left-0 w-screen p-[50px] flex items-center justify-between z-50">
+    <div className="fixed top-0 left-0 w-screen p-[20px] md:p-[50px] flex items-center justify-between z-50">
       <p data-gsap="nav-text" className="hidden lg:block font-progLight text-md leading-[28px] text-[#F4F5F2] tracking-[-1.25px]">
         Advanced Manufacturing<br />Company of America
       </p>

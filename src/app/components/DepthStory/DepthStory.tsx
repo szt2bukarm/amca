@@ -239,8 +239,8 @@ export default function DepthStory() {
             hThreshold={50}
             vThreshold={70}
             scrollTarget="[data-pin='5']"
-            start={0}
-            end={6900}
+            start={6000}
+            end={9000}
           />
         </Canvas>
         )}

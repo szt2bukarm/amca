@@ -150,12 +150,14 @@ export default function Loader() {
 
   // load everything
   useEffect(() => {
+    document.documentElement.style.cursor = "progress";
     const loadAll = async () => {
       try {
         await preloadAssets(assets);
         await preloadHeroFrames(TOTAL_HERO_FRAMES);
         await preloadDepthPlanes();
         setLoaded(true);
+        document.documentElement.style.cursor = "default";
       } catch (e) {
         console.error("Loader error:", e);
       }

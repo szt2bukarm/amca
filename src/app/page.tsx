@@ -25,6 +25,12 @@ gsap.registerPlugin(ScrollTrigger);
           trigger: "[data-scroll='jobboard']",
           id: "jobboard",
           start: "top top",
+          onEnter: () => {
+            gsap.to("[data-gsap='nav-careers']", {opacity: 0, ease: "power4.inOut"})
+          },
+          onEnterBack: () => {
+            gsap.to("[data-gsap='nav-careers']", {opacity: 1, ease: "power4.inOut"})
+          }
         })
       }, 1000);
     },[])
@@ -36,10 +42,10 @@ gsap.registerPlugin(ScrollTrigger);
         <DepthStory />
         <DepthStoryAbsoluteText />
         <Showcase />
-        <div className="h-[1px] w-screen bg-[#232323" data-scroll="jobboard" ></div>
+        <div className="h-[0px] w-screen bg-[#232323" data-scroll="jobboard" ></div>
         <JobBoard />
         <JobBoardMobile />
         <Footer />
-      </div>
+      </div>  
     );
   }

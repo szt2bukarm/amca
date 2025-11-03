@@ -8,11 +8,12 @@ import { useStore } from "@/app/useStore";
 import { useGSAP } from "@gsap/react";
 import { useLenis } from "@studio-freight/react-lenis";
 
-gsap.registerPlugin(ScrollTrigger,CustomEase,SplitText);
+gsap.registerPlugin(ScrollTrigger, CustomEase, SplitText);
 
 export default function HeroPin() {
   const { loadedHeroFrames, loaded, isMobile } = useStore();
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const noiseCanvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [introDone, setIntroDone] = useState(false);
   const [idle, setIdle] = useState(0);
@@ -30,7 +31,7 @@ export default function HeroPin() {
 
   const intervalRef = useRef<NodeJS.Timer | null>(null);
   useEffect(() => {
-    if (!lenis)  return;
+    if (!lenis) return;
     lenis?.stop();
     intervalRef.current = setInterval(() => {
       setIdle((prev) => (prev + 1) % 2);
@@ -49,13 +50,12 @@ export default function HeroPin() {
 
     let frame = 0;
     const totalFrames = loadedHeroFrames.length;
-    const introFrames = 60; 
+    const introFrames = 60;
     const introSpeed = isMobile ? 0.5 : 0.25;
 
     const drawImageCover = (image: HTMLImageElement) => {
       const canvasRatio = canvas.width / canvas.height;
       const imgRatio = image.width / image.height;
-
       let drawWidth, drawHeight, offsetX, offsetY;
 
       if (imgRatio > canvasRatio) {
@@ -84,7 +84,6 @@ export default function HeroPin() {
     window.addEventListener("resize", resizeCanvas);
     resizeCanvas();
 
-    // --- Intro sequence ---
     const playIntro = () => {
       if (frame >= introFrames) {
         startScrollSequence();
@@ -93,39 +92,29 @@ export default function HeroPin() {
       }
       const img = loadedHeroFrames[Math.floor(frame)];
       if (img) drawImageCover(img);
-
       frame += introSpeed;
       requestAnimationFrame(playIntro);
     };
     playIntro();
 
-    // --- Scroll-driven pinned sequence ---
     const startScrollSequence = () => {
-      const pinStart = canvasRef.current?.offsetTop || 0; // top of pinned container
-      const introFrames = 60; // skip these
-      const maxScroll = 3000; // same as GSAP pin duration
-    
+      const pinStart = canvasRef.current?.offsetTop || 0;
+      const introFrames = 60;
+      const maxScroll = 3000;
+
       const handleScroll = () => {
         const scrollTop = window.scrollY;
-        const progress = Math.min(
-          Math.max(scrollTop - pinStart - 300, 0),
-          maxScroll
-        ) / maxScroll;
-    
-        // calculate frame index starting after introFrames
+        const progress = Math.min(Math.max(scrollTop - pinStart - 300, 0), maxScroll) / maxScroll;
         const frameCount = loadedHeroFrames.length - introFrames;
         const idx = Math.floor(progress * frameCount) + introFrames;
-    
         const img = loadedHeroFrames[idx];
         if (img) drawImageCover(img);
       };
-    
+
       window.addEventListener("scroll", handleScroll);
       handleScroll();
-    
       return () => window.removeEventListener("scroll", handleScroll);
     };
-
 
     return () => {
       window.removeEventListener("resize", resizeCanvas);
@@ -133,18 +122,22 @@ export default function HeroPin() {
     };
   }, [loaded, loadedHeroFrames, windowWidth]);
 
+  useEffect(() => {
+    if (lenis) lenis.stop();
+  }, [loaded, lenis]);
+
   // pin
-  useGSAP(()=> {
+  useGSAP(() => {
     const ctx = gsap.context(() => {
-      let trigger = ScrollTrigger.create({
+      ScrollTrigger.create({
         trigger: containerRef.current,
         start: "top top",
         end: "+=3250 top",
         scrub: true,
         pin: true,
-      })
-    })
-  })
+      });
+    });
+  });
 
   // reveal after intro
   useGSAP(() => {
@@ -158,56 +151,86 @@ export default function HeroPin() {
       ease: "cEase",
       onComplete: () => {
         setTimeout(() => {
-          lenis?.start()
+          lenis?.start();
+          document.documentElement.style.overflow = "auto";
+          document.documentElement.style.touchAction = "auto";
+          if (isMobile) {
+            ScrollTrigger.normalizeScroll(true);
+          } else {
+            ScrollTrigger.normalizeScroll(false);
+          }
         }, 500);
       },
     });
-    gsap.set("[data-gsap='nav-logo-desktop'],[data-gsap='nav-logo-mobile']", {opacity: 1, y:100});
-    gsap.to("[data-gsap='nav-logo-desktop'],[data-gsap='nav-logo-mobile']", {y:0, duration: 1, ease: "power4.out"});
-    gsap.to("[data-gsap='nav-careers']",{opacity:1})
-  },[introDone,lenis])
+    gsap.set("[data-gsap='nav-logo-desktop'],[data-gsap='nav-logo-mobile']", {
+      opacity: 1,
+      y: 100,
+    });
+    gsap.to("[data-gsap='nav-logo-desktop'],[data-gsap='nav-logo-mobile']", {
+      y: 0,
+      duration: 1,
+      ease: "power4.out",
+    });
+    gsap.to("[data-gsap='nav-careers']", { opacity: 1 });
+  }, [introDone, lenis]);
 
   // default state
   useGSAP(() => {
     const ctx = gsap.context(() => {
-      gsap.set("[data-gsap='idle-plane']", {opacity: 0});
-      gsap.set("[data-gsap='hero-logo']", {y:300,opacity:0});   
-    })
-    return () => ctx.revert()
-  },[])
+      gsap.set("[data-gsap='idle-plane']", { opacity: 0 });
+      gsap.set("[data-gsap='hero-logo']", { y: 300, opacity: 0 });
+    });
+    return () => ctx.revert();
+  }, []);
 
-  //scroll animations
+  // scroll animations
   useGSAP(() => {
     const ctx = gsap.context(() => {
-
       setTimeout(() => {
-        const trigger = ScrollTrigger.create({
+        ScrollTrigger.create({
           trigger: canvasRef.current,
           start: "top+=100 0%",
           end: "top+=300 0%",
           scrub: true,
-          // markers: true,
-          animation: gsap.fromTo("[data-gsap='hero-logo']", {
-            y: 0,
-            opacity: 1,
-          },{
-            y: -100,
-            opacity: 0,
-            stagger: 0.05,
-            ease: "power1.inOut",
-            immediateRender: false
-          }),
+          animation: gsap.fromTo(
+            "[data-gsap='hero-logo']",
+            { y: 0, opacity: 1 },
+            {
+              y: -100,
+              opacity: 0,
+              stagger: 0.05,
+              ease: "power1.inOut",
+              immediateRender: false,
+            }
+          ),
           onLeave: () => gsap.set("[data-gsap='idle-plane']", { opacity: 0 }),
           onEnterBack: () => gsap.set("[data-gsap='idle-plane']", { opacity: 1 }),
         });
+
+        ScrollTrigger.create({
+          trigger: canvasRef.current,
+          start: "top+=100 0%",
+          end: "top+=300 0%",
+          scrub: true,
+          animation: gsap.fromTo(
+            "[data-gsap='plane-sky-wrapper']",
+            { opacity: 1 },
+            {
+              opacity: 0,
+              ease: "linear",
+              immediateRender: false,
+            }
+          ),
+        });
+
       }, 100);
-    })
-  },[])
+    });
+  }, []);
 
   // Hero text split + scroll fade
   useGSAP(() => {
     if (!introDone) return;
-  
+
     const split = new SplitText("[data-gsap='hero-text']", { type: "chars" });
     split.chars.forEach((char) => {
       const wrapper = document.createElement("div");
@@ -216,10 +239,9 @@ export default function HeroPin() {
       char.parentNode!.insertBefore(wrapper, char);
       wrapper.appendChild(char);
     });
-      
-    gsap.set(split.chars, { x: -30, autoAlpha: 0 });
-  
-    // Single timeline for staggered intro
+
+    gsap.set(split.chars, { x: -30, y: -5, autoAlpha: 0 });
+
     const tl = gsap.timeline();
     tl.to(split.chars, {
       x: 0,
@@ -228,88 +250,247 @@ export default function HeroPin() {
       ease: "power4.out",
       stagger: 0.015,
     });
-  
-    // Scroll fade with fromTo for better control
+
     ScrollTrigger.create({
       trigger: canvasRef.current,
       start: "top+=100 0%",
       end: "top+=1200 0%",
       scrub: true,
-      // markers: true, // Remove in production
-      animation: gsap.fromTo(split.chars, 
-        {
-          autoAlpha: 1,
-          x: 0
-        },
+      animation: gsap.fromTo(
+        split.chars,
+        { autoAlpha: 1, x: 0 },
         {
           autoAlpha: 0,
           x: 30,
           stagger: 0.005,
-          immediateRender: false
+          immediateRender: false,
         }
       ),
     });
   }, [introDone]);
 
+  // Dim layer
   useGSAP(() => {
     const ctx = gsap.context(() => {
-      let trigger = ScrollTrigger.create({
+      const trigger = ScrollTrigger.create({
         trigger: canvasRef.current,
         start: "top+=3000 top",
         end: "top+=3250 top",
         scrub: true,
-        // markers: true,
-        animation: gsap.fromTo("[data-gsap='hero-dim']",{opacity: 0},{ opacity: 1, ease: "linear" }),
-      })
+        animation: gsap.fromTo(
+          "[data-gsap='hero-dim']",
+          { opacity: 0 },
+          { opacity: 1, ease: "linear" }
+        ),
+      });
       return () => trigger.kill();
-    })
+    });
     return () => ctx.revert();
-  })
+  });
+
+  // 🎞️ NOISE LAYER
+  useEffect(() => {
+    const noiseCanvas = noiseCanvasRef.current;
+    if (!noiseCanvas) return;
+    const ctx = noiseCanvas.getContext("2d");
+    const resize = () => {
+      noiseCanvas.width = window.innerWidth;
+      noiseCanvas.height = window.innerHeight;
+    };
+    resize();
+    window.addEventListener("resize", resize);
+
+    const drawNoise = () => {
+      const imageData = ctx.createImageData(noiseCanvas.width, noiseCanvas.height);
+      const buffer32 = new Uint32Array(imageData.data.buffer);
+      const len = buffer32.length;
+      for (let i = 0; i < len; i++) {
+        const val = Math.random() * 255 | 0;
+        buffer32[i] = (255 << 24) | (val << 16) | (val << 8) | val;
+      }
+      ctx.putImageData(imageData, 0, 0);
+    };
+
+    let frame = 0;
+    const loop = () => {
+      frame++;
+      if (frame % 3 === 0) drawNoise(); // every few frames for perf
+      requestAnimationFrame(loop);
+    };
+    loop();
+
+    return () => {
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
+
+
+  useGSAP(() => {
+    if (!introDone) return;
   
+    const flyPlane = () => {
+      const plane = "[data-gsap='plane-sky']";
+      gsap.set(plane, {
+        opacity: 1,
+        scale: 1,
+        y: window.innerHeight / 5,
+        x: 150
+      });
+  
+      gsap.to(plane, {
+        y: -150,
+        x: -window.innerWidth / 1.2,
+        scale: 0.3,
+        duration: 5,
+        ease: "linear",
+        onComplete: () => {
+          const delay = (Math.random() * (15 - 5) + 5) * 1000; // 5–15s
+          setTimeout(flyPlane, delay);
+        }
+      });
+    };
+  
+    // first flight after 5s
+    const initialDelay = 5000;
+    const timer = setTimeout(flyPlane, initialDelay);
+  
+    return () => clearTimeout(timer);
+  }, [introDone]);
+
+
+  useEffect(() => {
+    if (isMobile || !introDone) return; // skip mobile, no mouse
+    const el = document.querySelector("[data-gsap='scroll-to-explore']");
+    if (!el) return;
+    
+    const move = (e) => {
+      gsap.set(el, { x: e.clientX + 25, y: e.clientY - 5});
+      gsap.to(el, {
+        opacity: 1,
+        duration: 0.1,
+        ease: "linear",
+      });
+    };
+
+    let trigger = ScrollTrigger.create({
+      trigger: canvasRef.current,
+      start: "top+=100 top",
+      end: "top+=300 top",
+      scrub: true,
+      animation: gsap.fromTo(
+        "[data-gsap='scroll-to-explore']",
+        { opacity: 1 },
+        { opacity: 0,immediateRender: false, ease: "linear" }
+      ),
+    });
+  
+    window.addEventListener("mousemove", move);
+    
+    return () => window.removeEventListener("mousemove", move);
+  }, [isMobile, introDone]);
+
   return (
-    <div ref={containerRef}>
-      <canvas ref={canvasRef} style={{ width: "100%", height: "100vh" }} />
-      <div data-gsap="hero-dim" className="opacity-0 z-10 absolute top-0 left-0 w-full h-full bg-[#FFF]"></div>
+    <div ref={containerRef} className="relative">
+      <canvas ref={canvasRef} style={{ width: "100vw", height: "100dvh" }} />
+      {/* ✨ Noise overlay */}
+      <canvas
+        ref={noiseCanvasRef}
+        style={{
+          position: "fixed",
+          inset: 0,
+          width: "100vw",
+          height: "100dvh",
+          pointerEvents: "none",
+          mixBlendMode: "overlay",
+          opacity: 0.1,
+          zIndex: 50,
+        }}
+      />
+      <div
+        data-gsap="hero-dim"
+        className="opacity-0 z-10 absolute top-0 left-0 w-full h-full bg-[#FFF]"
+      ></div>
 
       {windowWidth >= 1024 && (
-          <div data-gsap="hero-logo-scroll" className="fixed top-[5vw] max-w-[1600px] w-[90%] left-[50%] translate-x-[-50%] overflow-hidden mix-blend-color-burn flex items-end gap-[1vw]">
+        <div
+          data-gsap="hero-logo-scroll"
+          className="fixed top-[5vw] max-w-[1600px] w-[90%] left-[50%] translate-x-[-50%] overflow-hidden mix-blend-color-burn flex items-end gap-[1vw]"
+        >
+          <img data-gsap="hero-logo" src="amca_a.webp" className="w-[26.05%] h-full " />
+          <img data-gsap="hero-logo" src="amca_m.webp" className="w-[32.05%] h-full " />
+          <img data-gsap="hero-logo" src="amca_c.webp" className="w-[18.35%] h-full " />
+          <img data-gsap="hero-logo" src="amca_a_lower.webp" className="w-[19%] h-full " />
+        </div>
+      )}
+
+      {windowWidth < 1024 && (
+        <div className="flex flex-col fixed bottom-[5vw] w-[95%] left-[50%] translate-x-[-50%] gap-[5vw] z-20">
+          {introDone && (
+            <p
+              data-gsap="hero-text"
+              className="font-reckless text-[#FAF5E7] text-[5.5vw] leading-[5.5vw] sm:text-[4.5vw] sm:leading-[4.5vw]"
+            >
+              Advanced Manufacturing<br />Company of America
+            </p>
+          )}
+          <div
+            data-gsap="hero-logo-scroll"
+            className=" overflow-hidden flex items-end gap-[1vw]"
+          >
             <img data-gsap="hero-logo" src="amca_a.webp" className="w-[26.05%] h-full " />
             <img data-gsap="hero-logo" src="amca_m.webp" className="w-[32.05%] h-full " />
             <img data-gsap="hero-logo" src="amca_c.webp" className="w-[18.35%] h-full " />
             <img data-gsap="hero-logo" src="amca_a_lower.webp" className="w-[19%] h-full " />
           </div>
-        )}
-        {windowWidth < 1024 && (
-          <div className="flex flex-col fixed bottom-[5vw] w-[95%] left-[50%] translate-x-[-50%] gap-[5vw] z-20">
-            {introDone && (
-              <p data-gsap="hero-text" className="font-reckless text-[#FAF5E7] text-[5.5vw] leading-[5.5vw] sm:text-[4.5vw] sm:leading-[4.5vw]">Advanced Manufacturing<br></br>Company of America</p>
-            )}
-            <div data-gsap="hero-logo-scroll" className=" overflow-hidden flex items-end gap-[1vw]">
-                <img data-gsap="hero-logo" src="amca_a.webp" className="w-[26.05%] h-full " />
-                <img data-gsap="hero-logo" src="amca_m.webp" className="w-[32.05%] h-full " />
-                <img data-gsap="hero-logo" src="amca_c.webp" className="w-[18.35%] h-full " />
-                <img data-gsap="hero-logo" src="amca_a_lower.webp" className="w-[19%] h-full " />
-            </div>
+        </div>
+      )}
+
+      {windowWidth >= 1024 && (
+        <div className="w-full h-full" data-gsap="idle-plane-scroll">
+          <div
+            data-gsap="idle-plane"
+            className="fixed left-0 top-0 w-screen h-[100dvh] opacity-0"
+          >
+            <img
+              src={`sequence/desktop/idle_transparent_${idle}.avif`}
+              className="w-full h-full object-cover"
+            />
           </div>
-        )}
-        {windowWidth >= 1024 && (
-          <div className="w-full h-full" data-gsap="idle-plane-scroll">
-            <div data-gsap="idle-plane" className="fixed left-0 top-0 w-screen h-screen opacity-0">
-                <img src={`sequence/desktop/idle_transparent_${idle}.avif`} className="w-full h-full object-cover" />
-            </div>
         </div>
-        )}
-        {
-          windowWidth < 1024 &&
-          <div className="w-full h-full" data-gsap="idle-plane-scroll">
-            <div data-gsap="idle-plane" className="fixed left-0 top-0 w-screen h-screen opacity-0">
-                <img src={`sequence/mobile/hero6${idle}.avif`} className="w-full h-full object-cover" />
-            </div>
+      )}
+
+      {windowWidth < 1024 && (
+        <div className="w-full h-full" data-gsap="idle-plane-scroll">
+          <div
+            data-gsap="idle-plane"
+            className="fixed left-0 top-0 w-screen h-[100dvh] opacity-0"
+          >
+            <img
+              src={`sequence/mobile/hero6${idle}.avif`}
+              className="w-full h-full object-cover"
+            />
+          </div>
         </div>
-        }
-        {(introDone && windowWidth >= 1024) && (
-          <p data-gsap="hero-text" className="font-reckless text-[#FAF5E7] text-[48px] leading-[48px] fixed bottom-[50px] left-[50px]">Advanced Manufacturing<br></br>Company of America</p>
-        )}
+      )}
+
+      {introDone && windowWidth >= 1024 && (
+        <p
+          data-gsap="hero-text"
+          className="font-reckless text-[#FAF5E7] text-[48px] leading-[48px] fixed bottom-[50px] left-[50px]"
+        >
+          Advanced Manufacturing<br />Company of America
+        </p>
+      )}
+
+      {windowWidth >= 1024 && (
+        <div data-gsap="plane-sky-wrapper" className="w-full h-full pointer-events-none">
+        <img data-gsap="plane-sky" src='plane_sky.avif' className="opacity-0 w-[150px] absolute top-0 right-0" />
+        </div>
+      )}
+
+      {!isMobile && (
+        <p data-gsap="scroll-to-explore" className="opacity-0 absolute top-0 left-0 text-white font-progRegular text-[16px]">Scroll to explore</p>
+      )}
     </div>
   );
 }

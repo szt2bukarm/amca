@@ -30,6 +30,8 @@
 html {
   -webkit-font-smoothing: antialiased;
   background-color: #000;
+    overflow: hidden;
+    touch-action: none;
   /* will-change: auto; */
 }
 

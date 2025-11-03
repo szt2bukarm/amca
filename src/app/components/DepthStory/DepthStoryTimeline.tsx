@@ -195,7 +195,6 @@ export default function DepthStoryTimeline() {
           const planeWidth = planeEl.offsetWidth;
   
           const targetX = containerWidth - planeWidth; // full line width minus plane width
-          // console.log(targetX)
           gsap.set(planeEl, { x: 0 }); // reset position before anim
           if (timeTrigger) timeTrigger.kill();
           if (timebgTrigger) timebgTrigger.kill();
@@ -211,6 +210,15 @@ export default function DepthStoryTimeline() {
               { x: 0 },
               { x: targetX, ease: "linear" }
             ),
+            onUpdate: (self) => {
+              const direction = self.direction; // 1 = down, -1 = up
+              gsap.to(planeEl, {
+                scaleX: direction === 1 ? 1 : -1,
+                duration: 0.3,
+                ease: "power2.out",
+                overwrite: "auto",
+              });
+            }
           });
   
           timebgTrigger = ScrollTrigger.create({

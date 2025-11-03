@@ -93,16 +93,16 @@ export default function ShowcaseImagesTop() {
             <div className="absolute top-0 left-0 w-screen h-[18vw] bg-[#FAF5EF] z-1"></div>
 
             <div data-gsap="showcase-top-card" className="overflow-hidden z-2 relative w-full h-[33vw] bg-gradient-to-b from-[#94CBD7] to-[#E4E0DA] mt-[6vw]">
-                <img data-gsap="showcase-img-top" src="showcase/1.webp" className="scale-[1.15] w-full h-full object-cover" />
+                <img data-gsap="showcase-img-top" src="showcase/1.webp" className="scale-[1.35] md:scale-[1.15] w-full h-full object-cover" />
             </div>
             <div data-gsap="showcase-top-card" className="overflow-hidden z-2 relative w-full h-[25vw] bg-gradient-to-b from-[#94CBD7] to-[#E4E0DA]">
-                <img data-gsap="showcase-img-top" src="showcase/2.webp" className="scale-[1.15] w-full h-full object-cover" />
+                <img data-gsap="showcase-img-top" src="showcase/2.webp" className="scale-[1.35] md:scale-[1.15] w-full h-full object-cover" />
             </div>
             <div data-gsap="showcase-top-card" className="overflow-hidden z-2 relative w-full h-[20vw] bg-gradient-to-b from-[#94CBD7] to-[#E4E0DA]">
-                <img data-gsap="showcase-img-top" src="showcase/3.webp" className="scale-[1.15] w-full h-full object-cover" />
+                <img data-gsap="showcase-img-top" src="showcase/3.webp" className="scale-[1.35] md:scale-[1.15] w-full h-full object-cover" />
             </div>
             <div data-gsap="showcase-top-card" className="overflow-hidden z-2 relative w-full h-[33vw] bg-gradient-to-b from-[#94CBD7] to-[#E4E0DA] mt-[6vw]">
-                <img data-gsap="showcase-img-top" src="showcase/4.webp" className="scale-[1.15] w-full h-full object-cover" />
+                <img data-gsap="showcase-img-top" src="showcase/4.webp" className="scale-[1.35] md:scale-[1.15] w-full h-full object-cover" />
             </div>
         </div>
     )
