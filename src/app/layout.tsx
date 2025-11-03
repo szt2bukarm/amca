@@ -1,9 +1,17 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Logo from "./components/Logo";
 import SmoothScroll from "./components/SmoothScroll";
 import Loader from "./components/Loader";
 import MobileTest from "./components/MobileTest";
+import Nav from "./components/Nav";
+
+export const metadata: Metadata = {
+  title: "AMCA - careers",
+  description: "",
+  icons: {
+    icon: "/favicon.png",
+  }
+};
 
 export default function RootLayout({
   children,
@@ -15,11 +23,12 @@ export default function RootLayout({
       <head>
       <script dangerouslySetInnerHTML={{ __html: `history.scrollRestoration = "manual"` }} />
       </head>
+      <link rel="favicon" href="/favicon.png" />
       <body
       >
         <MobileTest />
         <Loader />
-        <Logo />
+        <Nav />
         <SmoothScroll>
         {children}
         </SmoothScroll>

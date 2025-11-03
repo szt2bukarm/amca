@@ -341,7 +341,7 @@ export default function HeroPin() {
         y: -150,
         x: -window.innerWidth / 1.5,
         scale: 0.5,
-        duration: 3,
+        duration: 2.2,
         ease: "linear",
         onComplete: () => {
           const delay = (Math.random() * (15 - 5) + 5) * 1000; // 5–15s
