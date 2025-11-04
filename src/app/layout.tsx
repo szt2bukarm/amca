@@ -4,6 +4,7 @@ import SmoothScroll from "./components/SmoothScroll";
 import Loader from "./components/Loader";
 import MobileTest from "./components/MobileTest";
 import Nav from "./components/Nav";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: "AMCA - careers",
@@ -32,6 +33,7 @@ export default function RootLayout({
         <SmoothScroll>
         {children}
         </SmoothScroll>
+        <Analytics />
       </body>
     </html>
   );
