@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+
+
 @font-face {
   font-family: "Reckless";
   src: url('/fonts/Reckless.otf') format("opentype");
@@ -27,12 +30,30 @@
   src: url('/fonts/Programme-Light.woff') format("woff");
 }
 
+@font-face {
+  font-family: "AsapCondensed-Light";
+  src: url('/fonts/AsapCondensed-Light.ttf') format("truetype");
+}
+
+@font-face {
+  font-family: "InriaSans-Light";
+  src: url('/fonts/InriaSans-Regular.ttf') format("truetype");
+}
+
 html {
   -webkit-font-smoothing: antialiased;
   background-color: #000;
     overflow: hidden;
     touch-action: none;
   /* will-change: auto; */
+}
+
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
 }
 
 ::-webkit-scrollbar{

@@ -45,7 +45,7 @@ export default function JobBoardWrapper() {
         <div data-gsap="jobboard" className="hidden md:block relative w-full h-[110vw] lg:h-[88vw] overflow-hidden">
 
             {/* title */}
-            <p data-gsap="jobboard-title" className="font-reckless text-[7vw] tracking-[-5.35px] z-[11] absolute top-[7.5vw] left-[50%] translate-x-[-50%] text-title">Open Jobs</p>
+            <p data-gsap="jobboard-title" className="font-reckless text-[7vw] tracking-[-5.35px] z-[11] absolute top-[7.5vw] left-[50%] translate-x-[-50%] text-title">Open Roles</p>
 
             {/* gradient */}
             <div className="absolute top-0 left-0 w-screen h-[110vw] lg:h-[73vw] bg-[linear-gradient(180deg,#232323_20%,#3263CD_80.29%)]"></div>

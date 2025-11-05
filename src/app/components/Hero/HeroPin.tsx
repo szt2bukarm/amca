@@ -162,15 +162,15 @@ export default function HeroPin() {
         }, 500);
       },
     });
-    gsap.set("[data-gsap='nav-logo-desktop'],[data-gsap='nav-logo-mobile']", {
-      opacity: 1,
-      y: 100,
-    });
-    gsap.to("[data-gsap='nav-logo-desktop'],[data-gsap='nav-logo-mobile']", {
-      y: 0,
-      duration: 1,
-      ease: "power4.out",
-    });
+    // gsap.set("[data-gsap='nav-logo-desktop'],[data-gsap='nav-logo-mobile']", {
+    //   opacity: 1,
+    //   y: 100,
+    // });
+    // gsap.to("[data-gsap='nav-logo-desktop'],[data-gsap='nav-logo-mobile']", {
+    //   y: 0,
+    //   duration: 1,
+    //   ease: "power4.out",
+    // });
     gsap.to("[data-gsap='nav-careers']", { opacity: 1 });
   }, [introDone, lenis]);
 
@@ -391,8 +391,7 @@ export default function HeroPin() {
   return (
     <div ref={containerRef} className="relative">
       <canvas ref={canvasRef} style={{ width: "100vw", height: "100dvh" }} />
-      {/* ✨ Noise overlay */}
-      <canvas
+      {/* <canvas
         ref={noiseCanvasRef}
         style={{
           position: "fixed",
@@ -404,12 +403,8 @@ export default function HeroPin() {
           opacity: 0.1,
           zIndex: 50,
         }}
-      />
-      <div
-        data-gsap="hero-dim"
-        className="opacity-0 z-10 absolute top-0 left-0 w-full h-full bg-[#FFF]"
-      ></div>
-
+      /> */}
+{/* 
       {windowWidth >= 1024 && (
         <div
           data-gsap="hero-logo-scroll"
@@ -420,9 +415,9 @@ export default function HeroPin() {
           <img data-gsap="hero-logo" src="amca_c.webp" className="w-[18.35%] h-full " />
           <img data-gsap="hero-logo" src="amca_a_lower.webp" className="w-[19%] h-full " />
         </div>
-      )}
+      )} */}
 
-      {windowWidth < 1024 && (
+      {/* {windowWidth < 1024 && (
         <div className="flex flex-col fixed bottom-[5vw] w-[95%] left-[50%] translate-x-[-50%] gap-[5vw] z-20">
           {introDone && (
             <p
@@ -444,7 +439,17 @@ export default function HeroPin() {
         </div>
       )}
 
-            {windowWidth >= 1024 && (
+      {introDone && windowWidth >= 1024 && (
+        <p
+          data-gsap="hero-text"
+          className="font-reckless text-[#FAF5E7] text-[48px] leading-[48px] fixed bottom-[50px] left-[50px]"
+        >
+          Advanced Manufacturing<br />Company of America
+        </p>
+      )} */}
+
+
+      {windowWidth >= 1024 && (
         <div data-gsap="plane-sky-wrapper" className="w-full h-full pointer-events-none z-1">
         <img data-gsap="plane-sky" src='plane_sky.avif' className="opacity-0 w-[150px] absolute top-0 right-0" />
         </div>
@@ -478,14 +483,11 @@ export default function HeroPin() {
         </div>
       )}
 
-      {introDone && windowWidth >= 1024 && (
-        <p
-          data-gsap="hero-text"
-          className="font-reckless text-[#FAF5E7] text-[48px] leading-[48px] fixed bottom-[50px] left-[50px]"
-        >
-          Advanced Manufacturing<br />Company of America
-        </p>
-      )}
+
+      <div
+        data-gsap="hero-dim"
+        className="opacity-0 z-10 absolute top-0 left-0 w-full h-full bg-[#FFF]"
+      ></div> */
 
 
       {!isMobile && (

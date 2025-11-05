@@ -91,16 +91,16 @@ export default function ShowcaseImagesTop() {
     return (
         <div className="relative grid grid-cols-4 gap-[1vw] mx-auto max-w-[2000px]">
 
-            <div data-gsap="showcase-top-card" className="overflow-hidden z-2 relative w-full h-[33vw] bg-gradient-to-b from-[#94CBD7] to-[#E4E0DA] mt-[6vw]">
+            <div data-gsap="showcase-top-card" className="overflow-hidden z-2 relative w-full h-[33vw] bg-gradient-to-b from-[#94CBD7] to-[#E4E0DA] mt-[6vw] rounded-[16px]">
                 <img data-gsap="showcase-img-top" src="showcase/1.webp" className="scale-[1.35] md:scale-[1.15] w-full h-full object-cover" />
             </div>
-            <div data-gsap="showcase-top-card" className="overflow-hidden z-2 relative w-full h-[25vw] bg-gradient-to-b from-[#94CBD7] to-[#E4E0DA]">
+            <div data-gsap="showcase-top-card" className="overflow-hidden z-2 relative w-full h-[25vw] bg-gradient-to-b from-[#94CBD7] to-[#E4E0DA] rounded-[16px]">
                 <img data-gsap="showcase-img-top" src="showcase/2.webp" className="scale-[1.35] md:scale-[1.15] w-full h-full object-cover" />
             </div>
-            <div data-gsap="showcase-top-card" className="overflow-hidden z-2 relative w-full h-[20vw] bg-gradient-to-b from-[#94CBD7] to-[#E4E0DA]">
+            <div data-gsap="showcase-top-card" className="overflow-hidden z-2 relative w-full h-[20vw] bg-gradient-to-b from-[#94CBD7] to-[#E4E0DA] rounded-[16px]">
                 <img data-gsap="showcase-img-top" src="showcase/3.webp" className="scale-[1.35] md:scale-[1.15] w-full h-full object-cover" />
             </div>
-            <div data-gsap="showcase-top-card" className="overflow-hidden z-2 relative w-full h-[33vw] bg-gradient-to-b from-[#94CBD7] to-[#E4E0DA] mt-[6vw]">
+            <div data-gsap="showcase-top-card" className="overflow-hidden z-2 relative w-full h-[33vw] bg-gradient-to-b from-[#94CBD7] to-[#E4E0DA] mt-[6vw] rounded-[16px]">
                 <img data-gsap="showcase-img-top" src="showcase/4.webp" className="scale-[1.35] md:scale-[1.15] w-full h-full object-cover" />
             </div>
         </div>

@@ -22,8 +22,8 @@ export default function DepthStoryAbsoluteText() {
         // 1️⃣ wrapper fade-in
         ScrollTrigger.create({
           trigger: "[data-gsap='clip-1']",
-          start: "top+=9000 top",
-          end: "top+=9500 top",
+          start: "top+=6500 top",
+          end: "top+=7500 top",
           scrub: true,
           // markers: true,
           animation: gsap.fromTo(
@@ -36,8 +36,8 @@ export default function DepthStoryAbsoluteText() {
         // 2️⃣ text fade + scale
         ScrollTrigger.create({
           trigger: "[data-gsap='clip-1']",
-          start: "top+=9400 top",
-          end: "top+=10000 top",
+          start: "top+=7500 top",
+          end: "top+=9000 top",
           scrub: true,
           // markers: true,
           animation: gsap.fromTo(
@@ -50,8 +50,8 @@ export default function DepthStoryAbsoluteText() {
         // 3️⃣ color transition
         ScrollTrigger.create({
           trigger: "[data-gsap='clip-1']",
-          start: "top+=10000 top",
-          end: "top+=11000 top",
+          start: "top+=8000 top",
+          end: "top+=9000 top",
           scrub: true,
           // markers: true,
           animation: gsap.fromTo(
@@ -63,8 +63,8 @@ export default function DepthStoryAbsoluteText() {
 
         ScrollTrigger.create({
           trigger: "[data-gsap='clip-1']",
-          start: "top+=10000 top",
-          end: "top+=11000 top",
+          start: "top+=8000 top",
+          end: "top+=9000 top",
           scrub: true,
           // markers: true,
           animation: gsap.fromTo(
@@ -76,8 +76,8 @@ export default function DepthStoryAbsoluteText() {
 
         ScrollTrigger.create({
           trigger: "[data-gsap='clip-2']",
-          start: "top+=10000 top",
-          end: "top+=11000 top",
+          start: "top+=8000 top",
+          end: "top+=9000 top",
           scrub: true,
           // markers: true,
           animation: gsap.fromTo(

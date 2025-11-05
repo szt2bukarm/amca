@@ -142,30 +142,30 @@ export default function DepthStoryTimeline() {
           },
         });
 
-        pin5Trigger = ScrollTrigger.create({
-          trigger: "[data-pin='5']",
-          start: "top+=5500 top",
-          end: "top+=7000 top",
-          scrub: true,
-          // markers: true,
-          invalidateOnRefresh: true,
-          animation: gsap.fromTo(
-            "[data-pin='5']",{opacity:1},{opacity:0,ease:"linear"}
-          )
-        });
+        // pin5Trigger = ScrollTrigger.create({
+        //   trigger: "[data-pin='5']",
+        //   start: "top+=5500 top",
+        //   end: "top+=7000 top",
+        //   scrub: true,
+        //   // markers: true,
+        //   invalidateOnRefresh: true,
+        //   animation: gsap.fromTo(
+        //     "[data-pin='5']",{opacity:1},{opacity:0,ease:"linear"}
+        //   )
+        // });
 
 
-        pin6Trigger = ScrollTrigger.create({
-          trigger: "[data-pin='6']",
-          start: "top+=7200 top",
-          end: "top+=8200 top",
-          scrub: true,
-          // markers: true,
-          invalidateOnRefresh: true,
-          animation: gsap.fromTo(
-            "[data-pin='6']",{opacity:0},{opacity:0.8,ease:"linear"}
-          )
-        });
+        // pin6Trigger = ScrollTrigger.create({
+        //   trigger: "[data-pin='6']",
+        //   start: "top+=7200 top",
+        //   end: "top+=8200 top",
+        //   scrub: true,
+        //   // markers: true,
+        //   invalidateOnRefresh: true,
+        //   animation: gsap.fromTo(
+        //     "[data-pin='6']",{opacity:0},{opacity:0.8,ease:"linear"}
+        //   )
+        // });
 
       }, 100);
 
@@ -265,7 +265,7 @@ export default function DepthStoryTimeline() {
           </div>
           <div className="flex flex-col justify-end min-h-[0]">
             <p className="font-progLight text-[#F4F5F2] text-sm leading-[28px] md:text-md md:leading-[32px] tracking-[-0.8px] md:tracking-[-1.2px]">
-              Plane interior nowadays
+              Modern aircraft interior, 2020s
             </p>
           </div>
         </div>
@@ -283,7 +283,7 @@ export default function DepthStoryTimeline() {
           <div data-gsap="depthstory-timeline-bg" className="absolute top-0 left-0 h-[1px] w-[0%] bg-[#DEDDDF]"></div>
         </div>
 
-        <p className="font-reckless text-white text-sm md:text-md tracking-[-1.2px]">Nowadays</p>
+        <p className="font-reckless text-white text-sm md:text-md tracking-[-1.2px]">2020s</p>
       </div>
 
     </div>

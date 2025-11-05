@@ -3,13 +3,13 @@ import FlipTextRoll from "./FlipTextRoll";
 
 interface Props {
   title: string;
-  location: string;
+  department: string;
   textDelay?: number
   imageNo?: number
   apply?: string
 }
 
-export default function JobBoardListingCard({ title, location, textDelay, imageNo, apply }: Props) {
+export default function JobBoardListingCard({ title, department, textDelay, imageNo, apply }: Props) {
 
 
   return (
@@ -23,21 +23,21 @@ export default function JobBoardListingCard({ title, location, textDelay, imageN
             <div className="absolute w-full h-full [backface-visibility:hidden] flex items-center px-[0.5vw]">
 
                 <div className="max-w-[63%] min-w-[63%] flex items-center">
-                    <FlipTextRoll text={title} delay={textDelay} color="white"/>
+                    <FlipTextRoll text={title} delay={textDelay} color="#ddd8d1"/>
                 </div>
                 <div className="max-w-[23%] min-w-[23%] flex items-center ml-[1vw]">
-                    <FlipTextRoll text={location} delay={textDelay} color="white"/>
+                    <FlipTextRoll text={department} delay={textDelay} color="#ddd8d1"/>
                 </div>
                 <img src={`jobboard/apply/${imageNo}.webp`} className="w-[10%] ml-auto scale-[1.3] translate-x-[-0.5vw]"/>
             </div>
 
             {/* Back side */}
-            <div className="absolute w-full h-full [backface-visibility:hidden] [transform:rotateX(-180deg)] bg-white flex items-center px-[0.5vw]">
+            <div className="absolute w-full h-full [backface-visibility:hidden] [transform:rotateX(-180deg)] bg-[#ddd8d1] flex items-center px-[0.5vw]">
                 <div className="max-w-[63%] min-w-[63%] flex items-center">
                   <FlipTextRoll text={title} delay={textDelay} color="black"/>
                 </div>
                 <div className="max-w-[23%] min-w-[23%] flex items-center ml-[1vw]">
-                    <FlipTextRoll text={location} delay={textDelay} color="black"/>
+                    <FlipTextRoll text={department} delay={textDelay} color="black"/>
                 </div>
                 <img src={`jobboard/apply/${imageNo}.webp`} className="w-[10%] ml-auto scale-[1.3] translate-x-[-0.5vw]"/>
             </div>

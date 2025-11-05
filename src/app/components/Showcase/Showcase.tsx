@@ -36,13 +36,15 @@ export default function Showcase() {
     return (
         <div data-gsap='showcase' className="pt-[100vh] relative w-full h-full bg-[#FAF5EF] z-10">
 
+                <div className="h-[100px] md:h-[200px]"></div>
+
                 <div data-gsap="showcase-title" className="absolute top-[calc(100vh-150px)] md:top-[calc(100vh-200px)] left-[50%] translate-x-[-50%] flex flex-col justify-center items-center z-10">
                     <p className="font-reckless text-[#232323] text-lg leading-[44px] md:text-h4 md:leading-[60px] lg:text-h3 lg:leading-[74px] w-screen text-center">We don't</p>
                     <p className="font-reckless text-[#232323] text-lg leading-[44px] md:text-h4 md:leading-[60px] lg:text-h3 lg:leading-[74px] w-screen text-center">think it has to</p>
                     <p className="font-reckless text-[#232323] text-lg leading-[44px] md:text-h4 md:leading-[60px] lg:text-h3 lg:leading-[74px] w-screen text-center">be this way.</p>
                 </div>
 
-                <ShowcaseAmcaLogo />
+                {/* <ShowcaseAmcaLogo /> */}
                 
                 <div data-gsap='showcase-nav-change' className="flex items-center justify-center w-full h-full pt-[30px] pb-[200px]">
                     <ShowcaseText dotColor="blue" textColor="black">

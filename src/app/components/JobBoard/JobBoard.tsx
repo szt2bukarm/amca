@@ -33,14 +33,14 @@ export default function JobBoard() {
       </div>
 
       <div className="flex flex-col items-center justify-center gap-[0.5vw]">
-        <p className="font-progRegular text-white opacity-50 text-[1.5vw] leading-[1.5vw]">
+        <p className="font-progRegular text-[#faf5ef] opacity-50 text-[1.3vw] leading-[1.3vw]">
           PAGE {currentPage + 1} OF {totalPage}
         </p>
 
         <div className="flex gap-[2vw]">
           <button
             disabled={currentPage === 0}
-            className="cursor-pointer disabled:opacity-20 hover:opacity-75 transition-all duration-150 font-progRegular text-white text-[1.5vw] leading-[1.5vw]"
+            className="cursor-pointer disabled:opacity-20 hover:opacity-75 transition-all duration-150 font-progRegular text-[#faf5ef] text-[1.5vw] leading-[1.5vw]"
             onClick={() => setCurrentPage(currentPage - 1)}
           >
             {"< PREV."}
@@ -48,7 +48,7 @@ export default function JobBoard() {
 
           <button
             disabled={currentPage === totalPage - 1}
-            className="cursor-pointer disabled:opacity-20 hover:opacity-75 transition-all duration-150 font-progRegular text-white text-[1.5vw] leading-[1.5vw]"
+            className="cursor-pointer disabled:opacity-20 hover:opacity-75 transition-all duration-150 font-progRegular text-[#faf5ef] text-[1.5vw] leading-[1.5vw]"
             onClick={() => setCurrentPage(currentPage + 1)}
           >
             {"NEXT >"}

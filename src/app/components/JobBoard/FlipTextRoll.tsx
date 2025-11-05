@@ -39,7 +39,7 @@ export default function FlipTextRoll({
       span.style.display = "inline-block";
       span.style.width = "auto";
       span.style.textAlign = "center";
-      span.style.fontFamily = "Programme-Regular";
+      span.style.fontFamily = "InriaSans-Light";
       span.style.color = color;
       span.style.fontSize = "1.3vw";
       span.style.flexShrink = "0";

@@ -40,7 +40,7 @@ export default function JobBoardMobile() {
     return (
         <div className="block md:hidden relative w-full h-fit overflow-hidden">
             <p className="font-reckless relative text-[15vw] tracking-[-1vw] text-center z-[11] py-[150px] text-title">
-                Open Jobs
+                Open Roles
             </p>
 
             {/* gradient */}
@@ -58,22 +58,22 @@ export default function JobBoardMobile() {
                 <img src="joinus.svg" className="absolute left-1/2 translate-x-[-50%] top-[15vw] w-[40vw]" />
 
                 <div className="w-full h-full bg-[#232323]">
-                    <p className="text-white font-progLightIta text-[14px] ml-[20px] mt-[10px] mb-[10px]">
-                        TITLE AND LOCATION
+                    <p className="text-[#ddd8d1] font-progLightIta text-[14px] ml-[20px] mt-[10px] mb-[10px]">
+                        TITLE AND DEPARTMENT
                     </p>
 
                     {jobs.map((job: any, index: number) => (
                         <a className="w-full h-full" href={job.apply} target="_blank" >
                         <div
                             key={index}
-                            className="cursor-pointer transition-colors duration-150 group w-[calc(100%-20px)] h-fit flex p-[10px] bg-[#303032] hover:bg-white shadow-[inset_0_1px_8.1px_0_rgba(0,0,0,0.5)] mx-[10px] items-center"
+                            className="cursor-pointer transition-colors duration-150 group w-[calc(100%-20px)] h-fit flex p-[10px] bg-[#303032] hover:bg-[#ddd8d1] shadow-[inset_0_1px_8.1px_0_rgba(0,0,0,0.5)] mx-[10px] items-center"
                         >
                             <div className="flex flex-col justify-center w-[80%]">
-                                <p className="transition-colors duration-150 font-progRegular text-[18px] text-white group-hover:text-black">
+                                <p className="transition-colors duration-150 font-progRegular text-[18px] text-[#ddd8d1] group-hover:text-black">
                                     {job.title}
                                 </p>
-                                <p className="transition-colors duration-150 font-progRegular text-[18px] text-white group-hover:text-black opacity-50">
-                                    {job.location}
+                                <p className="transition-colors duration-150 font-progRegular text-[18px] text-[#ddd8d1] group-hover:text-black opacity-50">
+                                    {job.department}
                                 </p>
                             </div>
                             <img

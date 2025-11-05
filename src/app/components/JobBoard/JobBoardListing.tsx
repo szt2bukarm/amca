@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 interface Job {
   title: string;
-  location: string;
+  department: string;
   apply: string;
 }
 
@@ -59,7 +59,7 @@ export default function JobBoardListing({ jobs = [], currentPage }: Props) {
     ...jobs,
     ...Array(Math.max(0, 7 - jobs.length)).fill({
       title: "",
-      location: "",
+      department: "",
     }),
   ];
 
@@ -83,18 +83,18 @@ export default function JobBoardListing({ jobs = [], currentPage }: Props) {
   return (
     <div data-gsap='jobboard-listings' ref={containerRef} className="flex flex-col gap-[0.2vw]">
       <div className="flex w-[53vw] mb-[0.2vw]">
-        <p className="w-[65%] font-progLightIta text-white text-[0.8vw]">
+        <p className="w-[65%] font-progLightIta text-[#faf5ef] text-[0.8vw]">
           TITLE
         </p>
-        <p className="font-progLightIta text-white text-[0.8vw]">LOCATION</p>
+        <p className="font-progLightIta text-[#faf5ef] text-[0.8vw]">DEPARTMENT</p>
       </div>
   
       {Array(7)
         .fill(null)
         .map((_, index) => {
           const job = showData
-            ? filledJobs[index] || { title: "", location: "", apply: "" }
-            : { title: "", location: "", apply: "" };
+            ? filledJobs[index] || { title: "", department: "", apply: "" }
+            : { title: "", department: "", apply: "" };
   
           return (
             <div
@@ -104,7 +104,7 @@ export default function JobBoardListing({ jobs = [], currentPage }: Props) {
               <div className="job-card-inner w-full h-full [transform-style:preserve-3d]">
                 <JobBoardListingCard
                   title={job.title}
-                  location={job.location}
+                  department={job.department}
                   textDelay={index * 100}
                   apply={job.apply}
                   imageNo={imageNumbers[index]}

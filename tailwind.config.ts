@@ -14,6 +14,7 @@ const config: Config = {
         progRegular: ["Programme-Regular", "sans-serif"],
         progLightIta: ["Programme-LightIta", "sans-serif"],
         progLight: ["Programme-Light", "sans-serif"],
+        asapLight: ["InriaSans-Light", "sans-serif"],
       },
       colors: {
         title: "#F9F5F0",

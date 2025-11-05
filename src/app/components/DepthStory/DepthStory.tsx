@@ -18,26 +18,66 @@ export default function DepthStory() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       let split: SplitText | null = null;
+      let split2: SplitText | null = null;
       let textTrigger: ScrollTrigger | null = null;
+      let textTrigger2: ScrollTrigger | null = null;
+      let textTrigger3: ScrollTrigger | null = null;
+      let text1Fade : ScrollTrigger | null = null;
   
       const setup = () => {
         textTrigger?.kill();
         split?.revert();
   
-        split = new SplitText("[data-gsap='depthstory-text']", {
+        split = new SplitText("[data-gsap='depthstory-text-1']", {
+          type: "words",
+        });
+        split2 = new SplitText("[data-gsap='depthstory-text-2']", {
           type: "words",
         });
   
-        gsap.set(split.words, { opacity: 0 });
+        gsap.set([split.words,split2.words], { opacity: 0 });
   
         textTrigger = ScrollTrigger.create({
           trigger: "[data-pin='1']",
-          start: "top+=5500 top",
-          end: "top+=7500 top",
+          start: "top+=250 top",
+          end: "top+=1250 top",
           scrub: true,
           animation: gsap.fromTo(
-            split.words,
+            split.words.slice(0,4),
             { opacity: 0 },
+            { opacity: 1, stagger: 0.1, ease: "power4.inOut" }
+          ),
+        });
+
+        textTrigger2 = ScrollTrigger.create({
+          trigger: "[data-pin='1']",
+          start: "top+=1500 top",
+          end: "top+=2500 top",
+          scrub: true,
+          animation: gsap.fromTo(
+            split.words.slice(4,split.words.length),
+            { opacity: 0 },
+            { opacity: 1, stagger: 0.1, ease: "power4.inOut" }
+          ),
+        });
+
+        text1Fade = ScrollTrigger.create({
+          trigger: "[data-pin='1']",
+          start: "top+=2550 top",
+          end: "top+=2950 top",
+          scrub: true,
+          markers: true,
+          animation: gsap.fromTo(split.words, { opacity: 1 }, { opacity: 0,immediateRender: false }),
+        });
+
+        textTrigger3 = ScrollTrigger.create({
+          trigger: "[data-pin='1']",
+          start: "top+=3000 top",
+          end: "top+=5500 top",
+          scrub: true,
+          animation: gsap.fromTo(
+            split2.words,
+            { opacity: 0,},
             { opacity: 1, stagger: 0.1, ease: "power4.inOut" }
           ),
         });
@@ -55,7 +95,7 @@ export default function DepthStory() {
         ScrollTrigger.create({
             trigger: "[data-gsap='depthstory']",
             start: "top top",
-            end: "+=10000", 
+            end: "+=8000", 
             pin: true,
             scrub: true,
             // markers: true,
@@ -63,7 +103,11 @@ export default function DepthStory() {
 
       return () => {
         textTrigger?.kill();
+        textTrigger2?.kill();
+        textTrigger3?.kill();
+        text1Fade?.kill();
         split?.revert();
+        split2?.revert();
       };
     })
     return () => ctx.revert();
@@ -91,6 +135,8 @@ export default function DepthStory() {
         <div data-gsap="depthstory" className="relative h-[100dvh] bg-[#232323]">
           <div data-gsap="depthstory-dim" className="absolute top-0 left-0 w-full h-full bg-[#FFF] z-20"></div>
 
+        <div className="absolute top-0 left-0 w-screen h-[100dvh] bg-gradient-to-tr from-[#000000c1] to-transparent z-10"></div>
+
         {/* gradient */}
         <div className="absolute top-0 left-0 w-screen h-[100dvh] z-10">
             <div className="relative w-full h-[100dvh]">
@@ -100,7 +146,8 @@ export default function DepthStory() {
             </div>
         </div>
 
-        <p data-gsap="depthstory-text" className="absolute top-[50%] translate-y-[-50%] left-[20px] md:left-[50px] font-reckless text-sm leading-[28px] md:text-lg md:leading-[48px] text-[#FAF5EF] w-[348px] md:w-[642px] z-10">Aviation was once humanity's boldest ambition, but the industry hasn't successfully built a new plane in 40 years.</p>
+        <p data-gsap="depthstory-text-1" style={{filter: "drop-shadow(0px 0px 30px rgba(0, 0, 0, 1))"}} className="absolute top-[50%] translate-y-[-50%] left-[20px] md:left-[50px] font-reckless text-sm leading-[28px] md:text-lg md:leading-[48px] text-[#FAF5EF] w-[348px] md:w-[642px] z-10">Aviation used to dream.<br></br>Today, the flying experience is something to be avoided.</p>
+        <p data-gsap="depthstory-text-2" style={{filter: "drop-shadow(0px 0px 30px rgba(0, 0, 0, 1))"}} className="absolute top-[50%] translate-y-[-50%] left-[20px] md:left-[50px] font-reckless text-sm leading-[28px] md:text-lg md:leading-[48px] text-[#FAF5EF] w-[348px] md:w-[642px] z-10">Aviation was once humanity's boldest ambition, but the industry hasn't successfully built a new plane in 40 years.</p>
 
 
         <div data-pin="1" className="h-screen  absolute top-0 left-0 z-[6]">
@@ -223,7 +270,7 @@ export default function DepthStory() {
               )}
         </div>
       </div>
-      <div data-pin="6" className="h-screen absolute top-0 left-0 z-[1]">
+      {/* <div data-pin="6" className="h-screen absolute top-0 left-0 z-[1]">
       {isMobile ? (
                 <img src="depthstory/wait_normal.jpg" className="w-screen h-screen object-cover" />
               ) : (
@@ -244,7 +291,7 @@ export default function DepthStory() {
           />
         </Canvas>
         )}
-      </div>
+      </div> */}
     </div>
     )
 }

@@ -22,7 +22,7 @@ const useAshbyJobs = () => {
         // Map jobs to your desired format
         const formattedJobs = data.jobs.map((job) => ({
           title: job.title,
-          location: job.location,
+          department: job.department,
           apply: job.applyUrl,
         }));
 
