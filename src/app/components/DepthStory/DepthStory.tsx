@@ -66,7 +66,7 @@ export default function DepthStory() {
           start: "top+=2550 top",
           end: "top+=2950 top",
           scrub: true,
-          markers: true,
+          // markers: true,
           animation: gsap.fromTo(split.words, { opacity: 1 }, { opacity: 0,immediateRender: false }),
         });
 

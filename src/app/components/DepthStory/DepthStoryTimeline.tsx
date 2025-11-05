@@ -259,12 +259,12 @@ export default function DepthStoryTimeline() {
           className="absolute top-0 left-0 w-full"
           >
           <div className="flex flex-col justify-end min-h-[0]">
-            <p className="font-progLight text-[#F4F5F2] text-sm leading-[28px] md:text-md md:leading-[32px] tracking-[-0.8px] md:tracking-[-1.2px]">
+            <p className="font-progLight text-[#F4F5F2] text-xs leading-[23px] md:text-md md:leading-[32px] tracking-[-0.8px] md:tracking-[-1.2px]">
               Braniff International Airways Lounge, 1970
             </p>
           </div>
           <div className="flex flex-col justify-end min-h-[0]">
-            <p className="font-progLight text-[#F4F5F2] text-sm leading-[28px] md:text-md md:leading-[32px] tracking-[-0.8px] md:tracking-[-1.2px]">
+            <p className="font-progLight text-[#F4F5F2] text-xs leading-[23px] md:text-md md:leading-[32px] tracking-[-0.8px] md:tracking-[-1.2px]">
               Modern aircraft interior, 2020s
             </p>
           </div>
