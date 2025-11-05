@@ -97,7 +97,7 @@ export default function HeroPin() {
     };
     setTimeout(() => {
     playIntro();
-    }, 1200);
+    }, isMobile ? 0 : 1200);
 
     const startScrollSequence = () => {
       const pinStart = canvasRef.current?.offsetTop || 0;

@@ -11,6 +11,7 @@ export default function DepthStoryAbsoluteText() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       setTimeout(() => {
+
         // setup initial state
         gsap.set(wrapperRef.current, { opacity: 0, backgroundColor: "#232323" });
         gsap.set("[data-gsap='depthstory-absolute-text-item']", {
@@ -86,6 +87,33 @@ export default function DepthStoryAbsoluteText() {
             { filter: "invert(1)", ease: "linear",immediateRender: false }
           ),
         });
+
+
+        // fast scroll safety triggers
+        ScrollTrigger.create({
+          trigger: "[data-gsap='clip-1']",
+          start: "top+=2000 top",
+          end: "top+=1000 top",
+          scrub: true,
+          animation: gsap.fromTo(
+            wrapperRef.current,
+            { opacity: 1 },
+            { opacity: 0,duration: 0, immediateRender: false }
+          ),
+        })
+
+        ScrollTrigger.create({
+          trigger: "[data-gsap='showcase']",
+          start: "top+=1000 top",
+          end: "top+=2000 top",
+          scrub: true,
+          animation: gsap.fromTo(
+            wrapperRef.current,
+            { opacity: 1 },
+            { opacity: 0,duration:0, immediateRender: false }
+          ),
+        })
+
       }, 100);
     });
   
