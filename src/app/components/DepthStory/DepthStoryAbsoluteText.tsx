@@ -36,8 +36,8 @@ export default function DepthStoryAbsoluteText() {
         // 2️⃣ text fade + scale
         ScrollTrigger.create({
           trigger: "[data-gsap='clip-1']",
-          start: "top+=7500 top",
-          end: "top+=9000 top",
+          start: "top+=7000 top",
+          end: "top+=8000 top",
           scrub: true,
           // markers: true,
           animation: gsap.fromTo(

@@ -95,7 +95,9 @@ export default function HeroPin() {
       frame += introSpeed;
       requestAnimationFrame(playIntro);
     };
+    setTimeout(() => {
     playIntro();
+    }, 1200);
 
     const startScrollSequence = () => {
       const pinStart = canvasRef.current?.offsetTop || 0;
@@ -143,25 +145,24 @@ export default function HeroPin() {
   useGSAP(() => {
     if (!introDone || !lenis) return;
     gsap.set("[data-gsap='idle-plane']", { opacity: 1 });
-    gsap.to("[data-gsap='hero-logo']", {
-      opacity: 1,
-      y: 0,
-      duration: 0.75,
-      stagger: 0.05,
-      ease: "cEase",
-      onComplete: () => {
-        setTimeout(() => {
-          lenis?.start();
-          document.documentElement.style.overflow = "auto";
-          document.documentElement.style.touchAction = "auto";
-          if (isMobile) {
-            ScrollTrigger.normalizeScroll(true);
-          } else {
-            ScrollTrigger.normalizeScroll(false);
-          }
-        }, 500);
-      },
-    });
+    // gsap.to("[data-gsap='hero-logo']", {
+    //   opacity: 1,
+    //   y: 0,
+    //   duration: 0.75,
+    //   stagger: 0.05,
+    //   ease: "cEase",
+    //   onComplete: () => {
+      setTimeout(() => {
+        lenis?.start();
+        document.documentElement.style.overflow = "auto";
+        document.documentElement.style.touchAction = "auto";
+        if (isMobile) {
+          ScrollTrigger.normalizeScroll(true);
+        } else {
+          ScrollTrigger.normalizeScroll(false);
+        }
+      }, 200);  
+    // });
     // gsap.set("[data-gsap='nav-logo-desktop'],[data-gsap='nav-logo-mobile']", {
     //   opacity: 1,
     //   y: 100,

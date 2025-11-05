@@ -39,8 +39,8 @@ export default function DepthStory() {
   
         textTrigger = ScrollTrigger.create({
           trigger: "[data-pin='1']",
-          start: "top+=250 top",
-          end: "top+=1250 top",
+          start: "top+=200 top",
+          end: "top+=1200 top",
           scrub: true,
           animation: gsap.fromTo(
             split.words.slice(0,4),
@@ -52,7 +52,7 @@ export default function DepthStory() {
         textTrigger2 = ScrollTrigger.create({
           trigger: "[data-pin='1']",
           start: "top+=1500 top",
-          end: "top+=2500 top",
+          end: "top+=2700 top",
           scrub: true,
           animation: gsap.fromTo(
             split.words.slice(4,split.words.length),
@@ -63,8 +63,8 @@ export default function DepthStory() {
 
         text1Fade = ScrollTrigger.create({
           trigger: "[data-pin='1']",
-          start: "top+=2550 top",
-          end: "top+=2950 top",
+          start: "top+=2850 top",
+          end: "top+=3100 top",
           scrub: true,
           // markers: true,
           animation: gsap.fromTo(split.words, { opacity: 1 }, { opacity: 0,immediateRender: false }),
@@ -72,8 +72,8 @@ export default function DepthStory() {
 
         textTrigger3 = ScrollTrigger.create({
           trigger: "[data-pin='1']",
-          start: "top+=3000 top",
-          end: "top+=5500 top",
+          start: "top+=3100 top",
+          end: "top+=5750 top",
           scrub: true,
           animation: gsap.fromTo(
             split2.words,

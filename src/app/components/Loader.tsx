@@ -176,7 +176,7 @@ export default function Loader() {
       //   onComplete: () => {
           gsap.to('[data-gsap="loader"]', {
               opacity: 0,
-              delay: 0.5,
+              delay: 0.7,
               duration: 0.5,
               onStart: () => {
                 gsap.set('[data-gsap="nav-logo-desktop"],[data-gsap="nav-logo-mobile"]', { opacity:1 });
