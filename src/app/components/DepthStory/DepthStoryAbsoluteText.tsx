@@ -91,10 +91,13 @@ export default function DepthStoryAbsoluteText() {
 
         // fast scroll safety triggers
         ScrollTrigger.create({
-          trigger: "[data-gsap='clip-1']",
+          trigger: "[data-gsap='hero']",
           start: "top+=2000 top",
           end: "top+=1000 top",
           scrub: true,
+          onEnter: () => gsap.set(wrapperRef.current, { opacity: 0 }),
+          onLeave: () => gsap.set(wrapperRef.current, { opacity: 0 }),
+          onUpdate: () => gsap.set(wrapperRef.current, { opacity: 0 }),
           animation: gsap.fromTo(
             wrapperRef.current,
             { opacity: 1 },
@@ -103,10 +106,13 @@ export default function DepthStoryAbsoluteText() {
         })
 
         ScrollTrigger.create({
-          trigger: "[data-gsap='showcase']",
-          start: "top+=1000 top",
-          end: "top+=2000 top",
+          trigger: "[data-gsap='jobboard-title']",
+          start: "top-=1000 top",
+          end: "top+=1000 top",
           scrub: true,
+          onEnter: () => gsap.set(wrapperRef.current, { opacity: 0 }),
+          onLeave: () => gsap.set(wrapperRef.current, { opacity: 0 }),
+          onUpdate: () => gsap.set(wrapperRef.current, { opacity: 0 }),
           animation: gsap.fromTo(
             wrapperRef.current,
             { opacity: 1 },

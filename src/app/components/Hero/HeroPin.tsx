@@ -390,7 +390,7 @@ export default function HeroPin() {
   }, [isMobile, introDone]);
 
   return (
-    <div ref={containerRef} className="relative">
+    <div data-gsap="hero" ref={containerRef} className="relative">
       <canvas ref={canvasRef} style={{ width: "100vw", height: "100dvh" }} />
       {/* <canvas
         ref={noiseCanvasRef}
