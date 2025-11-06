@@ -196,7 +196,7 @@ export default function Loader() {
           </svg>
           
             {progress != 100 && (
-            <p className="absolute top-[-5px] right-0 text-white text-[12px]">{Math.round(progress)}</p>
+            <p className="absolute top-0 right-0 text-white text-[12px]">{Math.round(progress)}</p>
             )}
         </div>
       {/* <p className="text-white text-h1">

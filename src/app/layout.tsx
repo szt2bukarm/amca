@@ -7,7 +7,7 @@ import Nav from "./components/Nav";
 import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
-  title: "AMCA Careers",
+  title: "Amca - Careers",
   description: "Amca is building airplanes for the 21st century, starting by designing new hardware that flies on today’s planes. We’re a team of engineers creating new parts and subsystems to launch our civilization’s next great airplane.",
   keywords: [  
     "aerospace jobs",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     "fast-paced careers"
   ],
   openGraph: {
-    title: "AMCA Careers",
+    title: "Amca - Careers",
     description: "Amca is building airplanes for the 21st century, starting by designing new hardware that flies on today’s planes. We’re a team of engineers creating new parts and subsystems to launch our civilization’s next great airplane.",
     url: "https://careers.amca.com",
     siteName: "Amca Careers",
