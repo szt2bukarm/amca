@@ -390,6 +390,11 @@ export default function HeroPin() {
 
   return (
     <div data-gsap="hero" ref={containerRef} className="relative">
+
+      {isMobile && (
+      <p className="absolute bottom-[40px] left-[20px] w-screen h-fit text-[20px] text-white font-progRegular z-[10]">Scroll to explore</p>
+      )}
+
       <canvas ref={canvasRef} style={{ width: "100vw", height: "100dvh" }} />
       {/* <canvas
         ref={noiseCanvasRef}
@@ -455,7 +460,7 @@ export default function HeroPin() {
         </div>
       )}
 
-      {windowWidth >= 1024 && (
+      {windowWidth > 1024 && (
         <div className="w-full h-full z-[2]" data-gsap="idle-plane-scroll">
           <div
             data-gsap="idle-plane"
@@ -469,7 +474,7 @@ export default function HeroPin() {
         </div>
       )}
 
-      {windowWidth < 1024 && (
+      {windowWidth <= 1024 && (
         <div className="w-full h-full" data-gsap="idle-plane-scroll">
           <div
             data-gsap="idle-plane"
@@ -495,6 +500,7 @@ export default function HeroPin() {
         <p data-gsap="scroll-to-explore" className="opacity-0 absolute top-0 left-0 text-white font-progRegular text-[16px]">Scroll to explore</p>
         </div>
         )}
+
     </div>
   );
 }

@@ -84,7 +84,7 @@ export default function Loader() {
     new Promise<void>((resolve) => {
       const frames: HTMLImageElement[] = [];
       const windowWidth = window.innerWidth;
-      const folder = windowWidth < 1024 ? "sequence/mobile" : "sequence/desktop";
+      const folder = windowWidth <= 1024 ? "sequence/mobile" : "sequence/desktop";
       let loadedCount = 0;
 
       for (let i = 1; i <= totalFrames; i++) {
