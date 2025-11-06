@@ -13,6 +13,7 @@ export default function Showcase() {
     useGSAP(() => {
         const ctx = gsap.context(() => {
             let trigger: ScrollTrigger;
+            let opacityTrigger: ScrollTrigger;
             setTimeout(() => {
                 trigger = ScrollTrigger.create({
                     trigger: "[data-gsap='showcase-title']",
@@ -27,6 +28,15 @@ export default function Showcase() {
                         gsap.set("[data-gsap='depthstory-absolute-text']", {opacity: 1})
                     }
                 });
+
+                opacityTrigger = ScrollTrigger.create({
+                    trigger: "[data-gsap='showcase-opacity-trigger']",
+                    start: "top 50%",
+                    end: "bottom 50%",
+                    scrub: true,
+                    // markers: true,
+                    animation: gsap.fromTo("[data-gsap='showcase-opacity-target']", {opacity: 0, }, {opacity: 1, }),
+                })
             }, 100);
             return () => trigger?.kill();
         })
@@ -36,13 +46,14 @@ export default function Showcase() {
     return (
         <div data-gsap='showcase' className="pt-[100vh] relative w-full h-full bg-[#FAF5EF] z-10">
 
-                <div className="h-[100px] md:h-[200px]"></div>
+                <div data-gsap='showcase-opacity-trigger' className="h-[100px] md:h-[200px]"></div>
 
                 <div data-gsap="showcase-title" className="absolute top-[calc(100vh-150px)] md:top-[calc(100vh-200px)] left-[50%] translate-x-[-50%] flex flex-col justify-center items-center z-10">
                     <p className="font-reckless text-[#232323] text-lg leading-[44px] md:text-h4 md:leading-[60px] lg:text-h3 lg:leading-[74px] w-screen text-center">We don't</p>
                     <p className="font-reckless text-[#232323] text-lg leading-[44px] md:text-h4 md:leading-[60px] lg:text-h3 lg:leading-[74px] w-screen text-center">think it has to</p>
                     <p className="font-reckless text-[#232323] text-lg leading-[44px] md:text-h4 md:leading-[60px] lg:text-h3 lg:leading-[74px] w-screen text-center">be this way.</p>
                 </div>
+                <div data-gsap='showcase-opacity-target' className="w-full h-full">
 
                 {/* <ShowcaseAmcaLogo /> */}
                 
@@ -66,6 +77,8 @@ export default function Showcase() {
 
                 <ShowcaseImagesBottom />
                 </div>
+                </div>
+
 
         </div>
     )
