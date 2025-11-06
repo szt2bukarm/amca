@@ -36,7 +36,7 @@ export default function Footer() {
 
             <div className="flex flex-col items-center font-reckless w-fit h-fit text-[17.5vw] leading-[13vw] md:text-h2 md:leading-[80px] text-blue">
                 {/* <p data-gsap="footer-1" className="tracking-[-0.9vw] md:tracking-[-7px] ml-[11.5vw] md:ml-[50px]">Now,</p> */}
-                <p data-gsap="footer-2" className="tracking-[-0.9vw] md:tracking-[-7px] ">The sky has</p>
+                <p data-gsap="footer-2" className="tracking-[-0.9vw] md:tracking-[-7px] ">The Sky has</p>
                 <p data-gsap="footer-3" className="tracking-[-0.9vw] md:tracking-[-7px]">No Limits.</p>
             </div>
             <svg xmlns="http://www.w3.org/2000/svg" className="w-[10vw] md:w-[85px]" viewBox="0 0 85 59" fill="none">

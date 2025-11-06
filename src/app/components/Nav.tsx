@@ -44,7 +44,7 @@ export default function Nav() {
       });
       setTimeout(() => {
         setAllowButton(true);
-      }, 4500);
+      }, 4000);
     }
   }, [loaded]);
 
