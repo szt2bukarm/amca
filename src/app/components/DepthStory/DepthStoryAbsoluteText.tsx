@@ -82,7 +82,7 @@ export default function DepthStoryAbsoluteText() {
           scrub: true,
           // markers: true,
           animation: gsap.fromTo(
-            "[data-gsap='nav-logo-desktop'],[data-gsap='nav-logo-mobile'],[data-gsap='nav-careers'],[data-gsap='nav-text']",
+            "[data-gsap='nav-logo-desktop'],[data-gsap='nav-logo-mobile'],[data-gsap='nav-careers']",
             { filter: "invert(0)" },
             { filter: "invert(1)", ease: "linear",immediateRender: false }
           ),

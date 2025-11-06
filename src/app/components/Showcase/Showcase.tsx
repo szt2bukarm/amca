@@ -46,7 +46,7 @@ export default function Showcase() {
 
                 {/* <ShowcaseAmcaLogo /> */}
                 
-                <div data-gsap='showcase-nav-change' className="flex items-center justify-center w-full h-full pt-[30px] pb-[200px]">
+                <div className="flex items-center justify-center w-full h-full pt-[30px] pb-[200px]">
                     <ShowcaseText dotColor="blue" textColor="black">
                     <span style={{ display: "inline-block", width: "3.5ch" }}></span>
                     Amca is building airplanes for the 21st century, starting by designing new hardware that flies on today’s planes. 

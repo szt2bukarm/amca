@@ -24,13 +24,12 @@ gsap.registerPlugin(ScrollTrigger);
         ScrollTrigger.create({
           trigger: "[data-scroll='jobboard']",
           id: "jobboard",
-          start: "top top",
-          onEnter: () => {
-            gsap.to("[data-gsap='nav-careers']", {opacity: 0, ease: "power4.inOut"})
-          },
-          onEnterBack: () => {
-            gsap.to("[data-gsap='nav-careers']", {opacity: 1, ease: "power4.inOut"})
-          }
+          start: "top-=200 top",
+          end: "top top",
+          markers: true,
+          scrub: true,
+          animation: gsap.fromTo("[data-gsap='nav-careers']", {opacity: 1}, {opacity: 0, immediateRender: false}),
+
         })
       }, 1000);
     },[])

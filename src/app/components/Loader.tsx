@@ -29,16 +29,16 @@ const assets = [
   "showcase/6.webp",
   "showcase/7.webp",
   "showcase/8.webp",
-  "showcase/amcalogobg.webp",
-  "amca_a_blue_lower.webp",
-  "amca_a_blue.webp",
-  "amca_a_lower.webp",
-  "amca_a.webp",
-  "amca_c_blue.webp",
-  "amca_c.webp",
-  "amca_m_blue.webp",
-  "amca_m.webp",
-  "amca.webp",
+  // "showcase/amcalogobg.webp",
+  // "amca_a_blue_lower.webp",
+  // "amca_a_blue.webp",
+  // "amca_a_lower.webp",
+  // "amca_a.webp",
+  // "amca_c_blue.webp",
+  // "amca_c.webp",
+  // "amca_m_blue.webp",
+  // "amca_m.webp",
+  // "amca.webp",
   "joinus.svg",
   "sequence/desktop/idle_transparent_0.avif",
   "sequence/desktop/idle_transparent_1.avif",
@@ -168,12 +168,6 @@ export default function Loader() {
   // hide loader when done
   useEffect(() => {
     if (loaded && domReady) {
-      // gsap.to('[data-gsap="loader-logo-full"]', {
-      //   y: -150,
-      //   ease: "power4.in",
-      //   duration: 0.5,
-      //   delay: 0.35,
-      //   onComplete: () => {
           gsap.to('[data-gsap="loader"]', {
               opacity: 0,
               delay: 0.7,
@@ -185,8 +179,6 @@ export default function Loader() {
                 gsap.set('[data-gsap="loader"]', { display: "none" });
               }
           })
-        // }
-      // });
     }
   }, [loaded, domReady]);
 

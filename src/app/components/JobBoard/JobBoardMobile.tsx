@@ -68,11 +68,11 @@ export default function JobBoardMobile() {
                             key={index}
                             className="cursor-pointer transition-colors duration-150 group w-[calc(100%-20px)] h-fit flex p-[10px] bg-[#303032] hover:bg-[#ddd8d1] shadow-[inset_0_1px_8.1px_0_rgba(0,0,0,0.5)] mx-[10px] items-center"
                         >
-                            <div className="flex flex-col justify-center w-[80%]">
-                                <p className="transition-colors duration-150 font-progRegular text-[18px] text-[#ddd8d1] group-hover:text-black">
+                            <div className="flex flex-col justify-center w-[80%] mr-[20px]">
+                                <p className="transition-colors duration-150 font-inriaRegular text-[18px] text-[#ddd8d1] group-hover:text-black">
                                     {job.title}
                                 </p>
-                                <p className="transition-colors duration-150 font-progRegular text-[18px] text-[#ddd8d1] group-hover:text-black opacity-50">
+                                <p className="transition-colors duration-150 font-inriaRegular text-[18px] text-[#ddd8d1] group-hover:text-black opacity-50">
                                     {job.department}
                                 </p>
                             </div>

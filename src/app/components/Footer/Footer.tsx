@@ -9,6 +9,7 @@ export default function Footer() {
 
         const ctx = gsap.context(() => {
             let trigger: ScrollTrigger
+            let trigger2: ScrollTrigger
             setTimeout(() => {
                 gsap.set("[data-gsap='footer-2'], [data-gsap='footer-3']", {opacity: 0, scale: 1.05});
                 trigger = ScrollTrigger.create({
@@ -16,8 +17,15 @@ export default function Footer() {
                     start: "top 70%",
                     end: "bottom 70%",
                     animation: gsap.fromTo("[data-gsap='footer-2'], [data-gsap='footer-3']", {opacity: 0, scale: 1.1}, {opacity: 1, scale: 1,stagger: 0.1,duration:1, ease: "power2.out"}),
-                    onEnter: () => gsap.to("[data-gsap='nav-text'], [data-gsap='nav-logo-mobile'], [data-gsap='nav-logo-desktop']", {opacity: 0, duration: 0.3}),
-                    onEnterBack: () => gsap.to("[data-gsap='nav-text'], [data-gsap='nav-logo-mobile'], [data-gsap='nav-logo-desktop']", {opacity: 1, duration: 0.3})
+                })
+
+                trigger2 = ScrollTrigger.create({
+                    trigger: "[data-gsap='footer-2']",
+                    start: "top+=100 85%",
+                    end: "top+=200 85%",
+                    scrub: true,
+                    markers: true,
+                    animation: gsap.fromTo("[data-gsap='nav-logo-desktop'],[data-gsap='nav-logo-mobile']", {opacity: 1}, {opacity:0,immediateRender: false}),
                 })
             }, 100);
         },[])

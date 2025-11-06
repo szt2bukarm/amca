@@ -13,7 +13,7 @@ gsap.registerPlugin(ScrollTrigger, CustomEase, SplitText);
 export default function HeroPin() {
   const { loadedHeroFrames, loaded, isMobile } = useStore();
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const noiseCanvasRef = useRef<HTMLCanvasElement>(null);
+  // const noiseCanvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [introDone, setIntroDone] = useState(false);
   const [idle, setIdle] = useState(1);
@@ -179,7 +179,7 @@ export default function HeroPin() {
   useGSAP(() => {
     const ctx = gsap.context(() => {
       gsap.set("[data-gsap='idle-plane']", { opacity: 0 });
-      gsap.set("[data-gsap='hero-logo']", { y: 300, opacity: 0 });
+      // gsap.set("[data-gsap='hero-logo']", { y: 300, opacity: 0 });
     });
     return () => ctx.revert();
   }, []);
@@ -193,17 +193,17 @@ export default function HeroPin() {
           start: "top+=100 0%",
           end: "top+=300 0%",
           scrub: true,
-          animation: gsap.fromTo(
-            "[data-gsap='hero-logo']",
-            { y: 0, opacity: 1 },
-            {
-              y: -100,
-              opacity: 0,
-              stagger: 0.05,
-              ease: "power1.inOut",
-              immediateRender: false,
-            }
-          ),
+          // animation: gsap.fromTo(
+          //   "[data-gsap='hero-logo']",
+          //   { y: 0, opacity: 1 },
+          //   {
+          //     y: -100,
+          //     opacity: 0,
+          //     stagger: 0.05,
+          //     ease: "power1.inOut",
+          //     immediateRender: false,
+          //   }
+          // ),
           onLeave: () => gsap.set("[data-gsap='idle-plane']", { opacity: 0 }),
           onEnterBack: () => gsap.set("[data-gsap='idle-plane']", { opacity: 1 }),
         });
@@ -229,46 +229,46 @@ export default function HeroPin() {
   }, []);
 
   // Hero text split + scroll fade
-  useGSAP(() => {
-    if (!introDone) return;
+  // useGSAP(() => {
+  //   if (!introDone) return;
 
-    const split = new SplitText("[data-gsap='hero-text']", { type: "chars" });
-    split.chars.forEach((char) => {
-      const wrapper = document.createElement("div");
-      wrapper.style.display = "inline-block";
-      wrapper.style.overflow = "hidden";
-      char.parentNode!.insertBefore(wrapper, char);
-      wrapper.appendChild(char);
-    });
+  //   const split = new SplitText("[data-gsap='hero-text']", { type: "chars" });
+  //   split.chars.forEach((char) => {
+  //     const wrapper = document.createElement("div");
+  //     wrapper.style.display = "inline-block";
+  //     wrapper.style.overflow = "hidden";
+  //     char.parentNode!.insertBefore(wrapper, char);
+  //     wrapper.appendChild(char);
+  //   });
 
-    gsap.set(split.chars, { x: -30, y: -5, autoAlpha: 0 });
+  //   gsap.set(split.chars, { x: -30, y: -5, autoAlpha: 0 });
 
-    const tl = gsap.timeline();
-    tl.to(split.chars, {
-      x: 0,
-      autoAlpha: 1,
-      duration: 1,
-      ease: "power4.out",
-      stagger: 0.015,
-    });
+  //   const tl = gsap.timeline();
+  //   tl.to(split.chars, {
+  //     x: 0,
+  //     autoAlpha: 1,
+  //     duration: 1,
+  //     ease: "power4.out",
+  //     stagger: 0.015,
+  //   });
 
-    ScrollTrigger.create({
-      trigger: canvasRef.current,
-      start: "top+=100 0%",
-      end: "top+=1200 0%",
-      scrub: true,
-      animation: gsap.fromTo(
-        split.chars,
-        { autoAlpha: 1, x: 0 },
-        {
-          autoAlpha: 0,
-          x: 30,
-          stagger: 0.005,
-          immediateRender: false,
-        }
-      ),
-    });
-  }, [introDone]);
+  //   ScrollTrigger.create({
+  //     trigger: canvasRef.current,
+  //     start: "top+=100 0%",
+  //     end: "top+=1200 0%",
+  //     scrub: true,
+  //     animation: gsap.fromTo(
+  //       split.chars,
+  //       { autoAlpha: 1, x: 0 },
+  //       {
+  //         autoAlpha: 0,
+  //         x: 30,
+  //         stagger: 0.005,
+  //         immediateRender: false,
+  //       }
+  //     ),
+  //   });
+  // }, [introDone]);
 
   // Dim layer
   useGSAP(() => {
@@ -289,41 +289,40 @@ export default function HeroPin() {
     return () => ctx.revert();
   });
 
-  // 🎞️ NOISE LAYER
-  useEffect(() => {
-    const noiseCanvas = noiseCanvasRef.current;
-    if (!noiseCanvas) return;
-    const ctx = noiseCanvas.getContext("2d");
-    const resize = () => {
-      noiseCanvas.width = window.innerWidth;
-      noiseCanvas.height = window.innerHeight;
-    };
-    resize();
-    window.addEventListener("resize", resize);
+  // useEffect(() => {
+  //   const noiseCanvas = noiseCanvasRef.current;
+  //   if (!noiseCanvas) return;
+  //   const ctx = noiseCanvas.getContext("2d");
+  //   const resize = () => {
+  //     noiseCanvas.width = window.innerWidth;
+  //     noiseCanvas.height = window.innerHeight;
+  //   };
+  //   resize();
+  //   window.addEventListener("resize", resize);
 
-    const drawNoise = () => {
-      const imageData = ctx.createImageData(noiseCanvas.width, noiseCanvas.height);
-      const buffer32 = new Uint32Array(imageData.data.buffer);
-      const len = buffer32.length;
-      for (let i = 0; i < len; i++) {
-        const val = Math.random() * 255 | 0;
-        buffer32[i] = (255 << 24) | (val << 16) | (val << 8) | val;
-      }
-      ctx.putImageData(imageData, 0, 0);
-    };
+  //   const drawNoise = () => {
+  //     const imageData = ctx.createImageData(noiseCanvas.width, noiseCanvas.height);
+  //     const buffer32 = new Uint32Array(imageData.data.buffer);
+  //     const len = buffer32.length;
+  //     for (let i = 0; i < len; i++) {
+  //       const val = Math.random() * 255 | 0;
+  //       buffer32[i] = (255 << 24) | (val << 16) | (val << 8) | val;
+  //     }
+  //     ctx.putImageData(imageData, 0, 0);
+  //   };
 
-    let frame = 0;
-    const loop = () => {
-      frame++;
-      if (frame % 10 === 0) drawNoise(); // every few frames for perf
-      requestAnimationFrame(loop);
-    };
-    loop();
+  //   let frame = 0;
+  //   const loop = () => {
+  //     frame++;
+  //     if (frame % 10 === 0) drawNoise(); // every few frames for perf
+  //     requestAnimationFrame(loop);
+  //   };
+  //   loop();
 
-    return () => {
-      window.removeEventListener("resize", resize);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("resize", resize);
+  //   };
+  // }, []);
 
 
   useGSAP(() => {

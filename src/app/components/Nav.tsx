@@ -87,10 +87,9 @@ export default function Nav() {
       if (lenis) {
         setShowData(false);
         const element = ScrollTrigger.getById("jobboard")
-        console.log(element.start);
-        // console.log(element.scrollTop);
         lenis.scrollTo(element?.start, {
-          duration: 2
+          duration: 2,
+          offset: 200
         })
       }
       setTimeout(() => {
