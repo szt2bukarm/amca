@@ -392,7 +392,7 @@ export default function HeroPin() {
     <div data-gsap="hero" ref={containerRef} className="relative">
 
       {isMobile && (
-      <p className="absolute bottom-[40px] left-[20px] w-screen h-fit text-[20px] text-white font-progRegular z-[10]">Scroll to explore</p>
+      <p className="absolute bottom-[5vh] left-[20px] w-screen h-fit text-[20px] text-white font-progRegular z-[10]">Scroll to explore</p>
       )}
 
       <canvas ref={canvasRef} style={{ width: "100vw", height: "100dvh" }} />
