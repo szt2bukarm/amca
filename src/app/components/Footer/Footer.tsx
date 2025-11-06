@@ -24,7 +24,6 @@ export default function Footer() {
                     start: "top+=100 85%",
                     end: "top+=200 85%",
                     scrub: true,
-                    markers: true,
                     animation: gsap.fromTo("[data-gsap='nav-logo-desktop'],[data-gsap='nav-logo-mobile']", {opacity: 1}, {opacity:0,immediateRender: false}),
                 })
             }, 100);

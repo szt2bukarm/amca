@@ -133,7 +133,6 @@ export default function Loader() {
     });
 
   useGSAP(() => {
-    console.log(progress);
     gsap.to('[data-gsap="loader-logo"]', { clipPath: `inset(0% 0% ${progressRef.current}% 0%)`,duration: 0.1 });
   },[progress])
 

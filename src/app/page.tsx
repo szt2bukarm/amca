@@ -26,7 +26,6 @@ gsap.registerPlugin(ScrollTrigger);
           id: "jobboard",
           start: "top-=200 top",
           end: "top top",
-          markers: true,
           scrub: true,
           animation: gsap.fromTo("[data-gsap='nav-careers']", {opacity: 1}, {opacity: 0, immediateRender: false}),
 

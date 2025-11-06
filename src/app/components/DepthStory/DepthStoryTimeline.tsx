@@ -55,7 +55,6 @@ export default function DepthStoryTimeline() {
           end: `top+=${endOffset} top`,
           scrub: true,
           // markers:true,
-          // markers: true, // uncomment for debugging only
           onUpdate: (self) => {
             const progress = gsap.utils.clamp(0, 1, self.progress);
             const el = document.querySelector(`[data-gsap='clip-${i}']`) as HTMLElement;
