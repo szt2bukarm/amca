@@ -48,6 +48,10 @@ html {
   /* will-change: auto; */
 }
 
+body{
+  overflow-x: hidden;
+}
+
 img {
   -webkit-user-drag: none;
   -khtml-user-drag: none;

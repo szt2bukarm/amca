@@ -146,8 +146,8 @@ export default function DepthStory() {
             </div>
         </div>
 
-        <p data-gsap="depthstory-text-1" style={{filter: "drop-shadow(0px 0px 30px rgba(0, 0, 0, 1))"}} className="absolute top-[50%] translate-y-[-50%] left-[20px] md:left-[50px] font-reckless text-[8vw] leading-[8vw] sm:text-sm sm:leading-[28px] md:text-lg md:leading-[48px] text-[#FAF5EF] w-[95%] sm:w-[348px] md:w-[642px] z-10">Aviation used to dream.<br></br>Today, the flying experience is something to be avoided.</p>
-        <p data-gsap="depthstory-text-2" style={{filter: "drop-shadow(0px 0px 30px rgba(0, 0, 0, 1))"}} className="absolute top-[50%] translate-y-[-50%] left-[20px] md:left-[50px] font-reckless text-[8vw] leading-[8vw] sm:text-sm sm:leading-[28px] md:text-lg md:leading-[48px] text-[#FAF5EF] w-[95%] sm:w-[348px] md:w-[642px] z-10">Aviation was once humanity's boldest ambition, but the industry hasn't successfully built a new plane in 40 years.</p>
+        <p data-gsap="depthstory-text-1" style={{filter: "drop-shadow(0px 0px 30px rgba(0, 0, 0, 1))"}} className="absolute top-[50%] translate-y-[-50%] left-[20px] md:left-[50px] font-reckless text-[8vw] leading-[8vw] sm:text-sm sm:leading-[28px] md:text-lg md:leading-[48px] text-[#FAF5EF] w-[calc(100%-40px)] sm:w-[348px] md:w-[642px] z-10">Aviation used to dream.<br></br>Today, the flying experience is something to be avoided.</p>
+        <p data-gsap="depthstory-text-2" style={{filter: "drop-shadow(0px 0px 30px rgba(0, 0, 0, 1))"}} className="absolute top-[50%] translate-y-[-50%] left-[20px] md:left-[50px] font-reckless text-[8vw] leading-[8vw] sm:text-sm sm:leading-[28px] md:text-lg md:leading-[48px] text-[#FAF5EF] w-[calc(100%-40px)] sm:w-[348px] md:w-[642px] z-10">Aviation was once humanity's boldest ambition, but the industry hasn't successfully built a new plane in 40 years.</p>
 
 
         <div data-pin="1" className="h-screen  absolute top-0 left-0 z-[6]">

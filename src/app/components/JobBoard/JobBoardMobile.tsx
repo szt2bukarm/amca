@@ -63,7 +63,7 @@ export default function JobBoardMobile() {
                     </p>
 
                     {jobs.map((job: any, index: number) => (
-                        <a className="w-full h-full" href={job.apply} target="_blank" >
+                        <a key={index} className="w-full h-full" href={job.apply} target="_blank" >
                         <div
                             key={index}
                             className="cursor-pointer transition-colors duration-150 group w-[calc(100%-20px)] h-fit flex p-[10px] bg-[#303032] hover:bg-[#ddd8d1] shadow-[inset_0_1px_8.1px_0_rgba(0,0,0,0.5)] mx-[10px] items-center"

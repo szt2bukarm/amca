@@ -13,20 +13,22 @@ function SmoothScroll({ children }: { children: React.ReactNode }) {
   
   useEffect(() => {
     const handleResize = () => {
+      if (isMobile) return;
       location.reload();
     };
-  
+   
     window.addEventListener("resize", handleResize);
   
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [isMobile]);
 
-  gsap.config({ nullTargetWarn: false });
-  ScrollTrigger.config({ ignoreMobileResize: true });
-
-
+  useEffect(() => {
+    if (!gsap) return;
+    gsap.config({ nullTargetWarn: false });
+    ScrollTrigger.config({ ignoreMobileResize: true });
+  }, [gsap]);
 
   if (!loaded) return null;
 

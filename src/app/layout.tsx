@@ -50,6 +50,21 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"
+    />
+    <script
+      dangerouslySetInnerHTML={{
+        __html: `
+          history.scrollRestoration = "manual";
+          (function() {
+            document.documentElement.style.touchAction = 'manipulation';
+            document.documentElement.addEventListener('gesturestart', function(e) { e.preventDefault(); });
+          })();
+        `
+      }}
+    />
       <script dangerouslySetInnerHTML={{ __html: `history.scrollRestoration = "manual"` }} />
       </head>
       <link rel="favicon" href="/favicon.png" />
