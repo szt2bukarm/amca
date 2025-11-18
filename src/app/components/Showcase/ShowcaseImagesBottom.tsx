@@ -70,16 +70,16 @@ export default function ShowcaseImagesBottom() {
         <div className="grid grid-cols-4 gap-[1vw] mx-auto max-w-[2000px] bg-[#232323] md:pb-[70px]">
 
             <div data-gsap="showcase-bottom-card" className="overflow-hidden z-2 relative w-full h-[28vw] bg-gradient-to-b from-[#F4B7A8] to-[#E4E0DA]  rounded-[5px] md:rounded-[16px]">
-                <img data-gsap="showcase-img-bottom" src="showcase/5.webp" className="scale-[1.35] md:scale-[1.15] w-full h-full object-cover" />
+                <img alt="Image showing Amca's plane parts" data-gsap="showcase-img-bottom" src="showcase/5.webp" className="scale-[1.35] md:scale-[1.15] w-full h-full object-cover" />
             </div>
             <div data-gsap="showcase-bottom-card" className="overflow-hidden z-2 relative w-full h-[30vw] bg-gradient-to-b from-[#F4B7A8] to-[#E4E0DA] mt-[10vw] rounded-[5px] md:rounded-[16px]">
-                <img data-gsap="showcase-img-bottom" src="showcase/6.webp" className="scale-[1.35] md:scale-[1.15] w-full h-full object-cover" />
+                <img alt="Image showing Amca's plane parts" data-gsap="showcase-img-bottom" src="showcase/6.webp" className="scale-[1.35] md:scale-[1.15] w-full h-full object-cover" />
             </div>
             <div data-gsap="showcase-bottom-card" className="overflow-hidden z-2 relative w-full h-[35vw] bg-gradient-to-b from-[#F4B7A8] to-[#E4E0DA] mt-[10vw] rounded-[5px] md:rounded-[16px]">
-                <img data-gsap="showcase-img-bottom" src="showcase/7.webp" className="scale-[1.35] md:scale-[1.15] w-full h-full object-cover" />
+                <img alt="Image showing Amca's plane parts" data-gsap="showcase-img-bottom" src="showcase/7.webp" className="scale-[1.35] md:scale-[1.15] w-full h-full object-cover" />
             </div>
             <div data-gsap="showcase-bottom-card" className="overflow-hidden z-2 relative w-full h-[28vw] bg-gradient-to-b from-[#F4B7A8] to-[#E4E0DA]  rounded-[5px] md:rounded-[16px]">
-                <img data-gsap="showcase-img-bottom" src="showcase/8.webp" className="scale-[1.35] md:scale-[1.15] w-full h-full object-cover" />
+                <img alt="Image showing Amca's plane parts" data-gsap="showcase-img-bottom" src="showcase/8.webp" className="scale-[1.35] md:scale-[1.15] w-full h-full object-cover" />
             </div>
         </div>
     )

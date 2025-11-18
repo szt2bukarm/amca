@@ -1,3 +1,4 @@
+"use client"
 import { Canvas } from "@react-three/fiber";
 import DepthPlane from "../DepthImage";
 import DepthStoryTimeline from "./DepthStoryTimeline";
@@ -169,6 +170,8 @@ export default function DepthStory() {
         <div data-gsap="clip-1" className="w-full h-full">
   
           <img
+            alt="Image of a plane's interior"
+            aria-label="Image of a plane's interior"
             src="depthstory/lounge_1.webp"
             className="w-screen h-screen object-cover"
             style={{ display: isMobile ? "block" : "none" }}
@@ -197,6 +200,8 @@ export default function DepthStory() {
         <div data-gsap="clip-2" className="w-full h-full">
   
           <img
+                      alt="Image of a plane's interior"
+            aria-label="Image of a plane's interior"
             src="depthstory/lounge_2.webp"
             className="w-screen h-screen object-cover"
             style={{ display: isMobile ? "block" : "none" }}
@@ -225,6 +230,8 @@ export default function DepthStory() {
         <div data-gsap="clip-3" className="w-full h-full">
   
           <img
+                      alt="Image of a plane's interior"
+            aria-label="Image of a plane's interior"
             src="depthstory/lounge_3.webp"
             className="w-screen h-screen object-cover"
             style={{ display: isMobile ? "block" : "none" }}
@@ -253,6 +260,8 @@ export default function DepthStory() {
         <div data-gsap="clip-4" className="w-full h-full">
   
           <img
+                      alt="Image of a plane's interior"
+            aria-label="Image of a plane's interior"
             src="depthstory/lounge_4.webp"
             className="w-screen h-screen object-cover"
             style={{ display: isMobile ? "block" : "none" }}
@@ -281,6 +290,8 @@ export default function DepthStory() {
         <div data-gsap="clip-5" className="w-full h-full">
   
           <img
+                      alt="Image of a plane's interior"
+            aria-label="Image of a plane's interior"
             src="depthstory/lounge_5.webp"
             className="w-screen h-screen object-cover"
             style={{ display: isMobile ? "block" : "none" }}

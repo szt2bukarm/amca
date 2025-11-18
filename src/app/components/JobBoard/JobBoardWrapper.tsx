@@ -1,10 +1,27 @@
+"use client"
 import { useGSAP } from "@gsap/react";
 import JobBoard from "./JobBoard";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
+import useAshbyJobs from "@/app/hooks/useAshbyJobs";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function JobBoardWrapper() {
+    useAshbyJobs();
+
+    useGSAP(() => {
+        setTimeout(() => {
+          ScrollTrigger.create({
+            trigger: "[data-scroll='jobboard']",
+            id: "jobboard",
+            start: "top-=200 top",
+            end: "top top",
+            scrub: true,
+            animation: gsap.fromTo("[data-gsap='nav-careers']", {opacity: 1}, {opacity: 0, immediateRender: false}),
+  
+          })
+        }, 1000);
+      },[])
 
     useGSAP(() => {
         const ctx = gsap.context(() => {
@@ -53,6 +70,7 @@ export default function JobBoardWrapper() {
             {/* glass bg */}
             <div className="min-w-[180vw] lg:min-w-[160vw] absolute bottom-0 left-1/2 translate-x-[-50%] mix-blend-plus-lighter [mask-image:linear-gradient(to_bottom,transparent_25%,black_100%)] [mask-size:100%_100%] [mask-repeat:no-repeat]">
             <img
+            
             data-gsap="jobboard-bg"
             src="jobboard/jobboard-bg.webp"
             alt="Job Board Glass Tile Background"

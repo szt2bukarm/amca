@@ -1,3 +1,4 @@
+"use client"
 import { useGSAP } from "@gsap/react";
 import ShowcaseAmcaLogo from "./ShowcaseAmcaLogo";
 import ShowcaseImagesBottom from "./ShowcaseImagesBottom";
