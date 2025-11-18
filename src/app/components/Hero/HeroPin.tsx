@@ -20,8 +20,10 @@ export default function HeroPin() {
   const lenis = useLenis();
   CustomEase.create("cEase", "M0,0 C0.075,0.82 0.165,1 1,1");
   const [windowWidth, setWindowWidth] = useState(0);
+  const [mounted,setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     setWindowWidth(window.innerWidth);
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
@@ -393,7 +395,7 @@ export default function HeroPin() {
   return (
     <div data-gsap="hero" ref={containerRef} className="relative">
 
-      {isMobile && (
+      {(mounted && isMobile) && (
       <p className="absolute bottom-[5vh] left-[20px] w-screen h-fit text-[20px] text-white font-progRegular z-[10]">Scroll to explore</p>
       )}
 
@@ -456,13 +458,13 @@ export default function HeroPin() {
       )} */}
 
 
-      {windowWidth >= 1024 && (
+      {(windowWidth >= 1024 && mounted) && (
         <div data-gsap="plane-sky-wrapper" className="w-full h-full pointer-events-none z-1">
         <img data-gsap="plane-sky" src='plane_sky.avif' className="opacity-0 w-[150px] absolute top-0 right-0" />
         </div>
       )}
 
-      {windowWidth > 1024 && (
+      {(windowWidth > 1024  && mounted)&& (
         <div className="w-full h-full z-[2]" data-gsap="idle-plane-scroll">
           <div
             data-gsap="idle-plane"
@@ -476,7 +478,7 @@ export default function HeroPin() {
         </div>
       )}
 
-      {windowWidth <= 1024 && (
+      {(windowWidth <= 1024 && mounted) && (
         <div className="w-full h-full" data-gsap="idle-plane-scroll">
           <div
             data-gsap="idle-plane"
@@ -497,7 +499,7 @@ export default function HeroPin() {
       ></div>
 
 
-      {!isMobile && (
+      {(mounted && !isMobile) && (
         <div data-gsap="scroll-to-explore-wrapper" className="w-full h-full">
         <p data-gsap="scroll-to-explore" className="opacity-0 absolute top-0 left-0 text-white font-progRegular text-[16px]">Scroll to explore</p>
         </div>
