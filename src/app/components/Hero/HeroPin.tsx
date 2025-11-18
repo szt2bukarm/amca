@@ -395,7 +395,7 @@ export default function HeroPin() {
   return (
     <div data-gsap="hero" ref={containerRef} className="relative">
 
-      {(mounted && isMobile) && (
+      {(mounted && isMobile) &&  (
       <p className="absolute bottom-[5vh] left-[20px] w-screen h-fit text-[20px] text-white font-progRegular z-[10]">Scroll to explore</p>
       )}
 
