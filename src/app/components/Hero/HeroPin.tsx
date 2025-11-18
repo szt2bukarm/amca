@@ -394,117 +394,78 @@ export default function HeroPin() {
 
   return (
     <div data-gsap="hero" ref={containerRef} className="relative">
-
-      {(mounted && isMobile) && (
-      <p className="absolute bottom-[5vh] left-[20px] w-screen h-fit text-[20px] text-white font-progRegular z-[10]">Scroll to explore</p>
-      )}
-
+  
+      <p
+        className="absolute bottom-[5vh] left-[20px] w-screen h-fit text-[20px] text-white font-progRegular z-[10]"
+        style={{ display: mounted && isMobile ? "block" : "none" }}
+      >
+        Scroll to explore
+      </p>
+  
       <canvas ref={canvasRef} style={{ width: "100vw", height: "100dvh" }} />
-      {/* <canvas
-        ref={noiseCanvasRef}
-        style={{
-          position: "fixed",
-          inset: 0,
-          width: "100vw",
-          height: "100dvh",
-          pointerEvents: "none",
-          mixBlendMode: "overlay",
-          opacity: 0.1,
-          zIndex: 50,
-        }}
-      /> */}
-{/* 
-      {windowWidth >= 1024 && (
+  
+      <div
+        data-gsap="plane-sky-wrapper"
+        className="w-full h-full pointer-events-none z-1"
+        style={{ display: mounted && windowWidth >= 1024 ? "block" : "none" }}
+      >
+        <img
+          data-gsap="plane-sky"
+          src="plane_sky.avif"
+          className="opacity-0 w-[150px] absolute top-0 right-0"
+        />
+      </div>
+  
+      <div
+        className="w-full h-full z-[2]"
+        data-gsap="idle-plane-scroll"
+        style={{ display: mounted && windowWidth > 1024 ? "block" : "none" }}
+      >
         <div
-          data-gsap="hero-logo-scroll"
-          className="fixed top-[5vw] max-w-[1600px] w-[90%] left-[50%] translate-x-[-50%] overflow-hidden mix-blend-color-burn flex items-end gap-[1vw]"
+          data-gsap="idle-plane"
+          className="fixed left-0 top-0 w-screen h-[100dvh] opacity-0"
         >
-          <img data-gsap="hero-logo" src="amca_a.webp" className="w-[26.05%] h-full " />
-          <img data-gsap="hero-logo" src="amca_m.webp" className="w-[32.05%] h-full " />
-          <img data-gsap="hero-logo" src="amca_c.webp" className="w-[18.35%] h-full " />
-          <img data-gsap="hero-logo" src="amca_a_lower.webp" className="w-[19%] h-full " />
+          <img
+            src={`sequence/desktop/idle_transparent_${idle}.avif`}
+            className="w-full h-full object-cover"
+          />
         </div>
-      )} */}
-
-      {/* {windowWidth < 1024 && (
-        <div className="flex flex-col fixed bottom-[5vw] w-[95%] left-[50%] translate-x-[-50%] gap-[5vw] z-20">
-          {introDone && (
-            <p
-              data-gsap="hero-text"
-              className="font-reckless text-[#FAF5E7] text-[5.5vw] leading-[5.5vw] sm:text-[4.5vw] sm:leading-[4.5vw]"
-            >
-              Advanced Manufacturing<br />Company of America
-            </p>
-          )}
-          <div
-            data-gsap="hero-logo-scroll"
-            className=" overflow-hidden flex items-end gap-[1vw]"
-          >
-            <img data-gsap="hero-logo" src="amca_a.webp" className="w-[26.05%] h-full " />
-            <img data-gsap="hero-logo" src="amca_m.webp" className="w-[32.05%] h-full " />
-            <img data-gsap="hero-logo" src="amca_c.webp" className="w-[18.35%] h-full " />
-            <img data-gsap="hero-logo" src="amca_a_lower.webp" className="w-[19%] h-full " />
-          </div>
-        </div>
-      )}
-
-      {introDone && windowWidth >= 1024 && (
-        <p
-          data-gsap="hero-text"
-          className="font-reckless text-[#FAF5E7] text-[48px] leading-[48px] fixed bottom-[50px] left-[50px]"
+      </div>
+  
+      <div
+        className="w-full h-full z-[2]"
+        data-gsap="idle-plane-scroll"
+        style={{ display: mounted && windowWidth <= 1024 ? "block" : "none" }}
+      >
+        <div
+          data-gsap="idle-plane"
+          className="fixed left-0 top-0 w-screen h-[100dvh] opacity-0"
         >
-          Advanced Manufacturing<br />Company of America
-        </p>
-      )} */}
-
-
-      {(windowWidth >= 1024 && mounted) && (
-        <div data-gsap="plane-sky-wrapper" className="w-full h-full pointer-events-none z-1">
-        <img data-gsap="plane-sky" src='plane_sky.avif' className="opacity-0 w-[150px] absolute top-0 right-0" />
+          <img
+            src={`sequence/mobile/hero6${idle}.avif`}
+            className="w-full h-full object-cover"
+          />
         </div>
-      )}
-
-      {(windowWidth > 1024  && mounted)&& (
-        <div className="w-full h-full z-[2]" data-gsap="idle-plane-scroll">
-          <div
-            data-gsap="idle-plane"
-            className="fixed left-0 top-0 w-screen h-[100dvh] opacity-0"
-          >
-            <img
-              src={`sequence/desktop/idle_transparent_${idle}.avif`}
-              className="w-full h-full object-cover"
-            />
-          </div>
-        </div>
-      )}
-
-      {(windowWidth <= 1024 && mounted) && (
-        <div className="w-full h-full" data-gsap="idle-plane-scroll">
-          <div
-            data-gsap="idle-plane"
-            className="fixed left-0 top-0 w-screen h-[100dvh] opacity-0"
-          >
-            <img
-              src={`sequence/mobile/hero6${idle}.avif`}
-              className="w-full h-full object-cover"
-            />
-          </div>
-        </div>
-      )}
-
-
+      </div>
+  
       <div
         data-gsap="hero-dim"
         className="opacity-0 z-10 absolute top-0 left-0 w-full h-full bg-[#FFF]"
       ></div>
-
-
-      {(mounted && !isMobile) && (
-        <div data-gsap="scroll-to-explore-wrapper" className="w-full h-full">
-        <p data-gsap="scroll-to-explore" className="opacity-0 absolute top-0 left-0 text-white font-progRegular text-[16px]">Scroll to explore</p>
-        </div>
-        )}
-
+  
+      <div
+        data-gsap="scroll-to-explore-wrapper"
+        className="w-full h-full"
+        style={{ display: mounted && !isMobile ? "block" : "none" }}
+      >
+        <p
+          data-gsap="scroll-to-explore"
+          className="opacity-0 absolute top-0 left-0 text-white font-progRegular text-[16px]"
+        >
+          Scroll to explore
+        </p>
+      </div>
+  
     </div>
   );
-}
+  }

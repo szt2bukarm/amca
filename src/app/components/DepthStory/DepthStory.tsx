@@ -131,172 +131,180 @@ export default function DepthStory() {
   },[])
 
 
-    return (
-        <div data-gsap="depthstory" className="relative h-[100dvh] bg-[#232323]">
-          <div data-gsap="depthstory-dim" className="absolute top-0 left-0 w-full h-full bg-[#FFF] z-20"></div>
-
-        <div className="absolute top-0 left-0 w-screen h-[100dvh] bg-gradient-to-tr from-[#000000c1] to-transparent z-10"></div>
-
-        {/* gradient */}
-        <div className="absolute top-0 left-0 w-screen h-[100dvh] z-10">
-            <div className="relative w-full h-[100dvh]">
-                <div className="absolute top-0 left-0 w-screen h-[220px] bg-gradient-to-b from-[#232323] to-transparent"></div>
-                <div className="absolute bottom-0 left-0 w-screen h-[220px] bg-gradient-to-t from-[#232323] to-transparent"></div>
-                <DepthStoryTimeline />
-            </div>
+  return (
+    <div data-gsap="depthstory" className="relative h-[100dvh] bg-[#232323]">
+      <div data-gsap="depthstory-dim" className="absolute top-0 left-0 w-full h-full bg-[#FFF] z-20"></div>
+  
+      <div className="absolute top-0 left-0 w-screen h-[100dvh] bg-gradient-to-tr from-[#000000c1] to-transparent z-10"></div>
+  
+      <div className="absolute top-0 left-0 w-screen h-[100dvh] z-10">
+        <div className="relative w-full h-[100dvh]">
+          <div className="absolute top-0 left-0 w-screen h-[220px] bg-gradient-to-b from-[#232323] to-transparent"></div>
+          <div className="absolute bottom-0 left-0 w-screen h-[220px] bg-gradient-to-t from-[#232323] to-transparent"></div>
+          <DepthStoryTimeline />
         </div>
-
-        <p data-gsap="depthstory-text-1" style={{filter: "drop-shadow(0px 0px 30px rgba(0, 0, 0, 1))"}} className="absolute top-[50%] translate-y-[-50%] left-[20px] md:left-[50px] font-reckless text-[8vw] leading-[8vw] sm:text-sm sm:leading-[28px] md:text-lg md:leading-[48px] text-[#FAF5EF] w-[calc(100%-40px)] sm:w-[348px] md:w-[642px] z-10">Aviation used to dream.<br></br>Today, the flying experience is something to be avoided.</p>
-        <p data-gsap="depthstory-text-2" style={{filter: "drop-shadow(0px 0px 30px rgba(0, 0, 0, 1))"}} className="absolute top-[50%] translate-y-[-50%] left-[20px] md:left-[50px] font-reckless text-[8vw] leading-[8vw] sm:text-sm sm:leading-[28px] md:text-lg md:leading-[48px] text-[#FAF5EF] w-[calc(100%-40px)] sm:w-[348px] md:w-[642px] z-10">Aviation was once humanity's boldest ambition, but the industry hasn't successfully built a new plane in 40 years.</p>
-
-
-        <div data-pin="1" className="h-screen  absolute top-0 left-0 z-[6]">
+      </div>
+  
+      <p
+        data-gsap="depthstory-text-1"
+        style={{
+          filter: "drop-shadow(0px 0px 30px rgba(0, 0, 0, 1))"
+        }}
+        className="absolute top-[50%] translate-y-[-50%] left-[20px] md:left-[50px] font-reckless text-[8vw] leading-[8vw] sm:text-sm sm:leading-[28px] md:text-lg md:leading-[48px] text-[#FAF5EF] w-[calc(100%-40px)] sm:w-[348px] md:w-[642px] z-10"
+      >
+        Aviation used to dream.<br></br>Today, the flying experience is something to be avoided.
+      </p>
+  
+      <p
+        data-gsap="depthstory-text-2"
+        style={{
+          filter: "drop-shadow(0px 0px 30px rgba(0, 0, 0, 1))"
+        }}
+        className="absolute top-[50%] translate-y-[-50%] left-[20px] md:left-[50px] font-reckless text-[8vw] leading-[8vw] sm:text-sm sm:leading-[28px] md:text-lg md:leading-[48px] text-[#FAF5EF] w-[calc(100%-40px)] sm:w-[348px] md:w-[642px] z-10"
+      >
+        Aviation was once humanity's boldest ambition, but the industry hasn't successfully built a new plane in 40 years.
+      </p>
+  
+      <div data-pin="1" className="h-screen absolute top-0 left-0 z-[6]">
         <div data-gsap="clip-1" className="w-full h-full">
-          {isMobile && (
-            <img src="depthstory/lounge_1.webp" className="w-screen h-screen object-cover" />
-          )}
-          {(!isMobile && loaded) && (
+  
+          <img
+            src="depthstory/lounge_1.webp"
+            className="w-screen h-screen object-cover"
+            style={{ display: isMobile ? "block" : "none" }}
+          />
+  
+          <div style={{ display: !isMobile && loaded ? "block" : "none" }}>
             <Canvas
-            style={{
-              width: "100vw",
-              height: "100vh",
-            }}
-            dpr={[0.5,1]}
+              style={{ width: "100vw", height: "100vh" }}
+              dpr={[0.5, 1]}
             >
-          <DepthPlane
-            textures={depthPlaneTextures?.[0]}
-            hThreshold={50}
-            vThreshold={70}
-            scrollTarget="[data-pin='1']"
-            start={0}
-            end={6000}
-            />
-        </Canvas>
-          )}
-        </div>
-      </div>
-    <div data-pin="2" className="h-screen absolute top-0 left-0 z-[5]">
-          <div data-gsap="clip-2" className="w-full h-full">
-              {isMobile && (
-                <img src="depthstory/lounge_2.webp" className="w-screen h-screen object-cover" />
-              )}
-              {(!isMobile && loaded) && (
-                  <Canvas
-                  dpr={[0.5,1]}
-                  style={{
-                    width: "100vw",
-                    height: "100vh",
-                  }}
-                  >
-                  <DepthPlane 
-                  textures={depthPlaneTextures?.[1]}
-                  hThreshold={50}
-                  vThreshold={70}
-                  scrollTarget="[data-pin='2']"
-                  start={0}
-                  end={6000}
-                  />
-                  </Canvas>
-                )}
+              <DepthPlane
+                textures={depthPlaneTextures?.[0]}
+                hThreshold={50}
+                vThreshold={70}
+                scrollTarget="[data-pin='1']"
+                start={0}
+                end={6000}
+              />
+            </Canvas>
           </div>
+  
         </div>
+      </div>
+  
+      <div data-pin="2" className="h-screen absolute top-0 left-0 z-[5]">
+        <div data-gsap="clip-2" className="w-full h-full">
+  
+          <img
+            src="depthstory/lounge_2.webp"
+            className="w-screen h-screen object-cover"
+            style={{ display: isMobile ? "block" : "none" }}
+          />
+  
+          <div style={{ display: !isMobile && loaded ? "block" : "none" }}>
+            <Canvas
+              dpr={[0.5, 1]}
+              style={{ width: "100vw", height: "100vh" }}
+            >
+              <DepthPlane
+                textures={depthPlaneTextures?.[1]}
+                hThreshold={50}
+                vThreshold={70}
+                scrollTarget="[data-pin='2']"
+                start={0}
+                end={6000}
+              />
+            </Canvas>
+          </div>
+  
+        </div>
+      </div>
+  
       <div data-pin="3" className="h-screen absolute top-0 left-0 z-[4]">
-      <div data-gsap="clip-3" className="w-full h-full">
-        {isMobile && (
-          <img src="depthstory/lounge_3.webp" className="w-screen h-screen object-cover" />
-        )}
-        {(!isMobile && loaded) && (
-        <Canvas
-          dpr={[0.5,1]}
-          style={{
-            width: "100vw",
-            height: "100vh",
-          }}
-        >
-          <DepthPlane
-            textures={depthPlaneTextures?.[2]}
-            hThreshold={50}
-            vThreshold={70}
-            scrollTarget="[data-pin='3']"
-            start={0}
-            end={6000}
+        <div data-gsap="clip-3" className="w-full h-full">
+  
+          <img
+            src="depthstory/lounge_3.webp"
+            className="w-screen h-screen object-cover"
+            style={{ display: isMobile ? "block" : "none" }}
           />
-        </Canvas>
-              )}
+  
+          <div style={{ display: !isMobile && loaded ? "block" : "none" }}>
+            <Canvas
+              dpr={[0.5, 1]}
+              style={{ width: "100vw", height: "100vh" }}
+            >
+              <DepthPlane
+                textures={depthPlaneTextures?.[2]}
+                hThreshold={50}
+                vThreshold={70}
+                scrollTarget="[data-pin='3']"
+                start={0}
+                end={6000}
+              />
+            </Canvas>
+          </div>
+  
         </div>
       </div>
+  
       <div data-pin="4" className="h-screen absolute top-0 left-0 z-[3]">
-      <div data-gsap="clip-4" className="w-full h-full">
-      {isMobile && (
-        <img src="depthstory/lounge_4.webp" className="w-screen h-screen object-cover" />
-      )}
-      {(!isMobile && loaded) && (
-        <Canvas
-          dpr={[0.5,1]}
-          style={{
-            width: "100vw",
-            height: "100vh",
-          }}
-        >
-          <DepthPlane
-            textures={depthPlaneTextures?.[3]}
-            hThreshold={50}
-            vThreshold={70}
-            scrollTarget="[data-pin='4']"
-            start={0}
-            end={6000}
+        <div data-gsap="clip-4" className="w-full h-full">
+  
+          <img
+            src="depthstory/lounge_4.webp"
+            className="w-screen h-screen object-cover"
+            style={{ display: isMobile ? "block" : "none" }}
           />
-        </Canvas>
-              )}
+  
+          <div style={{ display: !isMobile && loaded ? "block" : "none" }}>
+            <Canvas
+              dpr={[0.5, 1]}
+              style={{ width: "100vw", height: "100vh" }}
+            >
+              <DepthPlane
+                textures={depthPlaneTextures?.[3]}
+                hThreshold={50}
+                vThreshold={70}
+                scrollTarget="[data-pin='4']"
+                start={0}
+                end={6000}
+              />
+            </Canvas>
+          </div>
+  
         </div>
       </div>
+  
       <div data-pin="5" className="h-screen absolute top-0 left-0 z-[2]">
-      <div data-gsap="clip-5" className="w-full h-full">
-      {isMobile && (
-        <img src="depthstory/lounge_5.webp" className="w-screen h-screen object-cover" />
-      )}
-      {(!isMobile && loaded) && (
-        <Canvas
-          dpr={[0.5,1]}
-          style={{
-            width: "100vw",
-            height: "100vh",
-          }}
-        >
-          <DepthPlane
-            textures={depthPlaneTextures?.[4]}
-            hThreshold={50}
-            vThreshold={70}
-            scrollTarget="[data-pin='5']"
-            start={0}
-            end={6000}
+        <div data-gsap="clip-5" className="w-full h-full">
+  
+          <img
+            src="depthstory/lounge_5.webp"
+            className="w-screen h-screen object-cover"
+            style={{ display: isMobile ? "block" : "none" }}
           />
-        </Canvas>
-              )}
+  
+          <div style={{ display: !isMobile && loaded ? "block" : "none" }}>
+            <Canvas
+              dpr={[0.5, 1]}
+              style={{ width: "100vw", height: "100vh" }}
+            >
+              <DepthPlane
+                textures={depthPlaneTextures?.[4]}
+                hThreshold={50}
+                vThreshold={70}
+                scrollTarget="[data-pin='5']"
+                start={0}
+                end={6000}
+              />
+            </Canvas>
+          </div>
+  
         </div>
       </div>
-      {/* <div data-pin="6" className="h-screen absolute top-0 left-0 z-[1]">
-      {isMobile ? (
-                <img src="depthstory/wait_normal.jpg" className="w-screen h-screen object-cover" />
-              ) : (
-        <Canvas
-          dpr={[0.5,1]}
-          style={{
-            width: "100vw",
-            height: "100vh",
-          }}
-        >
-          <DepthPlane
-            textures={depthPlaneTextures?.[5]}
-            hThreshold={50}
-            vThreshold={70}
-            scrollTarget="[data-pin='5']"
-            start={6000}
-            end={9000}
-          />
-        </Canvas>
-        )}
-      </div> */}
+  
     </div>
-    )
+  );
 }
