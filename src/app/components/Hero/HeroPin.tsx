@@ -492,7 +492,7 @@ export default function HeroPin() {
       <div
         data-gsap="hero-dim"
         className="opacity-0 z-10 absolute top-0 left-0 w-full h-full bg-[#FFF]"
-      ></div> */
+      ></div>
 
 
       {!isMobile && (

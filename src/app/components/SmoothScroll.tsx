@@ -30,7 +30,6 @@ function SmoothScroll({ children }: { children: React.ReactNode }) {
     ScrollTrigger.config({ ignoreMobileResize: true });
   }, [gsap]);
 
-  if (!loaded) return null;
 
   return (
     <ReactLenis
@@ -41,7 +40,12 @@ function SmoothScroll({ children }: { children: React.ReactNode }) {
         duration: 1.5,
       }}
     >
-      {children}
+      <div
+        className="w-full h-full opacity-0 transition-opacity duration-300"
+        style={{ opacity: loaded ? 1 : 0 }}
+      >
+        {children}
+      </div>
     </ReactLenis>
   );
 }

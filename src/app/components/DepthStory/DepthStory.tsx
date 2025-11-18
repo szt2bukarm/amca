@@ -11,7 +11,7 @@ import { useGSAP } from "@gsap/react";
 gsap.registerPlugin(ScrollTrigger,SplitText);
 
 export default function DepthStory() {
-  const {depthPlaneTextures,isMobile} = useStore();
+  const {depthPlaneTextures,isMobile,loaded} = useStore();
 
 
 
@@ -152,9 +152,10 @@ export default function DepthStory() {
 
         <div data-pin="1" className="h-screen  absolute top-0 left-0 z-[6]">
         <div data-gsap="clip-1" className="w-full h-full">
-          {isMobile ? (
+          {isMobile && (
             <img src="depthstory/lounge_1.webp" className="w-screen h-screen object-cover" />
-          ) : (
+          )}
+          {(!isMobile && loaded) && (
             <Canvas
             style={{
               width: "100vw",
@@ -176,9 +177,10 @@ export default function DepthStory() {
       </div>
     <div data-pin="2" className="h-screen absolute top-0 left-0 z-[5]">
           <div data-gsap="clip-2" className="w-full h-full">
-              {isMobile ? (
+              {isMobile && (
                 <img src="depthstory/lounge_2.webp" className="w-screen h-screen object-cover" />
-              ) : (
+              )}
+              {(!isMobile && loaded) && (
                   <Canvas
                   dpr={[0.5,1]}
                   style={{
@@ -200,9 +202,10 @@ export default function DepthStory() {
         </div>
       <div data-pin="3" className="h-screen absolute top-0 left-0 z-[4]">
       <div data-gsap="clip-3" className="w-full h-full">
-      {isMobile ? (
-                <img src="depthstory/lounge_3.webp" className="w-screen h-screen object-cover" />
-              ) : (
+        {isMobile && (
+          <img src="depthstory/lounge_3.webp" className="w-screen h-screen object-cover" />
+        )}
+        {(!isMobile && loaded) && (
         <Canvas
           dpr={[0.5,1]}
           style={{
@@ -224,9 +227,10 @@ export default function DepthStory() {
       </div>
       <div data-pin="4" className="h-screen absolute top-0 left-0 z-[3]">
       <div data-gsap="clip-4" className="w-full h-full">
-      {isMobile ? (
-                <img src="depthstory/lounge_4.webp" className="w-screen h-screen object-cover" />
-              ) : (
+      {isMobile && (
+        <img src="depthstory/lounge_4.webp" className="w-screen h-screen object-cover" />
+      )}
+      {(!isMobile && loaded) && (
         <Canvas
           dpr={[0.5,1]}
           style={{
@@ -248,9 +252,10 @@ export default function DepthStory() {
       </div>
       <div data-pin="5" className="h-screen absolute top-0 left-0 z-[2]">
       <div data-gsap="clip-5" className="w-full h-full">
-      {isMobile ? (
-                <img src="depthstory/lounge_5.webp" className="w-screen h-screen object-cover" />
-              ) : (
+      {isMobile && (
+        <img src="depthstory/lounge_5.webp" className="w-screen h-screen object-cover" />
+      )}
+      {(!isMobile && loaded) && (
         <Canvas
           dpr={[0.5,1]}
           style={{
