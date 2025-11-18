@@ -19,11 +19,10 @@ export default function HeroPin() {
   const [idle, setIdle] = useState(1);
   const lenis = useLenis();
   CustomEase.create("cEase", "M0,0 C0.075,0.82 0.165,1 1,1");
-  const [windowWidth, setWindowWidth] = useState(
-    typeof window !== "undefined" ? window.innerWidth : 0
-  );
+  const [windowWidth, setWindowWidth] = useState(0);
 
   useEffect(() => {
+    setWindowWidth(window.innerWidth);
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
