@@ -30,6 +30,7 @@ export default function HeroPin() {
 
   const intervalRef = useRef<NodeJS.Timer | null>(null);
   useEffect(() => {
+    if (typeof window === "undefined") return;
     if (!lenis) return;
     lenis?.stop();
     intervalRef.current = setInterval(() => {
@@ -39,6 +40,7 @@ export default function HeroPin() {
   }, [lenis]);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
     if (!loaded || !loadedHeroFrames.length || !canvasRef.current || !containerRef.current) return;
 
     const canvas = canvasRef.current;
@@ -386,6 +388,7 @@ export default function HeroPin() {
     
     return () => window.removeEventListener("mousemove", move);
   }, [isMobile, introDone]);
+
 
   return (
     <div data-gsap="hero" ref={containerRef} className="relative">
