@@ -413,7 +413,7 @@ export default function HeroPin() {
          alt="A plane in the sky"
          aria-label="A plane in the sky"
           data-gsap="plane-sky"
-          src="plane_sky.avif"
+          src="/plane_sky.avif"
           className="opacity-0 w-[150px] absolute top-0 right-0"
         />
       </div>
@@ -430,7 +430,7 @@ export default function HeroPin() {
           <img
           aria-label="Image showing a plane with a red light blinking"
           alt="Image showing a plane with a red light blinking"
-            src={`sequence/desktop/idle_transparent_${idle}.avif`}
+            src={`/sequence/desktop/idle_transparent_${idle}.avif`}
             className="w-full h-full object-cover"
           />
         </div>
@@ -448,7 +448,7 @@ export default function HeroPin() {
           <img
           aria-label="Image showing a plane with a red light blinking"
           alt="Image showing a plane with a red light blinking"
-            src={`sequence/mobile/hero6${idle}.avif`}
+            src={`/sequence/mobile/hero6${idle}.avif`}
             className="w-full h-full object-cover"
           />
         </div>

@@ -72,14 +72,14 @@ export default function JobBoardWrapper() {
             <img
             
             data-gsap="jobboard-bg"
-            src="jobboard/jobboard-bg.webp"
+            src="/jobboard/jobboard-bg.webp"
             alt="Job Board Glass Tile Background"
             className="w-full h-full "
             />
             </div>
 
             {/* job board */}
-            <img src="jobboard/jobboard.webp" alt="Job Board Glass Tile Background" className="z-[11] min-w-[150vw] lg:min-w-[110vw] absolute bottom-0 left-[50%] translate-x-[-50.5%] " />
+            <img src="/jobboard/jobboard.webp" alt="Job Board Glass Tile Background" className="z-[11] min-w-[150vw] lg:min-w-[110vw] absolute bottom-0 left-[50%] translate-x-[-50.5%] " />
             <JobBoard />
 
             {/* bottom white cutoff */}

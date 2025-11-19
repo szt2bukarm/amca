@@ -48,14 +48,14 @@ export default function JobBoardMobile() {
 
             {/* glass bg */}
             <img
-                src="jobboard/jobboard-bg.webp"
+                src="/jobboard/jobboard-bg.webp"
                 alt="Job Board Glass Tile Background"
                 className="min-w-[180vw] absolute top-[100px] left-1/2 translate-x-[-50%] mix-blend-plus-lighter [mask-image:linear-gradient(to_bottom,transparent_25%,black_100%)] [mask-size:100%_100%] [mask-repeat:no-repeat]"
             />
 
             <div className="relative flex flex-col z-10">
-                <img src="jobboard/jobboard-top.webp" className="w-full h-full" />
-                <img src="joinus.svg" className="absolute left-1/2 translate-x-[-50%] top-[15vw] w-[40vw]" />
+                <img src="/jobboard/jobboard-top.webp" className="w-full h-full" />
+                <img src="/joinus.svg" className="absolute left-1/2 translate-x-[-50%] top-[15vw] w-[40vw]" />
 
                 <div className="w-full h-full bg-[#232323]">
                     <p className="text-[#ddd8d1] font-progLightIta text-[14px] ml-[20px] mt-[10px] mb-[10px]">
@@ -77,7 +77,7 @@ export default function JobBoardMobile() {
                                 </p>
                             </div>
                             <img
-                                src={`jobboard/apply/${imageNumbers[index]}.webp`}
+                                src={`/jobboard/apply/${imageNumbers[index]}.webp`}
                                 alt={`Job ${job.title}`}
                                 className="w-[20%]"
                             />
@@ -85,7 +85,7 @@ export default function JobBoardMobile() {
                         </a>
                     ))}
                 </div>
-                <img src="jobboard/jobboard-bottom.webp" className="w-full h-full" />
+                <img src="/jobboard/jobboard-bottom.webp" className="w-full h-full" />
             </div>
 
             <div className="absolute bottom-0 left-0 h-[50px] w-screen bg-[#F0EDE8]" />

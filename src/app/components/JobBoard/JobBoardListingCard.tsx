@@ -28,7 +28,7 @@ export default function JobBoardListingCard({ title, department, textDelay, imag
                 <div className="max-w-[23%] min-w-[23%] flex items-center ml-[1vw]">
                     <FlipTextRoll text={department} delay={textDelay} color="#ddd8d1"/>
                 </div>
-                <img src={`jobboard/apply/${imageNo}.webp`} className="w-[10%] ml-auto scale-[1.3] translate-x-[-0.5vw]"/>
+                <img src={`/jobboard/apply/${imageNo}.webp`} className="w-[10%] ml-auto scale-[1.3] translate-x-[-0.5vw]"/>
             </div>
 
             {/* Back side */}
@@ -39,7 +39,7 @@ export default function JobBoardListingCard({ title, department, textDelay, imag
                 <div className="max-w-[23%] min-w-[23%] flex items-center ml-[1vw]">
                     <FlipTextRoll text={department} delay={textDelay} color="black"/>
                 </div>
-                <img src={`jobboard/apply/${imageNo}.webp`} className="w-[10%] ml-auto scale-[1.3] translate-x-[-0.5vw]"/>
+                <img src={`/jobboard/apply/${imageNo}.webp`} className="w-[10%] ml-auto scale-[1.3] translate-x-[-0.5vw]"/>
             </div>
         </div>
 

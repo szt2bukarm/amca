@@ -172,7 +172,7 @@ export default function DepthStory() {
           <img
             alt="Image of a plane's interior"
             aria-label="Image of a plane's interior"
-            src="depthstory/lounge_1.webp"
+            src="/depthstory/lounge_1.webp"
             className="w-screen h-screen object-cover"
             style={{ display: isMobile ? "block" : "none" }}
           />
@@ -202,7 +202,7 @@ export default function DepthStory() {
           <img
                       alt="Image of a plane's interior"
             aria-label="Image of a plane's interior"
-            src="depthstory/lounge_2.webp"
+            src="/depthstory/lounge_2.webp"
             className="w-screen h-screen object-cover"
             style={{ display: isMobile ? "block" : "none" }}
           />
@@ -232,7 +232,7 @@ export default function DepthStory() {
           <img
                       alt="Image of a plane's interior"
             aria-label="Image of a plane's interior"
-            src="depthstory/lounge_3.webp"
+            src="/depthstory/lounge_3.webp"
             className="w-screen h-screen object-cover"
             style={{ display: isMobile ? "block" : "none" }}
           />
@@ -262,7 +262,7 @@ export default function DepthStory() {
           <img
                       alt="Image of a plane's interior"
             aria-label="Image of a plane's interior"
-            src="depthstory/lounge_4.webp"
+            src="/depthstory/lounge_4.webp"
             className="w-screen h-screen object-cover"
             style={{ display: isMobile ? "block" : "none" }}
           />
@@ -292,7 +292,7 @@ export default function DepthStory() {
           <img
                       alt="Image of a plane's interior"
             aria-label="Image of a plane's interior"
-            src="depthstory/lounge_5.webp"
+            src="/depthstory/lounge_5.webp"
             className="w-screen h-screen object-cover"
             style={{ display: isMobile ? "block" : "none" }}
           />

@@ -276,7 +276,7 @@ export default function DepthStoryTimeline() {
         <div data-gsap='depthstory-timeline-wrapper' className="relative w-full h-[1px] bg-[#a1a1a199]">
           <img
             data-gsap="depthstory-timeline"
-            src="planeicon.svg"
+            src="/planeicon.svg"
             className="absolute left-0 top-[-8px] -translate-y-1/2"
           />
           <div data-gsap="depthstory-timeline-bg" className="absolute top-0 left-0 h-[1px] w-[0%] bg-[#DEDDDF]"></div>

@@ -6,29 +6,29 @@ import { useStore } from "@/app/useStore";
 import { useGSAP } from "@gsap/react";
 
 const assets = [
-  "jobboard/jobboard-bg.webp",
-  "jobboard/jobboard-bottom.webp",
-  "jobboard/jobboard-top.webp",
-  "jobboard/jobboard.webp",
-  "jobboard/apply/1.webp",
-  "jobboard/apply/2.webp",
-  "jobboard/apply/3.webp",
-  "jobboard/apply/4.webp",
-  "jobboard/apply/5.webp",
-  "jobboard/apply/6.webp",
-  "jobboard/apply/7.webp",
-  "jobboard/apply/8.webp",
-  "jobboard/apply/9.webp",
-  "jobboard/apply/10.webp",
-  "jobboard/apply/11.webp",
-  "showcase/1.webp",
-  "showcase/2.webp",
-  "showcase/3.webp",
-  "showcase/4.webp",
-  "showcase/5.webp",
-  "showcase/6.webp",
-  "showcase/7.webp",
-  "showcase/8.webp",
+  "/jobboard/jobboard-bg.webp",
+  "/jobboard/jobboard-bottom.webp",
+  "/jobboard/jobboard-top.webp",
+  "/jobboard/jobboard.webp",
+  "/jobboard/apply/1.webp",
+  "/jobboard/apply/2.webp",
+  "/jobboard/apply/3.webp",
+  "/jobboard/apply/4.webp",
+  "/jobboard/apply/5.webp",
+  "/jobboard/apply/6.webp",
+  "/jobboard/apply/7.webp",
+  "/jobboard/apply/8.webp",
+  "/jobboard/apply/9.webp",
+  "/jobboard/apply/10.webp",
+  "/jobboard/apply/11.webp",
+  "/showcase/1.webp",
+  "/showcase/2.webp",
+  "/showcase/3.webp",
+  "/showcase/4.webp",
+  "/showcase/5.webp",
+  "/showcase/6.webp",
+  "/showcase/7.webp",
+  "/showcase/8.webp",
   // "showcase/amcalogobg.webp",
   // "amca_a_blue_lower.webp",
   // "amca_a_blue.webp",
@@ -39,18 +39,18 @@ const assets = [
   // "amca_m_blue.webp",
   // "amca_m.webp",
   // "amca.webp",
-  "joinus.svg",
-  "sequence/desktop/idle_transparent_0.avif",
-  "sequence/desktop/idle_transparent_1.avif",
+  "/joinus.svg",
+  "/sequence/desktop/idle_transparent_0.avif",
+  "/sequence/desktop/idle_transparent_1.avif",
 ];
 
 const depthPlanes = [
-  { color: "depthstory/lounge_1.webp", depth: "depthstory/lounge_1_depth.webp" },
-  { color: "depthstory/lounge_2.webp", depth: "depthstory/lounge_2_depth.webp" },
-  { color: "depthstory/lounge_3.webp", depth: "depthstory/lounge_3_depth.webp" },
-  { color: "depthstory/lounge_4.webp", depth: "depthstory/lounge_3_depth.webp" },
-  { color: "depthstory/lounge_5.webp", depth: "depthstory/lounge_5_depth.webp" },
-  { color: "depthstory/wait_normal.jpg", depth: "depthstory/wait_depth.jpg" },
+  { color: "/depthstory/lounge_1.webp", depth: "depthstory/lounge_1_depth.webp" },
+  { color: "/depthstory/lounge_2.webp", depth: "depthstory/lounge_2_depth.webp" },
+  { color: "/depthstory/lounge_3.webp", depth: "depthstory/lounge_3_depth.webp" },
+  { color: "/depthstory/lounge_4.webp", depth: "depthstory/lounge_3_depth.webp" },
+  { color: "/depthstory/lounge_5.webp", depth: "depthstory/lounge_5_depth.webp" },
+  { color: "/depthstory/wait_normal.jpg", depth: "depthstory/wait_depth.jpg" },
 ];
 
 const TOTAL_HERO_FRAMES = 122;
@@ -89,7 +89,7 @@ export default function Loader() {
 
       for (let i = 1; i <= totalFrames; i++) {
         const img = new Image();
-        img.src = `${folder}/hero${i}.avif`;
+        img.src = `/${folder}/hero${i}.avif`;
         img.onload = img.onerror = () => {
           loadedCount++;
           frames[i] = img;

@@ -21,7 +21,7 @@ export default function JobBoard() {
   return (
     <div className="scale-125 lg:scale-100 z-[11] min-w-[95vw] absolute top-[31vw] lg:top-[28vw] left-[50%] translate-x-[-50%] flex items-center justify-center flex-col">
       {/* title */}
-      <img src="joinus.svg" className="w-[12vw]" />
+      <img src="/joinus.svg" className="w-[12vw]" />
 
       <div className="flex items-center justify-center min-h-[20vw] gap-[4.5vw]">
         <JobBoardTime text="LOS ANGELES" timeZone="America/Los_Angeles" />
