@@ -313,12 +313,12 @@ export default function HeroPin() {
     >
       <div
         ref={stickyRef}
-        className="sticky top-0 w-full h-screen overflow-hidden"
+        className="sticky top-0 w-full h-[100dvh] overflow-hidden"
       >
         <div data-gsap="hero" className="relative w-full h-full">
 
           <p
-            className="absolute bottom-[6vh] left-[20px] w-screen h-fit text-[20px] text-white font-progRegular z-[10]"
+            className="absolute bottom-[20px] left-[20px] w-screen h-fit text-[20px] text-white font-progRegular z-[10]"
             style={{ display: mounted && isMobile ? "block" : "none" }}
           >
             Scroll to explore

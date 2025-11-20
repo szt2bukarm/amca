@@ -13,7 +13,7 @@ export default function MobileTest() {
             /ipad/.test(ua) ||
             (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
           return isMobileUA || isIpad;
-        }; 
+        };
         setIsMobile(checkIfMobile());
       }, []);
 

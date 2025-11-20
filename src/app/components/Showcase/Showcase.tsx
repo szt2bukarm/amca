@@ -49,7 +49,7 @@ export default function Showcase() {
     }, [])
 
     return (
-        <div data-gsap='showcase' className="pt-[100vh] relative w-screen h-full bg-[#FAF5EF] z-10 overflow-hidden">
+        <div data-gsap='showcase' className="pt-[100vh] relative w-screen h-full bg-[#FAF5EF] z-10">
 
             <div data-gsap='showcase-opacity-trigger' className="h-[100px] md:h-[200px]"></div>
 
