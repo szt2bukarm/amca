@@ -309,7 +309,7 @@ export default function HeroPin() {
     <div
       ref={containerRef}
       className="relative w-full"
-      style={{ height: "calc(100lvh + 2000px)" }} 
+      style={{ height: "calc(100dvh + 2000px)" }} 
     >
       <div
         ref={stickyRef}
@@ -324,7 +324,7 @@ export default function HeroPin() {
             Scroll to explore
           </p>
 
-          <canvas ref={canvasRef} style={{ width: "100vw", height: "100lvh" }} />
+          <canvas ref={canvasRef} style={{ width: "100vw", height: "100dvh" }} />
 
           <div
             data-gsap="plane-sky-wrapper"
@@ -365,7 +365,7 @@ export default function HeroPin() {
           >
             <div
               data-gsap="idle-plane"
-              className="absolute left-0 top-0 w-screen h-[100lvh] opacity-0"
+              className="absolute left-0 top-0 w-screen h-[100dvh] opacity-0"
             >
               <img
                 aria-label="Image showing a plane with a red light blinking"

@@ -170,16 +170,17 @@ export default function DepthStory() {
 
           <div data-pin="1" className="h-screen absolute top-0 left-0 z-[6]">
             <div data-gsap="clip-1" className="w-full h-full">
-
+{/* 
               <img
                 alt="Image of a plane's interior"
                 aria-label="Image of a plane's interior"
                 src="/depthstory/lounge_1.webp"
                 className="w-screen h-screen object-cover"
                 style={{ display: isMobile ? "block" : "none" }}
-              />
+              /> */}
 
-              <div style={{ display: !isMobile && loaded ? "block" : "none" }}>
+              {loaded && (
+              <div >
                 <Canvas
                   style={{ width: "100vw", height: "100vh" }}
                   dpr={[0.5, 1]}
@@ -194,22 +195,23 @@ export default function DepthStory() {
                   />
                 </Canvas>
               </div>
-
+              )}
             </div>
           </div>
 
           <div data-pin="2" className="h-screen absolute top-0 left-0 z-[5]">
             <div data-gsap="clip-2" className="w-full h-full">
 
-              <img
+              {/* <img
                 alt="Image of a plane's interior"
                 aria-label="Image of a plane's interior"
                 src="/depthstory/lounge_2.webp"
                 className="w-screen h-screen object-cover"
                 style={{ display: isMobile ? "block" : "none" }}
-              />
+              /> */}
 
-              <div style={{ display: !isMobile && loaded ? "block" : "none" }}>
+              {loaded && (
+              <div >
                 <Canvas
                   dpr={[0.5, 1]}
                   style={{ width: "100vw", height: "100vh" }}
@@ -224,22 +226,23 @@ export default function DepthStory() {
                   />
                 </Canvas>
               </div>
-
+              )}
             </div>
           </div>
 
           <div data-pin="3" className="h-screen absolute top-0 left-0 z-[4]">
             <div data-gsap="clip-3" className="w-full h-full">
 
-              <img
+              {/* <img
                 alt="Image of a plane's interior"
                 aria-label="Image of a plane's interior"
                 src="/depthstory/lounge_3.webp"
                 className="w-screen h-screen object-cover"
                 style={{ display: isMobile ? "block" : "none" }}
-              />
+              /> */}
 
-              <div style={{ display: !isMobile && loaded ? "block" : "none" }}>
+              {loaded && (
+              <div >
                 <Canvas
                   dpr={[0.5, 1]}
                   style={{ width: "100vw", height: "100vh" }}
@@ -254,22 +257,23 @@ export default function DepthStory() {
                   />
                 </Canvas>
               </div>
-
+              )}  
             </div>
           </div>
 
           <div data-pin="4" className="h-screen absolute top-0 left-0 z-[3]">
             <div data-gsap="clip-4" className="w-full h-full">
 
-              <img
+              {/* <img
                 alt="Image of a plane's interior"
                 aria-label="Image of a plane's interior"
                 src="/depthstory/lounge_4.webp"
                 className="w-screen h-screen object-cover"
                 style={{ display: isMobile ? "block" : "none" }}
-              />
+              /> */}
 
-              <div style={{ display: !isMobile && loaded ? "block" : "none" }}>
+              {loaded && (
+              <div >
                 <Canvas
                   dpr={[0.5, 1]}
                   style={{ width: "100vw", height: "100vh" }}
@@ -284,22 +288,23 @@ export default function DepthStory() {
                   />
                 </Canvas>
               </div>
-
+              )}  
             </div>
           </div>
 
           <div data-pin="5" className="h-screen absolute top-0 left-0 z-[2]">
             <div data-gsap="clip-5" className="w-full h-full">
 
-              <img
+              {/* <img
                 alt="Image of a plane's interior"
                 aria-label="Image of a plane's interior"
                 src="/depthstory/lounge_5.webp"
                 className="w-screen h-screen object-cover"
                 style={{ display: isMobile ? "block" : "none" }}
-              />
+              /> */}
 
-              <div style={{ display: !isMobile && loaded ? "block" : "none" }}>
+              {loaded && (
+              <div >
                 <Canvas
                   dpr={[0.5, 1]}
                   style={{ width: "100vw", height: "100vh" }}
@@ -314,7 +319,7 @@ export default function DepthStory() {
                   />
                 </Canvas>
               </div>
-
+              )}
             </div>
           </div>
 

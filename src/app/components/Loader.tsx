@@ -46,7 +46,7 @@ const depthPlanes = [
 const TOTAL_HERO_FRAMES = 122;
 
 export default function Loader() {
-  const { setLoaded, loaded, setHeroFrames, setDepthPlaneTextures } = useStore();
+  const { setLoaded, loaded, setHeroFrames, setDepthPlaneTextures,isMobile } = useStore();
   const [progress, setProgress] = useState(0);
   const progressRef = useRef(0);
   const [domReady, setDomReady] = useState(false);
@@ -99,7 +99,7 @@ export default function Loader() {
     for (let i = 1; i <= TOTAL_HERO_FRAMES; i++) {
       const p = new Promise<void>((resolve) => {
         const img = new Image();
-        img.src = `/${folder}/hero${i}.avif`;
+        img.src = `/${folder}/hero${i}.${isMobile ? "webp" : "avif"}`;
 
         const onFinish = () => {
           frames[i] = img; // Store in index matching frame number
@@ -173,6 +173,7 @@ export default function Loader() {
   }, []);
 
   useEffect(() => {
+    if (isMobile == null) return;
     document.documentElement.style.cursor = "progress";
 
     totalItems.current = assets.length + TOTAL_HERO_FRAMES + (depthPlanes.length * 2);
@@ -195,7 +196,7 @@ export default function Loader() {
     };
 
     loadAll();
-  }, []);
+  }, [isMobile]);
 
   // Hide loader when done
   useEffect(() => {
