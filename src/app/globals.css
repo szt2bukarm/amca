@@ -43,13 +43,12 @@
 html {
   -webkit-font-smoothing: antialiased;
   background-color: #000;
-    overflow: hidden;
-    touch-action: none;
+  touch-action: none;
   /* will-change: auto; */
 }
 
-body{
-  overflow-x: hidden;
+body {
+  /* overflow-x: hidden; */
 }
 
 img {
@@ -60,7 +59,7 @@ img {
   user-drag: none;
 }
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   display: none;
 }
 
@@ -70,5 +69,6 @@ img {
 }
 
 [data-pin="2"] canvas {
-  pointer-events: auto; /* canvas receives pointer + scroll input again */
+  pointer-events: auto;
+  /* canvas receives pointer + scroll input again */
 }

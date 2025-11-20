@@ -15,25 +15,25 @@ export default function DepthStoryTimeline() {
       if (!textRef.current || !containerRef.current) return;
       const children = Array.from(textRef.current.children) as HTMLElement[];
       if (children.length === 0) return;
-  
+
       // Reset previous minHeight so measurement is correct
       children.forEach(child => {
         child.style.minHeight = '0';
       });
-  
+
       // Measure max height after reset
       const maxHeight = Math.max(...children.map(child => child.getBoundingClientRect().height));
       setStepHeight(maxHeight);
-  
+
       // Set container height
       containerRef.current.style.height = `${maxHeight}px`;
-  
+
       // Apply new minHeight to all children
       children.forEach(child => {
         child.style.minHeight = `${maxHeight}px`;
       });
     }
-  
+
     measure();
     window.addEventListener('resize', measure);
     return () => window.removeEventListener('resize', measure);
@@ -44,13 +44,13 @@ export default function DepthStoryTimeline() {
       const pins = 4;
       const maskMax = 100; // how far up the fade travels (percent)
       const fadeRange = 50; // softness of the fade in percent
-  
+
       for (let i = 1; i <= pins; i++) {
         const startOffset = 500 + (i - 1) * 1000;
         const endOffset = 1500 + (i - 1) * 1000;
-  
+
         ScrollTrigger.create({
-          trigger: `[data-pin='${i}']`,
+          trigger: "[data-gsap='depthstory-wrapper']", // Use main wrapper
           start: `top+=${startOffset} top`,
           end: `top+=${endOffset} top`,
           scrub: true,
@@ -59,10 +59,10 @@ export default function DepthStoryTimeline() {
             const progress = gsap.utils.clamp(0, 1, self.progress);
             const el = document.querySelector(`[data-gsap='clip-${i}']`) as HTMLElement;
             if (!el) return;
-  
+
             const maskPercent = progress * maskMax;           // 0 .. maskMax
             const topStop = 100 - maskPercent;               // where transparent begins (in %)
-  
+
             // If topStop is >= 100, the mask hasn't entered the element yet:
             // render a full black mask (element fully visible).
             if (topStop >= 100) {
@@ -73,11 +73,11 @@ export default function DepthStoryTimeline() {
               el.style.maskRepeat = "no-repeat";
               return;
             }
-  
+
             // Otherwise, compute a soft fade region inside the element.
             const fadeStart = Math.max(topStop - fadeRange, 0); // where fade starts
             const mid = fadeStart + (topStop - fadeStart) / 2;   // mid for softer feel
-  
+
             // Build gradient: solid black up to fadeStart, then soften, then transparent at topStop
             const gradient = `linear-gradient(
               to top,
@@ -87,7 +87,7 @@ export default function DepthStoryTimeline() {
               transparent ${topStop}%,
               transparent 100%
             )`;
-  
+
             el.style.webkitMaskImage = gradient;
             el.style.maskImage = gradient;
             el.style.webkitMaskRepeat = "no-repeat";
@@ -95,24 +95,21 @@ export default function DepthStoryTimeline() {
           },
         });
       }
-  
+
       ScrollTrigger.refresh();
     });
-  
+
     return () => ctx.revert();
   }, []);
 
 
   useGSAP(() => {
     const ctx = gsap.context(() => {
-      gsap.set("[data-pin='6']", { opacity:0 });
-      let textTrigger1: ScrollTrigger;
-      let textTrigger2: ScrollTrigger;
-      let pin5Trigger: ScrollTrigger;
-      let pin6Trigger: ScrollTrigger;
+      gsap.set("[data-pin='6']", { opacity: 0 });
+      let textTrigger: ScrollTrigger;
       setTimeout(() => {
-        textTrigger1 = ScrollTrigger.create({
-          trigger: "[data-gsap='clip-1']",
+        textTrigger = ScrollTrigger.create({
+          trigger: "[data-gsap='depthstory-wrapper']",
           start: "top+=3000 top",
           end: "top+=3000 top",
           scrub: true,
@@ -125,81 +122,38 @@ export default function DepthStoryTimeline() {
             setIndex(0);
           },
         });
-
-        textTrigger2 = ScrollTrigger.create({
-          trigger: "[data-gsap='clip-1']",
-          start: "top+=7000 top",
-          end: "top+=7000 top",
-          scrub: true,
-          // markers: true,
-          invalidateOnRefresh: true,
-          onEnter: () => {
-            setIndex(2);
-          },
-          onEnterBack: () => {
-            setIndex(1);
-          },
-        });
-
-        // pin5Trigger = ScrollTrigger.create({
-        //   trigger: "[data-pin='5']",
-        //   start: "top+=5500 top",
-        //   end: "top+=7000 top",
-        //   scrub: true,
-        //   // markers: true,
-        //   invalidateOnRefresh: true,
-        //   animation: gsap.fromTo(
-        //     "[data-pin='5']",{opacity:1},{opacity:0,ease:"linear"}
-        //   )
-        // });
-
-
-        // pin6Trigger = ScrollTrigger.create({
-        //   trigger: "[data-pin='6']",
-        //   start: "top+=7200 top",
-        //   end: "top+=8200 top",
-        //   scrub: true,
-        //   // markers: true,
-        //   invalidateOnRefresh: true,
-        //   animation: gsap.fromTo(
-        //     "[data-pin='6']",{opacity:0},{opacity:0.8,ease:"linear"}
-        //   )
-        // });
-
       }, 100);
 
       return () => {
-        textTrigger1?.kill();
-        textTrigger2?.kill();
-        pin6Trigger?.kill();
-      } 
+        textTrigger?.kill();
+      }
     })
-  
-      return () => ctx.revert();
+
+    return () => ctx.revert();
   })
 
   useGSAP(() => {
     const ctx = gsap.context(() => {
       let timeTrigger: ScrollTrigger;
       let timebgTrigger: ScrollTrigger;
-  
+
       setTimeout(() => {
         const lineEl = document.querySelector("[data-gsap='depthstory-timeline-wrapper']") as HTMLElement;
         const planeEl = document.querySelector("[data-gsap='depthstory-timeline']") as HTMLElement;
-  
+
         const updateTimelineAnim = () => {
           if (!lineEl || !planeEl) return;
-  
+
           const containerWidth = lineEl.offsetWidth;
           const planeWidth = planeEl.offsetWidth;
-  
+
           const targetX = containerWidth - planeWidth; // full line width minus plane width
           gsap.set(planeEl, { x: 0 }); // reset position before anim
           if (timeTrigger) timeTrigger.kill();
           if (timebgTrigger) timebgTrigger.kill();
-  
+
           timeTrigger = ScrollTrigger.create({
-            trigger: "[data-gsap='clip-1']",
+            trigger: "[data-gsap='depthstory-wrapper']",
             start: "top top",
             end: "top+=5000 top",
             scrub: true,
@@ -219,9 +173,9 @@ export default function DepthStoryTimeline() {
               });
             }
           });
-  
+
           timebgTrigger = ScrollTrigger.create({
-            trigger: "[data-gsap='clip-1']",
+            trigger: "[data-gsap='depthstory-wrapper']",
             start: "top top",
             end: "top+=5000 top",
             scrub: true,
@@ -233,18 +187,24 @@ export default function DepthStoryTimeline() {
             ),
           });
         };
-  
+
         updateTimelineAnim();
         ScrollTrigger.addEventListener("refreshInit", updateTimelineAnim);
         ScrollTrigger.refresh();
+
+        return () => {
+          ScrollTrigger.removeEventListener("refreshInit", updateTimelineAnim);
+          timeTrigger?.kill();
+          timebgTrigger?.kill();
+        }
       }, 100);
     });
-  
+
     return () => ctx.revert();
   }, []);
 
   return (
-    <div className="fixed bottom-0 left-0 w-screen p-[25px] md:p-[55px] z-10 flex flex-col gap-[18px] md:gap-[25px]">
+    <div className="absolute bottom-0 left-0 w-screen p-[25px] md:p-[55px] z-10 flex flex-col gap-[18px] md:gap-[25px]">
 
       {/* Dynamic container height */}
       <div ref={containerRef} className="relative overflow-hidden w-full">
@@ -256,7 +216,7 @@ export default function DepthStoryTimeline() {
             transition: "transform 0.5s cubic-bezier(.19,1,.22,1)",
           }}
           className="absolute top-0 left-0 w-full"
-          >
+        >
           <div className="flex flex-col justify-end min-h-[0]">
             <p className="font-progLight text-[#F4F5F2] text-xs leading-[23px] md:text-md md:leading-[32px] tracking-[-0.8px] md:tracking-[-1.2px]">
               Braniff International Airways Lounge, 1970

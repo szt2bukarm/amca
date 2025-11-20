@@ -19,10 +19,10 @@ export default function DepthStoryAbsoluteText() {
           scale: 1.08,
           color: "#fff",
         });
-  
+
         // 1️⃣ wrapper fade-in
         ScrollTrigger.create({
-          trigger: "[data-gsap='clip-1']",
+          trigger: "[data-gsap='depthstory-wrapper']",
           start: "top+=6500 top",
           end: "top+=7500 top",
           scrub: true,
@@ -33,10 +33,10 @@ export default function DepthStoryAbsoluteText() {
             { opacity: 1, immediateRender: false }
           ),
         });
-  
+
         // 2️⃣ text fade + scale
         ScrollTrigger.create({
-          trigger: "[data-gsap='clip-1']",
+          trigger: "[data-gsap='depthstory-wrapper']",
           start: "top+=7000 top",
           end: "top+=8000 top",
           scrub: true,
@@ -47,10 +47,10 @@ export default function DepthStoryAbsoluteText() {
             { opacity: 1, scale: 1, stagger: 0.1, ease: "linear" }
           ),
         });
-  
+
         // 3️⃣ color transition
         ScrollTrigger.create({
-          trigger: "[data-gsap='clip-1']",
+          trigger: "[data-gsap='depthstory-wrapper']",
           start: "top+=8000 top",
           end: "top+=9000 top",
           scrub: true,
@@ -63,7 +63,7 @@ export default function DepthStoryAbsoluteText() {
         });
 
         ScrollTrigger.create({
-          trigger: "[data-gsap='clip-1']",
+          trigger: "[data-gsap='depthstory-wrapper']",
           start: "top+=8000 top",
           end: "top+=9000 top",
           scrub: true,
@@ -76,15 +76,16 @@ export default function DepthStoryAbsoluteText() {
         });
 
         ScrollTrigger.create({
-          trigger: "[data-gsap='clip-2']",
+          trigger: "[data-gsap='depthstory-wrapper']",
           start: "top+=8000 top",
           end: "top+=9000 top",
           scrub: true,
+          invalidateOnRefresh: true,
           // markers: true,
           animation: gsap.fromTo(
             "[data-gsap='nav-logo-desktop'],[data-gsap='nav-logo-mobile'],[data-gsap='nav-careers']",
             { filter: "invert(0)" },
-            { filter: "invert(1)", ease: "linear",immediateRender: false }
+            { filter: "invert(1)", ease: "linear", immediateRender: false }
           ),
         });
 
@@ -101,7 +102,7 @@ export default function DepthStoryAbsoluteText() {
           animation: gsap.fromTo(
             wrapperRef.current,
             { opacity: 1 },
-            { opacity: 0,duration: 0, immediateRender: false }
+            { opacity: 0, duration: 0, immediateRender: false }
           ),
         })
 
@@ -116,13 +117,13 @@ export default function DepthStoryAbsoluteText() {
           animation: gsap.fromTo(
             wrapperRef.current,
             { opacity: 1 },
-            { opacity: 0,duration:0, immediateRender: false }
+            { opacity: 0, duration: 0, immediateRender: false }
           ),
         })
 
       }, 100);
     });
-  
+
     return () => ctx.revert();
   }, []);
 

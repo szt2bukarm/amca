@@ -20,12 +20,12 @@ interface Props {
 
 export default function JobBoardListing({ jobs = [], currentPage }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const {showData,setShowData} = useStore();
+  const { showData, setShowData } = useStore();
 
   useGSAP(() => {
     const ctx = gsap.context(() => {
       let trigger: ScrollTrigger;
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         trigger = ScrollTrigger.create({
           trigger: "[data-gsap='jobboard-listings']",
           start: "top 50%",
@@ -38,10 +38,13 @@ export default function JobBoardListing({ jobs = [], currentPage }: Props) {
           }
         });
       }, 100);
-      return () => trigger?.kill();
+      return () => {
+        clearTimeout(timer);
+        trigger?.kill();
+      };
     })
     return () => ctx.revert();
-  },[showData])
+  }, [showData])
 
   const imageNumbers = useMemo(() => {
     const result: number[] = [];
@@ -78,7 +81,7 @@ export default function JobBoardListing({ jobs = [], currentPage }: Props) {
       stagger: 0.1,
       ease: "power4.inOut",
     });
-  }, [currentPage,jobs,showData]);
+  }, [currentPage, jobs, showData]);
 
   return (
     <div data-gsap='jobboard-listings' ref={containerRef} className="flex flex-col gap-[0.2vw]">
@@ -88,14 +91,14 @@ export default function JobBoardListing({ jobs = [], currentPage }: Props) {
         </p>
         <p className="font-progLightIta text-[#faf5ef] text-[0.8vw]">DEPARTMENT</p>
       </div>
-  
+
       {Array(7)
         .fill(null)
         .map((_, index) => {
           const job = showData
             ? filledJobs[index] || { title: "", department: "", apply: "" }
             : { title: "", department: "", apply: "" };
-  
+
           return (
             <div
               key={`${currentPage}-${index}`}

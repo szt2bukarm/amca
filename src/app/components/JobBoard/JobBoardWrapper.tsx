@@ -10,56 +10,63 @@ export default function JobBoardWrapper() {
     useAshbyJobs();
 
     useGSAP(() => {
-        setTimeout(() => {
-          ScrollTrigger.create({
-            trigger: "[data-scroll='jobboard']",
-            id: "jobboard",
-            start: "top-=200 top",
-            end: "top top",
-            scrub: true,
-            animation: gsap.fromTo("[data-gsap='nav-careers']", {opacity: 1}, {opacity: 0, immediateRender: false}),
-  
-          })
+        const timer = setTimeout(() => {
+            ScrollTrigger.create({
+                trigger: "[data-scroll='jobboard']",
+                id: "jobboard",
+                start: "top-=200 top",
+                end: "top top",
+                scrub: true,
+                animation: gsap.fromTo("[data-gsap='nav-careers']", { opacity: 1 }, { opacity: 0, immediateRender: false }),
+
+            })
         }, 1000);
-      },[])
+        return () => clearTimeout(timer);
+    }, [])
 
     useGSAP(() => {
         const ctx = gsap.context(() => {
             let trigger: ScrollTrigger
-            setTimeout(() => {
-                gsap.set("[data-gsap='jobboard-bg']", {x: "-0%"});
+            const timer = setTimeout(() => {
+                gsap.set("[data-gsap='jobboard-bg']", { x: "-0%" });
                 trigger = ScrollTrigger.create({
                     trigger: "[data-gsap='jobboard']",
                     start: "top-=600 top",
                     end: "bottom+=600 top",
                     scrub: true,
-                    animation: gsap.fromTo("[data-gsap='jobboard-bg']", {y: 0, scale: 1}, {y: 100, scale: 0.8, ease: "linear", }),
+                    animation: gsap.fromTo("[data-gsap='jobboard-bg']", { y: 0, scale: 1 }, { y: 100, scale: 0.8, ease: "linear", }),
                 });
             }, 100);
-            return () => trigger?.kill();
+            return () => {
+                clearTimeout(timer);
+                trigger?.kill();
+            };
         })
         return () => ctx.revert();
-    },[])
+    }, [])
 
     useGSAP(() => {
         const ctx = gsap.context(() => {
             let trigger: ScrollTrigger
-            setTimeout(() => {
+            const timer = setTimeout(() => {
                 trigger = ScrollTrigger.create({
                     trigger: "[data-gsap='jobboard-title']",
                     start: "top 70%",
                     end: "bottom 70%",
                     scrub: true,
-                    animation: gsap.fromTo("[data-gsap='jobboard-title']", {opacity: 0, scale: 1.05}, {opacity: 1, scale: 1, ease: "power4.inOut"}),
+                    animation: gsap.fromTo("[data-gsap='jobboard-title']", { opacity: 0, scale: 1.05 }, { opacity: 1, scale: 1, ease: "power4.inOut" }),
                 });
             }, 100);
-            return () => trigger?.kill();
+            return () => {
+                clearTimeout(timer);
+                trigger?.kill();
+            };
         })
         return () => ctx.revert();
-    },[])
+    }, [])
 
     return (
-        <div data-gsap="jobboard" className="hidden md:block relative w-full h-[110vw] lg:h-[88vw] overflow-hidden">
+        <div data-gsap="jobboard" className="hidden md:block relative w-screen h-[110vw] lg:h-[88vw] overflow-hidden">
 
             {/* title */}
             <p data-gsap="jobboard-title" className="font-reckless text-[7vw] tracking-[-5.35px] z-[11] absolute top-[7.5vw] left-[50%] translate-x-[-50%] text-title">Open Roles</p>
@@ -69,13 +76,13 @@ export default function JobBoardWrapper() {
 
             {/* glass bg */}
             <div className="min-w-[180vw] lg:min-w-[160vw] absolute bottom-0 left-1/2 translate-x-[-50%] mix-blend-plus-lighter [mask-image:linear-gradient(to_bottom,transparent_25%,black_100%)] [mask-size:100%_100%] [mask-repeat:no-repeat]">
-            <img
-            
-            data-gsap="jobboard-bg"
-            src="/jobboard/jobboard-bg.webp"
-            alt="Job Board Glass Tile Background"
-            className="w-full h-full "
-            />
+                <img
+
+                    data-gsap="jobboard-bg"
+                    src="/jobboard/jobboard-bg.webp"
+                    alt="Job Board Glass Tile Background"
+                    className="w-full h-full "
+                />
             </div>
 
             {/* job board */}

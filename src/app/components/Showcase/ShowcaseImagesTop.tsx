@@ -9,16 +9,19 @@ export default function ShowcaseImagesTop() {
     useGSAP(() => {
         const ctx = gsap.context(() => {
             let trigger: ScrollTrigger;
-            setTimeout(() => {
+            const timer = setTimeout(() => {
                 trigger = ScrollTrigger.create({
                     trigger: "[data-gsap='showcase-img-top']",
                     start: "top-=500 top",
                     end: "bottom+=500",
                     scrub: true,
-                    animation: gsap.fromTo("[data-gsap='showcase-img-top']", {y: -0, }, {y: 30, ease: "linear", }),
+                    animation: gsap.fromTo("[data-gsap='showcase-img-top']", { y: -0, }, { y: 30, ease: "linear", }),
                 });
             }, 100);
-            return () => trigger?.kill();
+            return () => {
+                clearTimeout(timer);
+                trigger?.kill();
+            };
         })
         return () => ctx.revert();
     })
@@ -26,38 +29,52 @@ export default function ShowcaseImagesTop() {
     useGSAP(() => {
         const ctx = gsap.context(() => {
             let trigger: ScrollTrigger;
-            setTimeout(() => {
-            trigger = ScrollTrigger.create({
-                trigger: "[data-gsap='showcase-img-top']",
-                start: "top-=500 top",
-                end: "top+=500 top",
-                scrub: true,
-                // markers: true,
-                animation: gsap.fromTo(
-                  "[data-gsap='nav-logo-desktop'],[data-gsap='nav-logo-mobile'],[data-gsap='nav-careers']",
-                  { filter: "invert(1)" },
-                  { filter: "invert(0)", ease: "linear",immediateRender: false }
-                ),
-              });
+            const timer = setTimeout(() => {
+                trigger = ScrollTrigger.create({
+                    trigger: "[data-gsap='showcase-img-top']",
+                    start: "top-=500 top",
+                    end: "top+=500 top",
+                    scrub: true,
+                    invalidateOnRefresh: true,
+                    onRefresh: (self) => {
+                        if (self.progress === 1) {
+                            gsap.set("[data-gsap='nav-logo-desktop'],[data-gsap='nav-logo-mobile'],[data-gsap='nav-careers']", { filter: "invert(0)" });
+                        } else if (self.progress > 0) {
+                            gsap.set("[data-gsap='nav-logo-desktop'],[data-gsap='nav-logo-mobile'],[data-gsap='nav-careers']", { filter: "invert(1)" });
+                        }
+                    },
+                    animation: gsap.fromTo(
+                        "[data-gsap='nav-logo-desktop'],[data-gsap='nav-logo-mobile'],[data-gsap='nav-careers']",
+                        { filter: "invert(1)" },
+                        { filter: "invert(0)", ease: "linear", immediateRender: false }
+                    ),
+                });
+                gsap.set("[data-gsap='nav-logo-desktop'],[data-gsap='nav-logo-mobile'],[data-gsap='nav-careers']", { filter: "invert(0)" });
             }, 100);
-            return () => trigger?.kill();
+            return () => {
+                clearTimeout(timer);
+                trigger?.kill();
+            };
         })
         return () => ctx.revert();
-    })
+    }, [])
 
     useGSAP(() => {
         const ctx = gsap.context(() => {
             let trigger: ScrollTrigger;
-            setTimeout(() => {
+            const timer = setTimeout(() => {
                 trigger = ScrollTrigger.create({
                     trigger: "[data-gsap='showcase-top-card']",
                     start: "top-=2000 top",
                     end: "bottom+=2000 top",
                     scrub: true,
-                    animation: gsap.fromTo("[data-gsap='showcase-top-card']", {y: -150, }, {y: 150,stagger:0.05, ease: "linear", }),
+                    animation: gsap.fromTo("[data-gsap='showcase-top-card']", { y: -150, }, { y: 150, stagger: 0.05, ease: "linear", }),
                 });
             }, 100);
-            return () => trigger?.kill();
+            return () => {
+                clearTimeout(timer);
+                trigger?.kill();
+            };
         })
         return () => ctx.revert();
     })
@@ -65,7 +82,7 @@ export default function ShowcaseImagesTop() {
     useGSAP(() => {
         const ctx = gsap.context(() => {
             let trigger: ScrollTrigger;
-            setTimeout(() => {
+            const timer = setTimeout(() => {
                 gsap.set("[data-gsap='showcase-top-card']", {
                     clipPath: "inset(0% 0% 100% 0%)",
                     filter: "brightness(1000%)",
@@ -84,9 +101,13 @@ export default function ShowcaseImagesTop() {
                     }
                 });
             }, 100);
-            return () => trigger?.kill();
+            return () => {
+                clearTimeout(timer);
+                trigger?.kill();
+            };
         })
-    },[])
+        return () => ctx.revert();
+    }, [])
 
     return (
         <div className="relative grid grid-cols-4 gap-[1vw] mx-auto max-w-[2000px]">

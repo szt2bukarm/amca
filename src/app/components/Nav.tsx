@@ -6,96 +6,84 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { SplitText } from "gsap/SplitText";
 import { useStore } from "../useStore";
 import { useEffect, useState } from "react";
-gsap.registerPlugin(SplitText,ScrollTrigger);
+gsap.registerPlugin(SplitText, ScrollTrigger);
 
 
 export default function Nav() {
   const lenis = useLenis();
-  const {setShowData,loaded} = useStore();
+  const { setShowData, loaded } = useStore();
   const [allowButton, setAllowButton] = useState(false);
 
   useEffect(() => {
     const logoEl = document.querySelector("[data-gsap='nav-logo-desktop']")
     const rect = logoEl?.getBoundingClientRect();
 
-    gsap.set("[data-gsap='nav-logo-desktop'],[data-gsap='nav-logo-mobile']", {left:"50%",translateX:"-50%",top:window.innerHeight/2,translateY:"-50%", width: 154,opacity: 0});
-    if (loaded) {
-      gsap.to("[data-gsap='nav-logo-desktop'],[data-gsap='nav-logo-mobile']", {
-        duration: 0.5,
-        width: 56,
-        height: 39,
-        delay:1,
-        ease: "power4.inOut"
-      });
+    gsap.set("[data-gsap='nav-logo-desktop'],[data-gsap='nav-logo-mobile']", { left: "50%", translateX: "-50%", top: window.innerHeight / 2, translateY: "-50%", width: 154, opacity: 0 });
 
+    const updatePosition = () => {
       let left = "50%";
       if (window.innerWidth < 768) left = "50px";
       else if (window.innerWidth <= 1024) left = "80px";
       else left = "50%";
 
+      gsap.set("[data-gsap='nav-logo-desktop'],[data-gsap='nav-logo-mobile']", {
+        top: window.innerWidth < 768 ? "35px" : "65px",
+        left: left,
+      });
+    };
+
+    if (loaded) {
+      // Initial animation sequence
+      gsap.to("[data-gsap='nav-logo-desktop'],[data-gsap='nav-logo-mobile']", {
+        duration: 0.5,
+        width: 56,
+        height: 39,
+        delay: 1,
+        ease: "power4.inOut"
+      });
+
+      // Initial position move
+      let left = "50%";
+      if (window.innerWidth < 768) left = "50px";
+      else if (window.innerWidth <= 1024) left = "80px";
+      else left = "50%";
 
       gsap.to("[data-gsap='nav-logo-desktop'],[data-gsap='nav-logo-mobile']", {
         top: window.innerWidth < 768 ? "35px" : "65px",
         left: left,
-        // translateX: 0,
         duration: 1,
-        delay:0.9,
-        ease: "power4.inOut"
+        delay: 0.9,
+        ease: "power4.inOut",
+        onComplete: () => {
+          // Only start listening for resize after initial animation is done
+          window.addEventListener("resize", updatePosition);
+        }
       });
+
       setTimeout(() => {
         setAllowButton(true);
       }, 4000);
     }
+
+    return () => {
+      window.removeEventListener("resize", updatePosition);
+    };
   }, [loaded]);
 
-    // useGSAP(() => {
-    //     const split = new SplitText("[data-gsap='nav-text']", {
-    //         type: "chars",
-    //     })
-    //     gsap.set(split.chars, { x: -30,y:-2, autoAlpha: 0 });
-        
-    //     split.chars.forEach((char) => {
-    //         const wrapper = document.createElement("div");
-    //         wrapper.style.display = "inline-block";
-    //         wrapper.style.overflow = "hidden";
-    //         char.parentNode!.insertBefore(wrapper, char);
-    //         wrapper.appendChild(char);
-    //       });
-
-    //     // Scroll fade with fromTo for better control
-    //     ScrollTrigger.create({
-    //       trigger: document.body,
-    //       start: "top+=4500 0%",
-    //       end: "top+=5500 0%",
-    //       scrub: true,
-    //       // markers: true,
-    //       animation: gsap.fromTo(split.chars, 
-    //         {
-    //           autoAlpha: 0,
-    //           x: -30
-    //         },
-    //         {
-    //           autoAlpha: 1,
-    //           x: 0,
-    //           stagger: 0.005,
-    //         }
-    //       ),
-    //     });
-    // },[])
-
-    const scrollToCarriers = () => {
-      if (lenis) {
-        setShowData(false);
-        const element = ScrollTrigger.getById("jobboard")
-        lenis.scrollTo(element?.start, {
-          duration: 2,
-          offset: 200
-        })
-      }
-      setTimeout(() => {
-        setShowData(true);
-      }, 1500);
-    };
+  const scrollToCarriers = () => {
+    if (lenis) {
+      setShowData(false);
+      const element = ScrollTrigger.getById("jobboard")
+      lenis.scrollTo(element?.start, {
+        duration: 2,
+        offset: 200
+      })
+    }
+    setTimeout(() => {
+      setShowData(true);
+      gsap.set("[data-gsap='depthstory-absolute-text']", { opacity: 0 })
+    }, 1500);
+  };
 
   return (
     <div className="fixed top-0 left-0 w-screen p-[20px] md:p-[50px] flex items-center justify-between z-50">
@@ -104,15 +92,15 @@ export default function Nav() {
       </p> */}
 
       <a data-gsap="nav-logo-mobile" href="https://amca.com/" target="_blank" className="block lg:hidden absolute w-[154px] h-[108px] opacity-0">
-        <svg  xmlns="http://www.w3.org/2000/svg" className="w-full h-full" viewBox="0 0 52 36" fill="none">
+        <svg xmlns="http://www.w3.org/2000/svg" className="w-full h-full" viewBox="0 0 52 36" fill="none">
           <path d="M51.1851 25.0514L26.2632 0.27936C25.8884 -0.0931771 25.2831 -0.0930952 24.9084 0.279542L0 25.0514C2.98821 28.0232 6.37577 30.324 9.98365 32.0359L18.7213 19.1141C18.9932 18.7121 19.6151 19.0292 19.4494 19.4854L14.2663 33.7477C17.6401 34.8571 20.7652 35.4459 24.2767 35.5418L25.2252 28.8905C25.2916 28.4249 25.9609 28.4166 26.0389 28.8804L27.1564 35.5281C30.599 35.4185 33.6277 34.8297 36.9326 33.7477L31.7495 19.4854C31.5838 19.0292 32.2058 18.7121 32.4776 19.1141L41.2153 32.0359C44.8232 30.324 48.2107 28.0232 51.1989 25.0514H51.1851Z" fill="white" />
         </svg>
       </a >
 
       <a data-gsap="nav-logo-desktop" href="https://amca.com/" target="_blank" className="hidden lg:flex absolute w-[154px] items-center justify-center opacity-0">
-          <svg  xmlns="http://www.w3.org/2000/svg" className="w-full h-full" viewBox="0 0 52 36" fill="none">
-            <path d="M51.1851 25.0514L26.2632 0.27936C25.8884 -0.0931771 25.2831 -0.0930952 24.9084 0.279542L0 25.0514C2.98821 28.0232 6.37577 30.324 9.98365 32.0359L18.7213 19.1141C18.9932 18.7121 19.6151 19.0292 19.4494 19.4854L14.2663 33.7477C17.6401 34.8571 20.7652 35.4459 24.2767 35.5418L25.2252 28.8905C25.2916 28.4249 25.9609 28.4166 26.0389 28.8804L27.1564 35.5281C30.599 35.4185 33.6277 34.8297 36.9326 33.7477L31.7495 19.4854C31.5838 19.0292 32.2058 18.7121 32.4776 19.1141L41.2153 32.0359C44.8232 30.324 48.2107 28.0232 51.1989 25.0514H51.1851Z" fill="white" />
-          </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" className="w-full h-full" viewBox="0 0 52 36" fill="none">
+          <path d="M51.1851 25.0514L26.2632 0.27936C25.8884 -0.0931771 25.2831 -0.0930952 24.9084 0.279542L0 25.0514C2.98821 28.0232 6.37577 30.324 9.98365 32.0359L18.7213 19.1141C18.9932 18.7121 19.6151 19.0292 19.4494 19.4854L14.2663 33.7477C17.6401 34.8571 20.7652 35.4459 24.2767 35.5418L25.2252 28.8905C25.2916 28.4249 25.9609 28.4166 26.0389 28.8804L27.1564 35.5281C30.599 35.4185 33.6277 34.8297 36.9326 33.7477L31.7495 19.4854C31.5838 19.0292 32.2058 18.7121 32.4776 19.1141L41.2153 32.0359C44.8232 30.324 48.2107 28.0232 51.1989 25.0514H51.1851Z" fill="white" />
+        </svg>
       </a>
 
       <div data-gsap="nav-careers" className="opacity-0 w-fit h-full ml-auto">

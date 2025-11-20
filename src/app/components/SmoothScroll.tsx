@@ -10,19 +10,26 @@ gsap.registerPlugin(CustomEase, ScrollTrigger);
 
 function SmoothScroll({ children }: { children: React.ReactNode }) {
   const { loaded, isMobile } = useStore();
-  
+
   useEffect(() => {
+    let lastWidth = window.innerWidth;
     const handleResize = () => {
-      if (isMobile) return;
-      location.reload();
+      const newWidth = window.innerWidth;
+      const wasMobile = lastWidth <= 1024;
+      const isMobileNow = newWidth <= 1024;
+
+      if (wasMobile !== isMobileNow) {
+        location.reload();
+      }
+      lastWidth = newWidth;
     };
-   
+
     window.addEventListener("resize", handleResize);
-  
+
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [isMobile]);
+  }, []);
 
   useEffect(() => {
     if (!gsap) return;
@@ -35,6 +42,7 @@ function SmoothScroll({ children }: { children: React.ReactNode }) {
     <ReactLenis
       className="current-page"
       root
+      smoothTouch={isMobile}
       options={{
         lerp: 0.05,
         duration: 1.5,

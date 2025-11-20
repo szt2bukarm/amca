@@ -9,16 +9,19 @@ export default function ShowcaseImagesBottom() {
     useGSAP(() => {
         const ctx = gsap.context(() => {
             let trigger: ScrollTrigger;
-            setTimeout(() => {
+            const timer = setTimeout(() => {
                 trigger = ScrollTrigger.create({
                     trigger: "[data-gsap='showcase-img-bottom']",
                     start: "top-=500 top",
                     end: "bottom+=500",
                     scrub: true,
-                    animation: gsap.fromTo("[data-gsap='showcase-img-bottom']", {y: 0, }, {y: 30, ease: "linear", }),
+                    animation: gsap.fromTo("[data-gsap='showcase-img-bottom']", { y: 0, }, { y: 30, ease: "linear", }),
                 });
             }, 100);
-            return () => trigger?.kill();
+            return () => {
+                clearTimeout(timer);
+                trigger?.kill();
+            };
         })
         return () => ctx.revert();
     })
@@ -26,16 +29,19 @@ export default function ShowcaseImagesBottom() {
     useGSAP(() => {
         const ctx = gsap.context(() => {
             let trigger: ScrollTrigger;
-            setTimeout(() => {
+            const timer = setTimeout(() => {
                 trigger = ScrollTrigger.create({
                     trigger: "[data-gsap='showcase-bottom-card']",
                     start: "top-=2000 top",
                     end: "bottom+=1000 top",
                     scrub: true,
-                    animation: gsap.fromTo("[data-gsap='showcase-bottom-card']", {y: -150, }, {y: 150,stagger:0.05, ease: "linear", }),
+                    animation: gsap.fromTo("[data-gsap='showcase-bottom-card']", { y: -150, }, { y: 150, stagger: 0.05, ease: "linear", }),
                 });
             }, 100);
-            return () => trigger?.kill();
+            return () => {
+                clearTimeout(timer);
+                trigger?.kill();
+            };
         })
         return () => ctx.revert();
     })
@@ -43,7 +49,7 @@ export default function ShowcaseImagesBottom() {
     useGSAP(() => {
         const ctx = gsap.context(() => {
             let trigger: ScrollTrigger;
-            setTimeout(() => {
+            const timer = setTimeout(() => {
                 gsap.set("[data-gsap='showcase-bottom-card']", {
                     clipPath: "inset(0% 0% 100% 0%)",
                     filter: "brightness(1000%)",
@@ -62,9 +68,13 @@ export default function ShowcaseImagesBottom() {
                     }
                 });
             }, 100);
-            return () => trigger?.kill();
+            return () => {
+                clearTimeout(timer);
+                trigger?.kill();
+            };
         })
-    },[])
+        return () => ctx.revert();
+    }, [])
 
     return (
         <div className="grid grid-cols-4 gap-[1vw] mx-auto max-w-[2000px] bg-[#232323] md:pb-[70px]">

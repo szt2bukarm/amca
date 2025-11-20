@@ -2,46 +2,46 @@ import { create } from 'zustand'
 import * as THREE from 'three'
 
 interface DepthPlaneTexture {
-    color: THREE.Texture
-    depth: THREE.Texture
-  }
+  color: THREE.Texture
+  depth: THREE.Texture
+}
 
-  interface Store {
-    jobs: any[]
-    setJobs: (jobs: any[]) => void
-  
-    loaded: boolean
-    setLoaded: (loaded: boolean) => void
-  
-    loadedHeroFrames: HTMLImageElement[] | null
-    setHeroFrames: (frames: HTMLImageElement[]) => void
-  
-    depthPlaneTextures: DepthPlaneTexture[] | null
-    setDepthPlaneTextures: (textures: DepthPlaneTexture[]) => void
+interface Store {
+  jobs: any[]
+  setJobs: (jobs: any[]) => void
 
-    isMobile: boolean
-    setIsMobile: (isMobile: boolean) => void
+  loaded: boolean
+  setLoaded: (loaded: boolean) => void
 
-    showData: boolean
-    setShowData: (showData: boolean) => void
-  }
-  
-  export const useStore = create<Store>((set) => ({
-    jobs: [],
-    setJobs: (jobs) => set({ jobs }),
-  
-    loaded: false,
-    setLoaded: (loaded) => set({ loaded }),
-  
-    loadedHeroFrames: null,
-    setHeroFrames: (frames) => set({ loadedHeroFrames: frames }),
-  
-    depthPlaneTextures: null,
-    setDepthPlaneTextures: (textures) => set({ depthPlaneTextures: textures }),
+  loadedHeroFrames: HTMLImageElement[] | null
+  setHeroFrames: (frames: HTMLImageElement[]) => void
 
-    isMobile: false,
-    setIsMobile: (isMobile) => set({ isMobile }),
+  depthPlaneTextures: DepthPlaneTexture[] | null
+  setDepthPlaneTextures: (textures: DepthPlaneTexture[]) => void
 
-    showData: false,
-    setShowData: (showData) => set({ showData }),
-  }))
+  isMobile: boolean
+  setIsMobile: (isMobile: boolean) => void
+
+  showData: boolean
+  setShowData: (showData: boolean) => void
+}
+
+export const useStore = create<Store>((set) => ({
+  jobs: [],
+  setJobs: (jobs) => set({ jobs }),
+
+  loaded: false,
+  setLoaded: (loaded) => set({ loaded }),
+
+  loadedHeroFrames: null,
+  setHeroFrames: (frames) => set({ loadedHeroFrames: frames }),
+
+  depthPlaneTextures: null,
+  setDepthPlaneTextures: (textures) => set({ depthPlaneTextures: textures }),
+
+  isMobile: false,
+  setIsMobile: (isMobile) => set({ isMobile }),
+
+  showData: false,
+  setShowData: (showData) => set({ showData }),
+}))

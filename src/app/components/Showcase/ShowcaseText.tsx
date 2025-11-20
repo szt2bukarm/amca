@@ -4,7 +4,7 @@ import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { useRef } from "react";
-gsap.registerPlugin(ScrollTrigger,SplitText);
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 interface Props {
     dotColor: string,
@@ -13,7 +13,7 @@ interface Props {
     children: React.ReactNode
 }
 
-export default function ShowcaseText({ dotColor, textColor,wide=false, children} : Props) {
+export default function ShowcaseText({ dotColor, textColor, wide = false, children }: Props) {
     const textRef = useRef<HTMLParagraphElement>(null);
     const dotRef = useRef<HTMLDivElement>(null);
 
@@ -21,21 +21,24 @@ export default function ShowcaseText({ dotColor, textColor,wide=false, children}
     useGSAP(() => {
         const ctx = gsap.context(() => {
             let trigger: ScrollTrigger;
-            setTimeout(() => {
+            const timer = setTimeout(() => {
                 let text = new SplitText(textRef.current, { type: "words" });
-                gsap.set([dotRef.current, text.words], {opacity: 0});
+                gsap.set([dotRef.current, text.words], { opacity: 0 });
                 trigger = ScrollTrigger.create({
                     trigger: textRef.current,
                     start: "top-=200 50%",
                     end: "bottom-=150 50%",
                     scrub: true,
-                    animation: gsap.fromTo([dotRef.current, text.words], {opacity: 0}, {opacity: 1,stagger: 0.1, ease: "power4.inOut"}),
+                    animation: gsap.fromTo([dotRef.current, text.words], { opacity: 0 }, { opacity: 1, stagger: 0.1, ease: "power4.inOut" }),
                 });
             }, 100);
-            return () => trigger?.kill();
+            return () => {
+                clearTimeout(timer);
+                trigger?.kill();
+            };
         })
         return () => ctx.revert();
-    },[])
+    }, [])
 
     return (
         <div className={`relative ${wide ? "lg:max-w-[1100px] !w-[80vw]" : "lg:w-[797px]"} md:w-[624px] w-[80%]`}>

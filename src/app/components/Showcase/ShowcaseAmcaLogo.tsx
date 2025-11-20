@@ -9,13 +9,13 @@ export default function ShowcaseAmcaLogo() {
         const ctx = gsap.context(() => {
             let trigger: ScrollTrigger;
             let opacityTrigger: ScrollTrigger;
-            setTimeout(() => {
+            const timer = setTimeout(() => {
                 trigger = ScrollTrigger.create({
                     trigger: "[data-gsap='showcase']",
                     start: "top-=500 top",
                     end: "bottom+=500",
                     scrub: true,
-                    animation: gsap.fromTo("[data-gsap='showcase-bg']", {y: -200, }, {y: 200, ease: "linear", }),
+                    animation: gsap.fromTo("[data-gsap='showcase-bg']", { y: -200, }, { y: 200, ease: "linear", }),
                 });
                 opacityTrigger = ScrollTrigger.create({
                     trigger: "[data-gsap='showcase-title']",
@@ -23,11 +23,17 @@ export default function ShowcaseAmcaLogo() {
                     end: "bottom+=50% 50%",
                     scrub: true,
                     // markers: true,
-                    animation: gsap.fromTo("[data-gsap='showcase-logo']", {opacity: 0, }, {opacity: 1, ease: "linear", }),
+                    animation: gsap.fromTo("[data-gsap='showcase-logo']", { opacity: 0, }, { opacity: 1, ease: "linear", }),
                 })
             }, 100);
+            return () => {
+                clearTimeout(timer);
+                trigger?.kill();
+                opacityTrigger?.kill();
+            };
         })
-    },[])
+        return () => ctx.revert();
+    }, [])
 
     return (
         <div data-gsap='showcase-logo' className="opacity-0 relative w-full h-[410px] md:h-[750px] lg:h-[960px] overflow-hidden">
@@ -45,9 +51,9 @@ export default function ShowcaseAmcaLogo() {
                 </div>
 
                 <div className="flex flex-col w-full h-full">
-                <p className="font-reckless text-[#272E2B] text-sm leading-[28px] md:text-lg md:leading-[44px]">Bringing</p>
-                <p className="font-reckless text-[#272E2B] text-sm leading-[28px] md:text-lg md:leading-[44px] ml-[3.7ch]">Ambition Back</p>
-                <p className="font-reckless text-[#272E2B] text-sm leading-[28px] md:text-lg md:leading-[44px] ml-[3.7ch]">To The Skies.</p>
+                    <p className="font-reckless text-[#272E2B] text-sm leading-[28px] md:text-lg md:leading-[44px]">Bringing</p>
+                    <p className="font-reckless text-[#272E2B] text-sm leading-[28px] md:text-lg md:leading-[44px] ml-[3.7ch]">Ambition Back</p>
+                    <p className="font-reckless text-[#272E2B] text-sm leading-[28px] md:text-lg md:leading-[44px] ml-[3.7ch]">To The Skies.</p>
                 </div>
             </div>
 
