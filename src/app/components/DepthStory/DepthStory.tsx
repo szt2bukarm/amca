@@ -163,7 +163,7 @@ export default function DepthStory() {
             style={{
               filter: "drop-shadow(0px 0px 30px rgba(0, 0, 0, 1))"
             }}
-            className="absolute top-[50%] translate-y-[-50%] left-[20px] md:left-[50px] font-reckless text-[8vw] leading-[8vw] sm:text-[5vw] sm:leading-[5vw] md:text-lg md:leading-[48px] text-[#FAF5EF] w-[calc(100%-40px)] md:w-[642px] z-10"
+            className="absolute top-[50%] translate-y-[-50%] left-[20px] md:left-[50px] font-reckless text-[8vw] leading-[8vw] sm:text-[5vw] sm:leading-[5vw] md:text-lg md:leading-[48px] text-[#FAF5EF] w-[calc(100%-40px)] md:w-[680px] z-10"
           >
               Building aircraft was once humanity’s boldest ambition, but every new airplane this century has blown through schedule or cost.
           </p>
