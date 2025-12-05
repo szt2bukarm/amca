@@ -173,7 +173,7 @@ export default function HeroPin() {
       document.documentElement.style.overflow = "auto";
       document.documentElement.style.touchAction = "auto";
       if (isMobile) {
-        ScrollTrigger.normalizeScroll(true);
+        ScrollTrigger.normalizeScroll(false);
       } else {
         ScrollTrigger.normalizeScroll(false);
       }
@@ -313,7 +313,7 @@ export default function HeroPin() {
     >
       <div
         ref={stickyRef}
-        className="sticky top-0 w-full h-[100dvh] overflow-hidden"
+        className="sticky top-0 w-full h-[100svh] overflow-hidden"
       >
         <div data-gsap="hero" className="relative w-full h-full">
 
@@ -324,7 +324,7 @@ export default function HeroPin() {
             Scroll to explore
           </p>
 
-          <canvas ref={canvasRef} style={{ width: "100vw", height: "100dvh" }} />
+          <canvas ref={canvasRef} style={{ width: "100vw", height: "100svh" }} />
 
           <div
             data-gsap="plane-sky-wrapper"
@@ -347,7 +347,7 @@ export default function HeroPin() {
           >
             <div
               data-gsap="idle-plane"
-              className="absolute left-0 top-0 w-screen h-[100dvh] opacity-0"
+              className="absolute left-0 top-0 w-screen h-[100svh] opacity-0"
             >
               <img
                 aria-label="Image showing a plane with a red light blinking"

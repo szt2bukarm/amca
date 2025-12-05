@@ -135,7 +135,7 @@ export default function DepthStory() {
       style={{ height: "calc(100vh + 8000px)" }}
     >
       <div className="sticky top-0 w-full h-screen overflow-hidden">
-        <div data-gsap="depthstory" className="relative h-[100dvh] bg-[#232323]">
+        <div data-gsap="depthstory" className="relative h-[100vh] bg-[#232323]">
           <div data-gsap="depthstory-dim" className="absolute top-0 left-0 w-full h-full bg-[#FFF] z-20"></div>
 
           <div className="absolute top-0 left-0 w-screen h-[100dvh] bg-gradient-to-tr from-[#000000c1] to-transparent z-10"></div>
@@ -153,7 +153,7 @@ export default function DepthStory() {
             style={{
               filter: "drop-shadow(0px 0px 30px rgba(0, 0, 0, 1))"
             }}
-            className="absolute top-[50%] translate-y-[-50%] left-[20px] md:left-[50px] font-reckless text-[8vw] leading-[8vw] sm:text-sm sm:leading-[28px] md:text-lg md:leading-[48px] text-[#FAF5EF] w-[calc(100%-40px)] sm:w-[348px] md:w-[642px] z-10"
+            className="absolute top-[50%] translate-y-[-50%] left-[20px] md:left-[50px] font-reckless text-[8vw] leading-[8vw] sm:text-[5vw] sm:leading-[5vw] md:text-lg md:leading-[48px] text-[#FAF5EF] w-[calc(100%-40px)] md:w-[642px] z-10"
           >
             Aviation used to dream.<br></br>Today, the flying experience is something to be avoided.
           </p>
@@ -163,9 +163,9 @@ export default function DepthStory() {
             style={{
               filter: "drop-shadow(0px 0px 30px rgba(0, 0, 0, 1))"
             }}
-            className="absolute top-[50%] translate-y-[-50%] left-[20px] md:left-[50px] font-reckless text-[8vw] leading-[8vw] sm:text-sm sm:leading-[28px] md:text-lg md:leading-[48px] text-[#FAF5EF] w-[calc(100%-40px)] sm:w-[348px] md:w-[642px] z-10"
+            className="absolute top-[50%] translate-y-[-50%] left-[20px] md:left-[50px] font-reckless text-[8vw] leading-[8vw] sm:text-[5vw] sm:leading-[5vw] md:text-lg md:leading-[48px] text-[#FAF5EF] w-[calc(100%-40px)] md:w-[642px] z-10"
           >
-            Aviation was once humanity's boldest ambition, but the industry hasn't successfully built a new plane in 40 years.
+              Building aircraft was once humanity’s boldest ambition, but every new airplane this century has blown through schedule or cost.
           </p>
 
           <div data-pin="1" className="h-screen absolute top-0 left-0 z-[6]">

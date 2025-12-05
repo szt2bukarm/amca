@@ -65,7 +65,7 @@ export default function Showcase() {
                 <div className="flex items-center justify-center w-full h-full pt-[30px] pb-[200px]">
                     <ShowcaseText dotColor="blue" textColor="black">
                         <span style={{ display: "inline-block", width: "3.5ch" }}></span>
-                        Amca is building airplanes for the 21st century, starting by designing new hardware that flies on today’s planes.
+                        Amca is pushing airplanes into the 21st century, starting by designing new hardware flying on today’s planes.
                     </ShowcaseText>
                 </div>
 
@@ -76,7 +76,7 @@ export default function Showcase() {
                     <div className="flex items-center justify-center w-full h-full py-[150px] md:py-[250px] lg:pb-[200px] lg:pt-[300px]">
                         <ShowcaseText wide dotColor="orange" textColor="white">
                             <span style={{ display: "inline-block", width: "3.5ch" }}></span>
-                            We’re a small team of engineers creating new parts and subsystems to launch our civilization’s next great airplane. Everyone here moves fast, speaks honestly, and takes full ownership of their work. <br></br><br></br>Everything we design goes on planes today that millions of people fly on. But we’re just getting started, and we’d love your help bringing new life to aerospace.
+                            We’re a small team of engineers creating new parts and subsystems to launch our civilization’s next great airplane. Everyone here moves fast, speaks honestly, and takes full ownership of their work.<br></br><br></br>Everything we build goes on planes today that millions of people fly on. But we’re just getting started, and we’d love your help bringing new life to aerospace.
                         </ShowcaseText>
                     </div>
 
