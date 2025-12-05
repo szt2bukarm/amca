@@ -173,7 +173,7 @@ export default function HeroPin() {
       document.documentElement.style.overflow = "auto";
       document.documentElement.style.touchAction = "auto";
       if (isMobile) {
-        ScrollTrigger.normalizeScroll(false);
+        ScrollTrigger.normalizeScroll(true);
       } else {
         ScrollTrigger.normalizeScroll(false);
       }
