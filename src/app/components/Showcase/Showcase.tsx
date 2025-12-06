@@ -65,7 +65,7 @@ export default function Showcase() {
                 <div className="flex items-center justify-center w-full h-full pt-[30px] pb-[200px]">
                     <ShowcaseText dotColor="blue" textColor="black">
                         <span style={{ display: "inline-block", width: "3.5ch" }}></span>
-                        Amca is pushing airplanes into the 21st century, starting by designing new hardware flying on today’s planes.
+                        Amca is pushing airplanes into the 21st century, starting with new hardware flying on today’s planes.
                     </ShowcaseText>
                 </div>
 
