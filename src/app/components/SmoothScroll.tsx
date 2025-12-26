@@ -4,14 +4,21 @@ import { ReactLenis } from "@studio-freight/react-lenis";
 import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 gsap.registerPlugin(CustomEase, ScrollTrigger);
 
 function SmoothScroll({ children }: { children: React.ReactNode }) {
   const { loaded, isMobile } = useStore();
+  const lenisRef = useRef<any>(null);
 
   useEffect(() => {
+    // Immediate lock on mount
+    if (lenisRef.current?.lenis) {
+      lenisRef.current.lenis.stop();
+    }
+    document.documentElement.style.overflow = "hidden";
+
     let lastWidth = window.innerWidth;
     const handleResize = () => {
       const newWidth = window.innerWidth;
@@ -40,8 +47,10 @@ function SmoothScroll({ children }: { children: React.ReactNode }) {
 
   return (
     <ReactLenis
+      ref={lenisRef}
       className="current-page"
       root
+      // @ts-ignore
       smoothTouch={isMobile}
       options={{
         lerp: 0.05,

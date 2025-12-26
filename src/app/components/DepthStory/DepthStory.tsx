@@ -135,7 +135,7 @@ export default function DepthStory() {
       style={{ height: "calc(100vh + 8000px)" }}
     >
       <div className="sticky top-0 w-full h-screen overflow-hidden">
-        <div data-gsap="depthstory" className="relative h-[100vh] bg-[#232323]">
+        <div data-gsap="depthstory" className="relative h-[100dvh] bg-[#232323]">
           <div data-gsap="depthstory-dim" className="absolute top-0 left-0 w-full h-full bg-[#FFF] z-20"></div>
 
           <div className="absolute top-0 left-0 w-screen h-[100dvh] bg-gradient-to-tr from-[#000000c1] to-transparent z-10"></div>

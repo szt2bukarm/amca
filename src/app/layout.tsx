@@ -61,11 +61,11 @@ export default function RootLayout({
           (function() {
             document.documentElement.style.touchAction = 'manipulation';
             document.documentElement.addEventListener('gesturestart', function(e) { e.preventDefault(); });
+            document.documentElement.style.overflow = "hidden";
           })();
         `
       }}
     />
-      <script dangerouslySetInnerHTML={{ __html: `history.scrollRestoration = "manual"` }} />
       </head>
       <link rel="favicon" href="/favicon.png" />
       <body
