@@ -77,16 +77,20 @@ export default function HeroPin() {
 
     // Stable Resize Logic
     let lastWidth = window.innerWidth;
+    let lastHeight = window.innerHeight;
     const handleResize = () => {
       const newWidth = window.innerWidth;
+      const newHeight = window.innerHeight;
       const isWidthChange = Math.abs(newWidth - lastWidth) > 0.5;
+      const isHeightChange = Math.abs(newHeight - lastHeight) > 0.5;
 
-      if (isWidthChange) {
+      if (isWidthChange || isHeightChange) {
         canvas.width = window.innerWidth * dpr;
         canvas.height = window.innerHeight * dpr;
         const img = loadedHeroFrames[Math.floor(frame)];
         if (img) drawImageCover(img);
         lastWidth = newWidth;
+        lastHeight = newHeight;
       }
     };
 
@@ -161,7 +165,7 @@ export default function HeroPin() {
       trigger: containerRef.current,
       start: "top+=300 top",
       end: "bottom bottom",
-      scrub: 0.3, 
+      scrub: 0.3,
       onUpdate: (self: ScrollTrigger) => {
         const progress = self.progress;
         const idx = Math.min((Math.floor(progress * frameCount) | 0) + introFrames, loadedHeroFrames.length - 1); // | 0 hint for integer
