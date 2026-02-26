@@ -6,25 +6,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function ShowcaseImagesBottom() {
 
-    useGSAP(() => {
-        const ctx = gsap.context(() => {
-            let trigger: ScrollTrigger;
-            const timer = setTimeout(() => {
-                trigger = ScrollTrigger.create({
-                    trigger: "[data-gsap='showcase-img-bottom']",
-                    start: "top-=500 top",
-                    end: "bottom+=500",
-                    scrub: true,
-                    animation: gsap.fromTo("[data-gsap='showcase-img-bottom']", { y: 0, }, { y: 30, ease: "linear", }),
-                });
-            }, 100);
-            return () => {
-                clearTimeout(timer);
-                trigger?.kill();
-            };
-        })
-        return () => ctx.revert();
-    })
 
     useGSAP(() => {
         const ctx = gsap.context(() => {
@@ -33,9 +14,9 @@ export default function ShowcaseImagesBottom() {
                 trigger = ScrollTrigger.create({
                     trigger: "[data-gsap='showcase-bottom-card']",
                     start: "top-=2000 top",
-                    end: "bottom+=1000 top",
+                    end: "bottom+=2000 top",
                     scrub: true,
-                    animation: gsap.fromTo("[data-gsap='showcase-bottom-card']", { y: -150, }, { y: 150, stagger: 0.05, ease: "linear", }),
+                    animation: gsap.fromTo("[data-gsap='showcase-bottom-card']", { y: -150, }, { y: 150, stagger: { each: 0.05, from: "center" }, ease: "linear", }),
                 });
             }, 100);
             return () => {
@@ -77,19 +58,19 @@ export default function ShowcaseImagesBottom() {
     }, [])
 
     return (
-        <div className="grid grid-cols-4 gap-[1vw] mx-auto max-w-[2000px] bg-[#232323] md:pb-[70px]">
+        <div className="grid grid-cols-4 gap-[1vw] mx-auto max-w-[2000px] bg-[#232323] md:pb-[70px] mt-[70px]">
 
-            <div data-gsap="showcase-bottom-card" className="overflow-hidden z-2 relative w-full h-[28vw] bg-gradient-to-b from-[#F4B7A8] to-[#E4E0DA]  rounded-[5px] md:rounded-[16px]">
-                <img alt="Image showing Amca's plane parts" data-gsap="showcase-img-bottom" src="/showcase/5.webp" className="scale-[1.35] md:scale-[1.15] w-full h-full object-cover" />
+            <div data-gsap="showcase-bottom-card" className="overflow-hidden z-2 relative w-full   rounded-[5px] md:rounded-[16px]">
+                <img alt="Image showing Amca's plane parts" data-gsap="showcase-img-bottom" src="/showcase/2_1.webp" className=" w-full h-full object-cover" />
             </div>
-            <div data-gsap="showcase-bottom-card" className="overflow-hidden z-2 relative w-full h-[30vw] bg-gradient-to-b from-[#F4B7A8] to-[#E4E0DA] mt-[10vw] rounded-[5px] md:rounded-[16px]">
-                <img alt="Image showing Amca's plane parts" data-gsap="showcase-img-bottom" src="/showcase/6.webp" className="scale-[1.35] md:scale-[1.15] w-full h-full object-cover" />
+            <div data-gsap="showcase-bottom-card" className="overflow-hidden z-2 relative w-full rounded-[5px] md:rounded-[16px]">
+                <img alt="Image showing Amca's plane parts" data-gsap="showcase-img-bottom" src="/showcase/2_2.webp" className=" w-full h-full object-cover" />
             </div>
-            <div data-gsap="showcase-bottom-card" className="overflow-hidden z-2 relative w-full h-[35vw] bg-gradient-to-b from-[#F4B7A8] to-[#E4E0DA] mt-[10vw] rounded-[5px] md:rounded-[16px]">
-                <img alt="Image showing Amca's plane parts" data-gsap="showcase-img-bottom" src="/showcase/7.webp" className="scale-[1.35] md:scale-[1.15] w-full h-full object-cover" />
+            <div data-gsap="showcase-bottom-card" className="overflow-hidden z-2 relative w-full rounded-[5px] md:rounded-[16px]">
+                <img alt="Image showing Amca's plane parts" data-gsap="showcase-img-bottom" src="/showcase/2_3.webp" className=" w-full h-full object-cover" />
             </div>
-            <div data-gsap="showcase-bottom-card" className="overflow-hidden z-2 relative w-full h-[28vw] bg-gradient-to-b from-[#F4B7A8] to-[#E4E0DA]  rounded-[5px] md:rounded-[16px]">
-                <img alt="Image showing Amca's plane parts" data-gsap="showcase-img-bottom" src="/showcase/8.webp" className="scale-[1.35] md:scale-[1.15] w-full h-full object-cover" />
+            <div data-gsap="showcase-bottom-card" className="overflow-hidden z-2 relative w-full   rounded-[5px] md:rounded-[16px]">
+                <img alt="Image showing Amca's plane parts" data-gsap="showcase-img-bottom" src="/showcase/2_4.webp" className=" w-full h-full object-cover" />
             </div>
         </div>
     )
