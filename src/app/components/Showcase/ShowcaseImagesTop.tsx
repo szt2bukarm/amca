@@ -60,24 +60,32 @@ export default function ShowcaseImagesTop() {
     }, [])
 
     useGSAP(() => {
-        const ctx = gsap.context(() => {
+        const mm = gsap.matchMedia();
+
+        mm.add("(min-width: 640px)", () => {
             let trigger: ScrollTrigger;
+            let anim: gsap.core.Tween;
             const timer = setTimeout(() => {
+                anim = gsap.fromTo("[data-gsap='showcase-top-card']", { y: -150, }, { y: 150, stagger: { each: 0.03, from: "edges" }, ease: "linear", });
                 trigger = ScrollTrigger.create({
                     trigger: "[data-gsap='showcase-top-card']",
                     start: "top-=2000 top",
                     end: "bottom+=2000 top",
                     scrub: true,
-                    animation: gsap.fromTo("[data-gsap='showcase-top-card']", { y: -150, }, { y: 150, stagger: { each: 0.03, from: "edges" }, ease: "linear", }),
+                    animation: anim,
                 });
             }, 100);
             return () => {
                 clearTimeout(timer);
-                trigger?.kill();
+                if (anim) anim.kill();
+                if (trigger) trigger.kill();
+                gsap.set("[data-gsap='showcase-top-card']", { clearProps: "y" });
             };
-        })
-        return () => ctx.revert();
-    })
+        });
+        mm.add("(max-width: 639px)", () => {
+            gsap.set("[data-gsap='showcase-top-card']", { clearProps: "y" });
+        });
+    });
 
     useGSAP(() => {
         const ctx = gsap.context(() => {
@@ -110,20 +118,20 @@ export default function ShowcaseImagesTop() {
     }, [])
 
     return (
-        <div className="relative grid grid-cols-4 gap-[1vw] mx-auto max-w-[2000px]">
+        <div className="relative grid grid-cols-2 sm:grid-cols-4 gap-[1vw] mx-auto max-w-[2000px]">
 
-            <div data-gsap="showcase-top-card" className="overflow-hidden z-2 relative w-full translate-y-[6vw] rounded-[5px] md:rounded-[16px]">
+            <div data-gsap="showcase-top-card" className="overflow-hidden z-2 relative w-full sm:translate-y-[6vw] rounded-[5px] md:rounded-[16px] translate-y-[50px]">
                 <img alt="Image showing Amca's plane parts" data-gsap="showcase-img-top" src="/showcase/1_1.webp" className="scale-[1.15] w-full h-full object-cover" />
             </div>
             <div data-gsap="showcase-top-card" className="overflow-hidden z-2 relative w-full rounded-[5px] md:rounded-[16px]">
                 <div className="w-full h-full translate-y-[-10px]">
-                <img alt="Image showing Amca's plane parts" data-gsap="showcase-img-top" src="/showcase/1_2.webp" className="scale-[1.15] w-full h-full object-cover" />
+                    <img alt="Image showing Amca's plane parts" data-gsap="showcase-img-top" src="/showcase/1_2.webp" className="scale-[1.15] w-full h-full object-cover" />
                 </div>
             </div>
-            <div data-gsap="showcase-top-card" className="overflow-hidden z-2 relative w-full   rounded-[5px] md:rounded-[16px]">
+            <div data-gsap="showcase-top-card" className="overflow-hidden z-2 relative w-full   rounded-[5px] md:rounded-[16px] translate-y-[50px]">
                 <img alt="Image showing Amca's plane parts" data-gsap="showcase-img-top" src="/showcase/1_3.webp" className="scale-[1.15] w-full h-full object-cover" />
             </div>
-            <div data-gsap="showcase-top-card" className="overflow-hidden z-2 relative w-full translate-y-[12vw] rounded-[5px] md:rounded-[16px]">
+            <div data-gsap="showcase-top-card" className="overflow-hidden z-2 relative w-full sm:translate-y-[12vw] rounded-[5px] md:rounded-[16px]">
                 <img alt="Image showing Amca's plane parts" data-gsap="showcase-img-top" src="/showcase/1_4.webp" className="scale-[1.15] w-full h-full object-cover" />
             </div>
         </div>
